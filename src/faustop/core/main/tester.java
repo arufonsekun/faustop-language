@@ -1,11 +1,14 @@
-package faustop.core.main;
+//package faustop.core.main;
 
 class Main {
     
     public static void main(String[] args) {
-        Token a = new Token("ant", "ID", 1, 3);
+        Lexer lutor = new Lexer();
+        lutor.setCode("voce destrui meu ovo");
         
-        System.out.println(a.getName() + a.getType() + a.getRow() + a.getCol());
+        System.out.println(lutor.getLexeme());
+        System.out.println(lutor.getLexeme());
+        System.out.println(lutor.getLexeme());
     }
     
 }
