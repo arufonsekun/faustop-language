@@ -1,14 +1,19 @@
-//package faustop.core.main;
 
-class Main {
+class Nain {
 
-    public static void main(String[] args) {
-        Lexer lutor = new Lexer();
-        lutor.setCode("int a = 4");
+	public static void main(String[] args) {
+		String a = "voce destr\n? \n uiu \n meu ovo?Pais da Europa\n";
+		Lexer lutor = new Lexer();
+		lutor.setCode(a);
 
-        System.out.println(lutor.getLexeme());
-        System.out.println(lutor.getLexeme());
-        System.out.println(lutor.getLexeme());
-    }
+		// while (!lutor.getLexeme().equals("")) {};
+		System.out.println(lutor.getLexeme());
+		System.out.println(lutor.getLexeme());
+		System.out.println(lutor.getLexeme());
+		System.out.println(lutor.getLexeme());
+		System.out.println(lutor.getLexeme());
+		System.out.println(lutor.getLexeme());
+		// System.out.println(lutor.getLexeme());
+	}
 
 }
