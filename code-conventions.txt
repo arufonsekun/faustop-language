@@ -4,6 +4,7 @@
 // usar this. para referências atributos de classe
 // cls antes de atributos estáticos
 //getter vem antes do setter
+//usar this pra chamada de método
 
 class Classe {
 

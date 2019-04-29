@@ -1,59 +1,54 @@
-class Stringue extends Variable{
+class Stringue extends Variable {
 
     private String value;
 
     public Stringue(String name, String pValue) {
         super(name, "STRINGUE");
-        setValue(pValue);
+        this.setValue(pValue);
     }
 
     public void setValue(String pValue) {
         this.value = pValue;
     }
 
-    public String getValue(){
+    public String getValue() {
         return this.value;
     }
 
-    public boolean greaterThan(Stringue pValue) {
-        return lexicalOrder(pValue.getValue());
+    public boolean greaterThan(Stringue pObj) {
+        return this.lexicalOrder(pObj.getValue());
     }
 
-    public boolean lessThan(Stringue pValue) {
-
-        /*
-         *
-         * */
-
-        if (this.equal(pValue)) return false;
-        return !lexicalOrder(pValue.getValue());
+    public boolean lessThan(Stringue pObj) {
+        if (this.equal(pObj)) return false;
+        return !this.lexicalOrder(pObj.getValue());
     }
 
-    public boolean equal(Stringue pValue){
-        return this.value.equals(pValue.getValue());
+    public boolean equal(Stringue pObj) {
+        return this.value.equals(pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Stringue pValue) {
-        return (greaterThan(pValue) || this.equal(pValue));
+    public boolean greaterThanOrEqualTo(Stringue pObj) {
+        return (this.greaterThan(pObj) || this.equal(pObj));
     }
 
-    public boolean lessThanOrEqualTo(String pValue) {
-        return (lessThan(pValue) || this.equal(pValue));
+    public boolean lessThanOrEqualTo(Stringue pObj) {
+        return (this.lessThan(pObj) || this.equal(pObj));
     }
 
     private boolean lexicalOrder(String pValue) {
 
         /*
-         * lexicalOrder() returns true if value attribute comes before
-         * in the lexicographic order, false otherwise
+         * lexicalOrder() returns true if value class attribute comes before
+         * in the lexicographic order, false otherwise.
          * */
 
         int valueSize = this.value.length();
         int pValueSize = pValue.length();
         int size = valueSize < pValueSize ? valueSize : pValueSize;
 
-        for (int i = 0; i < size; i++){
-            if (this.value.charAt(i) != pValue.charAt(i)){
+        for (int i = 0; i < size; i++) {
+            if (this.value.charAt(i) != pValue.charAt(i)) {
                 if (this.value.charAt(i) > pValue.charAt(i)) return true;
                 else return false;
             }
