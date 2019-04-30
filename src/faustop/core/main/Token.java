@@ -7,11 +7,11 @@ class Token {
     private int row;
     private int col;
 
-    public Token(String t, String n, int r, int c) {
-        this.setType(t);
-        this.setName(n);
-        this.setRow(r);
-        this.setCol(c);
+    public Token(String pType, String pName, int pRow, int pCol) {
+        this.setType(pType);
+        this.setName(pName);
+        this.setRow(pRow);
+        this.setCol(pCol);
     }
 
     public String getType() {
@@ -41,8 +41,9 @@ class Token {
     public int getCol() {
         return this.col;
     }
-    
+
     public void setCol(int pCol) {
         this.col = pCol;
     }
+
 }

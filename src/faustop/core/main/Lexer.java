@@ -8,10 +8,6 @@ class Lexer {
     // last position reading the code
     private int codePosition;
 
-	//
-	private final char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
-	                                   '=', ';', '?', '\n', '\'', '\"'};
-
     public void setCode(String pCode) {
         this.code = pCode;
     }
@@ -22,21 +18,54 @@ class Lexer {
          * Once found, the Token is returned.
          * */
 
-        return new Token("a", "b", 1, 2);
+		String lexeme = this.getLexeme();
+
+		String type = Symbols.symbols.get(lexeme);
+
+		if (type.isEmpty()) {
+			System.out.println("cannot find symbol");
+			return null;
+		}
+
+		if (lexeme.isEmpty()) {
+			return null;
+
+		} else {
+			return new Token(type, lexeme, 1, 2);
+		}
     }
 
 	public String getLexeme() {
         /*
          * Reads the code and returns the smaller
          * meaningful portion of the string.
+		 * If there is no more lexemes to be build,
+		 * returns an empty String.
          * */
 
         String lexeme = "";
-        for ( ; this.codePosition < this.code.length(); this.codePosition++) {
-            if (this.contains(this.code.charAt(this.codePosition))) {
-                this.consumeBlanks();
 
-                return lexeme;
+        for ( ; this.codePosition < this.code.length(); this.codePosition++) {
+			// System.out.print(this.codePosition);
+
+			// gambiarra? nao
+			if ((this.codePosition > 0 &&
+				 this.isMathDelimiter(this.code.charAt(this.codePosition-1))) &&
+				(this.code.charAt(this.codePosition) == '=') &&
+				!lexeme.isEmpty()) {
+
+				this.consumeBlanks();
+				this.codePosition++;
+				return lexeme + this.code.charAt(this.codePosition-1);
+			}
+
+			// delimiters check
+			if ((this.isDelimiter(this.code.charAt(this.codePosition)) ||
+				(this.codePosition > 0 &&
+				 this.isDelimiter(this.code.charAt(this.codePosition-1))))) {
+
+				this.consumeBlanks();
+				if (!lexeme.isEmpty()) return lexeme;
 			}
 
 			if (this.code.charAt(this.codePosition) == '?') {
@@ -44,49 +73,13 @@ class Lexer {
 				this.consumeBlanks();
 			}
 
-			if (this.codePosition >= this.code.length()) {
-				return "";
-			}
+			if (this.codePosition >= this.code.length()) return lexeme;
 
 			lexeme += this.code.charAt(this.codePosition);
-
         }
 
         return lexeme;
     }
-
-	/*public String getLexeme() {
-        //
-         * Reads the code and returns the smaller
-         * meaningful portion of the string.
-         //*
-
-        String lexeme = "";
-        for ( ; this.codePosition < this.code.length(); this.codePosition++) {
-            if (this.code.charAt(this.codePosition) == ' ' ||
-				this.code.charAt(this.codePosition) == '\n') {
-                this.consumeBlanks();
-
-                return lexeme;
-
-			}
-
-			if (this.code.charAt(this.codePosition) == '?') {
-				this.consumeComments();
-				this.consumeBlanks();
-
-			}
-
-			if (this.codePosition >= this.code.length()) {
-				return "";
-			}
-
-			lexeme += this.code.charAt(this.codePosition);
-
-        }
-
-        return lexeme;
-    }*/
 
 	private void consumeBlanks() {
 		/*
@@ -103,20 +96,46 @@ class Lexer {
 
 	private void consumeComments() {
 		/*
-		 * Ignores the comments ('?') in the input code
-		 * when tokenizing.
+		 * Ignores everything until a '\n' is found.
+		 * Called when a '?' (comment) is found.
 		 * */
 
-		 while (this.code.charAt(this.codePosition) != '\n' &&
-		 		this.codePosition < this.code.length()) {
-			 this.codePosition++;
-			 // System.out.println("adafgwaffw ++" + this.codePosition);
-		 }
+		while (this.code.charAt(this.codePosition) != '\n' &&
+		       this.codePosition < this.code.length()) {
+		 	this.codePosition++;
+		}
 	}
 
-	private boolean contains(char x) {
-		for (int i = 0; i < this.delimiters.length; i++) {
-			if (this.delimiters[i] == x) return true;
+	private boolean isDelimiter(char x) {
+		/*
+		 * Utility function checks whether or not
+		 * the given char is a delimiter.
+		 * */
+
+		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
+		                     '=', ';', '?', '\n', '\'', '\"'};
+
+		for (int i = 0; i < delimiters.length; i++) {
+			if (delimiters[i] == x) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isMathDelimiter(char x) {
+		/*
+		* Utility function checks whether or not
+		* the given char is a MATH delimiter.
+		* */
+
+		char[] delimiters = {'+', '*', '-', '/'};
+
+		for (int i = 0; i < delimiters.length; i++) {
+			if (delimiters[i] == x) {
+				return true;
+			}
 		}
 
 		return false;
