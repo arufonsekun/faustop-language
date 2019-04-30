@@ -43,7 +43,10 @@ class Symbols {
 		aMap.put(")", "delimiter");
 		aMap.put("{", "delimiter");
 		aMap.put("}", "delimiter");
+		aMap.put(";", "delimiter");
 		aMap.put("=", "delimiter");
+		aMap.put("\'", "delimiter");
+		aMap.put("\"", "delimiter");
 
         symbols = Collections.unmodifiableMap(aMap);
     }
