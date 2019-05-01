@@ -31,8 +31,7 @@ class Lexer {
 		// "^[_a-z]\\w*$"
 		// Matcher mat = reg.matcher(lexeme);
 
-
-        if (Pattern.matches("/(_|A-z)(\\w+)/g", lexeme)) {
+        if (Pattern.matches("(_|A-z)(\\w+)", "2")) {
             System.out.println("ASADDSDASSDSD");
         }
 
