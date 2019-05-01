@@ -43,6 +43,11 @@ class Symbols {
 		aMap.put("++", "operator");
 		aMap.put("--", "operator");
 
+        // logic operators
+        aMap.put("!", "operator");
+        aMap.put("&&", "operator");
+        aMap.put("||", "operator");
+
         // relational operators
 		aMap.put(">", "operator");
 		aMap.put("<", "operator");
