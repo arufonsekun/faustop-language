@@ -1,3 +1,5 @@
+#created to test regexes, cuz its easier than Java
+
 import re
 
 """
@@ -17,8 +19,8 @@ String lit = bool + "|" + integer + "|" + doub
 String exp = "(" + id + "|" + lit + "|" + op + "|[()]|" + ")+";
 """
 
-p = ""
-ss = []
+p = "abc|gtr"
+ss = ["abc", "gtr"]
 
 for s in ss:
     assert re.match(p, s)

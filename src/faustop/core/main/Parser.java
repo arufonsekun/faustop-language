@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    private Token token;
     private LinkedList<Token> instruction = new LinkedList<>();
     private HashMap<String, String> rules = new HashMap<>();
 
@@ -26,47 +25,47 @@ class Parser {
         String delParOpen = "delimiterparenthesesopen";
         String delParClose = "delimiterparenthesesclose";
         String delCurlyOpen = "delimitercurlybracketopen";
-        String delCurlyCLose = "delimitercurlybracketclose";
+        String delCurlyClose = "delimitercurlybracketclose";
         String delQuot = "delimiterquotationmark";
         String delDoubQuot = "delimiterdoublequotationmark";
         String delSemicolon = "delimitersemicolon";
 
         String lit = "literal";
 
-        // end of regexes
+        // auxiliar regexes
+
+        String funcCall = kwBI + delParOpen
+                          + "(" + exp + ")?"
+                          + delParClose;
 
         String exp = "(" + id + "|"
                      + lit + "|"
+                     + funcCall + "|"
                      + opAritm + "|" + opLog + "|" + opRel
-                     + delParenth + ")+";
+                     + delParOpen + "|" + delParClose + ")+";
+        String dec = "^" + kwType + id + "$";
+        String init = "^" + kwType + id + opAssign + exp + "$";
+        String assign = "^" + id + opAssign + exp + "$";
+        String flow = "^" + kwFC + delParOpen + exp + delParOpen
+                      + delCurlyOpen
+                      + "(" + exp + "|" + dec + "|" + init + "|" + assign ")*"
+                      + delCurlyClose + "$";
 
-        this.rules.put("^" + exp + ";$",
-                       "expression");
-        this.rules.put("^" + kw + id +88  + "$",
-                       "declaration");
-        this.rules.put("^=" + exp + "$",
-                       "initialization");
-        this.rules.put("^" + exp + "$",
-                       "assignment");
-        this.rules.put("", "");
-    }
+        // actual regexes
 
-    public Token getToken() {
-        return this.token;
-    }
-
-    public void setToken(Token pToken) {
-        /*
-         * Apart from being a setter of this.token,
-         * also appends the token to the current instruction.
-         * */
-
-        this.token = pToken;
-        this.instruction.add(pToken);
+        this.rules.put(exp, "expression");
+        this.rules.put(dec, "declaration");
+        this.rules.put(init, "initialization");
+        this.rules.put(assign, "assignment");
+        this.rules.put(flow, "flowController");
     }
 
     public LinkedList<Token> getInstruction() {
         return this.instruction;
+    }
+
+    public void addToken(Token pToken) {
+        this.instruction.add(pToken);
     }
 
     public boolean endOfInstruction() {
