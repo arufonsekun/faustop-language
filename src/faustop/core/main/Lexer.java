@@ -31,8 +31,13 @@ class Lexer {
 		// "^[_a-z]\\w*$"
 		// Matcher mat = reg.matcher(lexeme);
 
+
+        if (Pattern.matches("/(_|A-z)(\\w+)/g", lexeme)) {
+            System.out.println("ASADDSDASSDSD");
+        }
+
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
-			type = "literal";
+			type = "identificador";
 
 		// ERROR: invalid caracter or word;
 		} else if (type == null) {
