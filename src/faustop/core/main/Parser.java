@@ -47,9 +47,9 @@ class Parser {
         String init = "^" + kwType + id + opAssign + exp + "$";
         String assign = "^" + id + opAssign + exp + "$";
         String flow = "^" + kwFC + delParOpen + exp + delParOpen
-                      + delCurlyOpen
-                      + "(" + exp + "|" + dec + "|" + init + "|" + assign ")*"
-                      + delCurlyClose + "$";
+                            + delCurlyOpen
+                            + "(" + exp + "|" + dec + "|" + init + "|" + assign ")*"
+                            + delCurlyClose + "$"; // lacks recursion
 
         // actual regexes
 
@@ -73,7 +73,8 @@ class Parser {
          * Checks if a final delimiter was found.
          * */
 
-        return this.instruction.getLast().getName().equals(";");
+        return this.instruction.getLast().getName().equals(";")
+               || this.instruction.getLast().getName().equals("");
         // missing conditional and loop cases
     }
 
