@@ -20,12 +20,13 @@ class Parser {
 
         String opAritm = "operatorarithmetic";
         String opLog = "operatorlogic";
-        String opAssignBasic = "operatorassignmentbasic";
-        String opAssignAritm = "operatorassignmentarithmetic";
+        String opAssign = "operatorassignment";
         String opRel = "operatorrelational";
 
-        String delParenth = "delimiterparentheses";
-        String delCurly = "delimitercurlybracket";
+        String delParOpen = "delimiterparenthesesopen";
+        String delParClose = "delimiterparenthesesclose";
+        String delCurlyOpen = "delimitercurlybracketopen";
+        String delCurlyCLose = "delimitercurlybracketclose";
         String delQuot = "delimiterquotationmark";
         String delDoubQuot = "delimiterdoublequotationmark";
         String delSemicolon = "delimitersemicolon";
@@ -39,9 +40,9 @@ class Parser {
                      + opAritm + "|" + opLog + "|" + opRel
                      + delParenth + ")+";
 
-        this.rules.put(exp,
+        this.rules.put("^" + exp + ";$",
                        "expression");
-        this.rules.put("^" + kw + "" + "$",
+        this.rules.put("^" + kw + id +88  + "$",
                        "declaration");
         this.rules.put("^=" + exp + "$",
                        "initialization");
