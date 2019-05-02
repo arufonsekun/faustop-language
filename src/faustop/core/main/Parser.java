@@ -2,8 +2,15 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-
 class Parser {
+    /*
+     * Represents a Parser.
+     * A parser is the responsible for executing the
+     * sintatic analisys stage.
+     *
+     * Author: Paulo GS Comasetto.
+     * E-mail: paulogscomasetto@gmail.com.
+     * */
 
     private LinkedList<Token> instruction = new LinkedList<>();
     private HashMap<String, String> rules = new HashMap<>();
@@ -90,4 +97,13 @@ class Parser {
 
         return false;
     }
+
+    public void buildParseTree() {
+        /*
+         * Comments.
+         * */
+
+        LinkedList<Token> instruction = this.getInstruction();
+    }
+
 }
