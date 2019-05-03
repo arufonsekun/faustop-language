@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 class Parser {
 
     private LinkedList<Token> instruction = new LinkedList<>();
-    private HashMap<String, String> rules = new HashMap<>();
+    private HashMap<String, String> instructionRules = new HashMap<>();
 
     public Parser() {
         //regexes ahead (they should be somehow global)
@@ -53,11 +53,11 @@ class Parser {
 
         // actual regexes
 
-        this.rules.put(exp, "expression");
-        this.rules.put(dec, "declaration");
-        this.rules.put(init, "initialization");
-        this.rules.put(assign, "assignment");
-        this.rules.put(flow, "flowController");
+        this.instructionRules.put(exp, "expression");
+        this.instructionRules.put(dec, "declaration");
+        this.instructionRules.put(init, "initialization");
+        this.instructionRules.put(assign, "assignment");
+        this.instructionRules.put(flow, "flowController");
     }
 
     public LinkedList<Token> getInstruction() {
@@ -81,7 +81,7 @@ class Parser {
     public boolean isValidInstruction() {
         /*
          * Identity type of instruction.
-         * Checks if instruction follows all the rules concerning to that
+         * Checks if instruction follows all the instructionRules concerning to that
          * kind of instruction.
          * The Interpreter must, then, if instruction is valid, execute it;
          * else, it must throw an error. Nevertheless, the instruction

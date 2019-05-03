@@ -2,6 +2,7 @@
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.Collections;
 
 class Symbols {
@@ -31,7 +32,7 @@ class Symbols {
 		aMap.put("*", "operator");
 		aMap.put("/", "operator");
 		aMap.put("-", "operator");
-		aMap.put("**", "operator");
+		aMap.put("^", "operator");
         aMap.put("%", "operator");
 
         // assignment operators
@@ -40,8 +41,8 @@ class Symbols {
 		aMap.put("*=", "operator");
 		aMap.put("/=", "operator");
 		aMap.put("-=", "operator");
-		aMap.put("++", "operator");
-		aMap.put("--", "operator");
+        aMap.put("^=", "operator");
+        aMap.put("%=", "operator");
 
         // logic operators
         aMap.put("!", "operator");
