@@ -4,6 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Lexer {
+    /*
+     * Represents a Lexer.
+     * A lexer is the responsible for executing the
+     * lexical analisys stage.
+     *
+     * Author: Jean Carlo Hilger.
+     * E-mail: hilgerjeancarlo@gmail.com.
+     * */
 
     // the full input (.fau) code
     private String code;
@@ -152,7 +160,7 @@ class Lexer {
 		* the given char is a MATH delimiter.
 		* */
 
-		char[] delimiters = {'+', '*', '-', '/'};
+		char[] delimiters = {'+', '*', '-', '/', '>', '<'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {
