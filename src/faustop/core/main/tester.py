@@ -2,22 +2,20 @@
 
 import re
 
-"""
-String kw = "inte|double|xar|string|if|for|while"; // regex for keyword
-String id = "([a-zA-z]|_)+\w*"; // regex for identifier
-String mathOp = "[+-*/%]|(\*\*)";
-String attrOp = "==|>="
-String op = "";
-String bool = "true|false";
-String integer = "\d+";
-String doub = "\d+\.\d+";
-String str = "\".*\"";
-String xar = "'.'";
-String lit = bool + "|" + integer + "|" + doub
-             + "|" + str + "|" + xar; // regex for literal
+#String kw = "inte|double|xar|string|if|for|while"; // regex for keyword
+#String id = "([a-zA-z]|_)+\w*"; // regex for identifier
+#String attrOp = "==|>="
+#String op = "";
+#String bool = "true|false";
+#String integer = "\d+";
+#String doub = "\d+\.\d+";
+#String str = "\".*\"";
+#String xar = "'.'";
+#String lit = bool + "|" + integer + "|" + doub
+#             + "|" + str + "|" + xar; // regex for literal
+#
+#String exp = "(" + id + "|" + lit + "|" + op + "|[()]|" + ")+";
 
-String exp = "(" + id + "|" + lit + "|" + op + "|[()]|" + ")+";
-"""
 
 p = "abc|gtr"
 ss = ["abc", "gtr"]
