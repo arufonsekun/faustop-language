@@ -16,6 +16,14 @@ class Parser {
     private HashMap<String, String> instructionRules = new HashMap<>();
 
     public Parser() {
+        
+        // the first node of the parseTree will always be a instruction?
+        private Tree parseTree = new Tree(Token("INSTRUCTION", "", 0, 0));
+        
+        // bota um atributo bool que verifica se uma instrução foi processada.
+        // começa com true e o wrapper só para de mandar Tokens quando esse 
+        // atributo for falso.
+        
         //regexes ahead (they should be somehow global)
 
         String kwBI = "keywordbuiltin";
@@ -65,6 +73,7 @@ class Parser {
         this.instructionRules.put(init, "initialization");
         this.instructionRules.put(assign, "assignment");
         this.instructionRules.put(flow, "flowController");
+        
     }
 
     public LinkedList<Token> getInstruction() {
@@ -103,7 +112,22 @@ class Parser {
          * Comments.
          * */
 
-        LinkedList<Token> instruction = this.getInstruction();
+        LinkedList<Token> instructions = this.getInstruction();
+        Node lastParent = this.parseTree.root;
+        LinkedList<Token> currExp = new LinkedList<Token>();
+        
+        for (Token token : instructions) {
+            if (token.getType().equals(this.kwBI) || 
+                token.getType().equals(this.kwFC) ||
+                token.getType().equals(this.kwType)) {
+                // create a leaf node
+                this.parseTree.addNode(token, lastParent);
+            
+            } else {
+                // tries to expand the token to a expression
+                // if fails, create a leaf (terminal) node
+            }
+        }
     }
 
 }

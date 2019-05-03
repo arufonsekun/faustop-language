@@ -9,13 +9,19 @@ class Symbols {
 
     public static final Map<String, String> symbols;
 
+    // Grammar = {INSTRUCTION, TERMINAL, EXPRESSION}
+    //            INSTRUCTION: TERMINAL + EXPRESSION (sla)
+    //            TERMINAL: ID | LIT_NUMBER | OPERATOR | DELIMITER (any token?)
+    //            EXPRESSION: ID/LIT_NUMBER OPERATOR ID/LIT_NUMBER |
+    //                        EXPRESSION OPERATOR EXPRESSION
+
 	static {
         Map<String, String> aMap = new HashMap<>();
 		// type definition
         aMap.put("inte", "keyword");
         aMap.put("double", "keyword");
-        aMap.put("xar", "keyword");
-        aMap.put("stringue", "keyword");
+        aMap.put("olokinho", "keyword"); // char
+        aMap.put("oloko", "keyword"); // string
         aMap.put("bool", "keyword");
 
 		// flow control
@@ -24,8 +30,8 @@ class Symbols {
         aMap.put("while", "keyword");
 
         // built-in
-        aMap.put("input", "keyword");
-        aMap.put("output", "keyword");
+        aMap.put("entrai", "keyword");
+        aMap.put("mostrai", "keyword");
 
 		// arithmetic operators
 		aMap.put("+", "operator");
