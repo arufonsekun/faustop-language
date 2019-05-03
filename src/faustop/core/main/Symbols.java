@@ -31,7 +31,7 @@ class Symbols {
 		aMap.put("*", "operator");
 		aMap.put("/", "operator");
 		aMap.put("-", "operator");
-		aMap.put("**", "operator");
+		aMap.put("^", "operator");
         aMap.put("%", "operator");
 
         // assignment operators
@@ -40,8 +40,6 @@ class Symbols {
 		aMap.put("*=", "operator");
 		aMap.put("/=", "operator");
 		aMap.put("-=", "operator");
-		aMap.put("++", "operator");
-		aMap.put("--", "operator");
 
         // logic operators
         aMap.put("!", "operator");
