@@ -16,17 +16,9 @@ class Nain {
 			System.out.println(cu.getName() + " " + cu.getType() + " - " + cu.getRow() + ":" + cu.getCol());
 			cu = lutor.getNextToken();
 		}*/
-
-		Tree t = new Tree();
-		Token to;
-
-		for (int i =0; i < 50; i++) {
-			to = new Token("BUNDA", ""+i, 1, 2);
-			System.out.println(to);
-			t.addNode(to);
-		}
-
-		t.traverse(t.root);
+		
+		String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
+		String b = "inte a = 3 + 2 * 3;\n"
 
 	}
 

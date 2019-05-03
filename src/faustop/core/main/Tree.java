@@ -10,15 +10,37 @@ class Node {
      * E-mail: junior.ramisch@gmail.com.
      * */
 
-    public Token key;
-    public ArrayList<Node> children;
-    public Node parent;
+    private Token key;
+    private ArrayList<Node> children;
+    private Node parent;
 
     public Node (Token pKey, Node pParent) {
         this.key = pKey;
         this.parent = pParent;
         this.children = new ArrayList<Node>();
     }
+    
+    // getters
+    public Token key() {
+        return this.key;
+    }
+    
+    public Node parent() {
+        return this.parent;
+    }
+    
+    public ArrayList<Node> children() {
+        return this.children;
+    }
+    
+    public void addChildren(Node pNewNode) {
+        /*
+         * Adds a new child to children list.
+         * */
+         
+        this.children.add(pNewNode);
+    }
+    
 }
 
 class Tree {
@@ -33,26 +55,37 @@ class Tree {
 
     public Node root;
 
-    public Tree() {
-
+    public Tree(Token pKey) {
+        this.root = new Node(pKey, null);
     }
 
-    public void addNode(Token pKey) {
+    public void addNode(Token pKey, Token pParentKey) {
         /*
          * Inserts a new node at the tree.
          * */
 
         System.out.println(pKey);
 
-        Node p = this.getParent(); // fazerwere
-        Node n = new Node(pKey, p);
+        Node parent = this.search(pParentKey); // fazerwere
+        Node newNode = new Node(pKey, parent);
 
-        p.children.add(n);
+        parent.addChildren(newNode);
 
     }
 
-    private Node getParent() {
-        return this.root;
+    private Node search(Token pKey) {
+        /*
+         * Utility function to search for a given value.
+         * If found returns a Node obj else returns null.
+         * */
+         
+        if (this.root == null || ) return this.root;
+        
+        if (this.root.children() == null) return this.root;
+
+        for (Node child : this.root.children) {
+            return this.search(child);
+        }
     }
 
     public void traverse(Node root) {
