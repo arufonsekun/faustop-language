@@ -98,9 +98,10 @@ class Lexer {
 				return lexeme + this.code.charAt(this.codePosition-1);
 
 			// delimiters check
-			} else if (!this.openDelimiter && (this.isDelimiter(this.code.charAt(this.codePosition)) ||
-				(this.codePosition > 0 &&
-				 this.isDelimiter(this.code.charAt(this.codePosition-1))))) {
+			} else if (!this.openDelimiter &&
+                       (this.isDelimiter(this.code.charAt(this.codePosition)) ||
+				       (this.codePosition > 0 &&
+				        this.isDelimiter(this.code.charAt(this.codePosition-1))))) {
 
 				this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;

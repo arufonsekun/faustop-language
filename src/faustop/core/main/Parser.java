@@ -94,7 +94,7 @@ class Parser {
         // missing conditional and loop cases
     }
 
-    public boolean isValidInstruction() {
+    public boolean isValidInstruction() Token token : instructions{
         /*
          * Identity type of instruction.
          * Checks if instruction follows all the instructionRules concerning to that
@@ -107,26 +107,75 @@ class Parser {
         return false;
     }
 
+    private boolean isKeyWord(Token pToken) {
+        if (token.getType().equals(this.kwBI) ||
+            token.getType().equals(this.kwFC) ||
+            token.getType().equals(this.kwType)) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void buildParseTree() {
         /*
          * Comments.
          * */
 
-        LinkedList<Token> instructions = this.getInstruction();
+        // LinkedList<Token> instructions = this.getInstruction();
         Node lastParent = this.parseTree.root;
-        LinkedList<Token> currExp = new LinkedList<Token>();
+        Token token;
+        int currentToken = 0;
+        int startOfExp = -1;
+        boolean beginExp = false;
 
-        for (Token token : instructions) {
-            if (token.getType().equals(this.kwBI) ||
-                token.getType().equals(this.kwFC) ||
-                token.getType().equals(this.kwType)) {
-                // create a leaf node
+        for (; currentToken < this.instruction.size(); currentToken++) {
+            token = this.instructions.get(currentToken);
+
+            // current is keyword
+            if (!beginExp && this.isKeyWord(token)) {
                 this.parseTree.addNode(token, lastParent);
 
+            // previous was keyword
+            } else if (!beginExp &&
+                       this.isKeyWord(this.instructions.get(currentToken-1))) {
+                this.parseTree.addNode(token, lastParent);
+
+            // current is '=' sing
+            } else if (!beginExp && token.getType().equals(this.opAssign)) {
+                this.parseTree.addNode(token, lastParent);
+
+            // may form an expression
             } else {
-                // tries to expand the token to a expression
-                // if fails, create a leaf (terminal) node
+                // current is a valid start of expression
+                if (!beginExp && (token.getType().equals(this.id) ||
+                    token.getType().equals(this.lit) ||
+                    token.getType().equals(this.delParOpen) ||
+                    token.getType().equals(this.delQuot) ||
+                    token.getType().equals(this.delDoubQuot))) {
+                        beginExp = !beginExp;
+                        lastParent = new Node(Token("EXP", "", -1, -1), lastParent);
+                        this.parseTree.addNode(token, lastParent);
+
+                // current is a valid end of expression
+                } else if (beginExp && (token.getType().equals(this.id) ||
+                                        token.getType().equals(this.lit) ||
+                                        token.getType().equals(this.delParClose) ||
+                                        token.getType().equals(this.delQuot) ||
+                                        token.getType().equals(this.delDoubQuot))) {
+                        beginExp = !beginExp;
+
+
+                //
+                } else if () {
+
+                }
             }
+        }
+        // tries to expand the token to a expression
+        // if fails, create a leaf (terminal) node
+}
         }
     }
 
