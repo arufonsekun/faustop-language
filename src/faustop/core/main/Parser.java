@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Queue;
+
 
 class Parser {
     /*
@@ -14,11 +17,33 @@ class Parser {
 
     private LinkedList<Token> instruction = new LinkedList<>();
     private HashMap<String, String> instructionRules = new HashMap<>();
+    private Tree parseTree;
+    
+    private String kwBI = "keywordbuiltin";
+    private String kwFC = "keywordflowcontroller";
+    private String kwType = "keywordtype";
+
+    private String id = "identifier";
+
+    private String opAritm = "operatorarithmetic";
+    private String opLog = "operatorlogic";
+    private String opAssign = "operatorassignment";
+    private String opRel = "operatorrelational";
+
+    private String delParOpen = "delimiterparenthesesopen";
+    private String delParClose = "delimiterparenthesesclose";
+    private String delCurlyOpen = "delimitercurlybracketopen";
+    private String delCurlyClose = "delimitercurlybracketclose";
+    private String delQuot = "delimiterquotationmark";
+    private String delDoubQuot = "delimiterdoublequotationmark";
+    private String delSemicolon = "delimitersemicolon";
+
+    private String lit = "literal";
 
     public Parser() {
 
         // the first node of the parseTree will always be a instruction?
-        private Tree parseTree = new Tree(Token("INSTRUCTION", "", -1, -1));
+        this.parseTree = new Tree(new Token("INSTRUCTION", "", -1, -1));
 
         // bota um atributo bool que verifica se uma instrução foi processada.
         // começa com true e o wrapper só para de mandar Tokens quando esse
@@ -26,54 +51,40 @@ class Parser {
 
         //regexes ahead (they should be somehow global)
 
-        String kwBI = "keywordbuiltin";
-        String kwFC = "keywordflowcontroller";
-        String kwType = "keywordtype";
-
-        String id = "identifier";
-
-        String opAritm = "operatorarithmetic";
-        String opLog = "operatorlogic";
-        String opAssign = "operatorassignment";
-        String opRel = "operatorrelational";
-
-        String delParOpen = "delimiterparenthesesopen";
-        String delParClose = "delimiterparenthesesclose";
-        String delCurlyOpen = "delimitercurlybracketopen";
-        String delCurlyClose = "delimitercurlybracketclose";
-        String delQuot = "delimiterquotationmark";
-        String delDoubQuot = "delimiterdoublequotationmark";
-        String delSemicolon = "delimitersemicolon";
-
-        String lit = "literal";
+        
 
         // auxiliar regexes
+        // String exp = "(" + id + "|"
+        //              + lit + "|"
+        //              + funcCall + "|"
+        //              + opAritm + "|" + opLog + "|" + opRel
+        //              + delParOpen + "|" + delParClose + ")+";
+        // 
+        // String funcCall = kwBI + delParOpen
+        //                    + "(" + exp + ")?"
+        //                    + delParClose;
+        // 
+        // 
+        // String dec = "^" + kwType + id + "$";
+        // String init = "^" + kwType + id + opAssign + exp + "$";
+        // String assign = "^" + id + opAssign + exp + "$";
+        // String flow = "^" + kwFC + delParOpen + exp + delParOpen
+        //                     + delCurlyOpen
+        //                     + "(" + exp + "|" + dec + "|" + init + "|" + assign + ")*"
+        //                     + delCurlyClose + "$"; // lacks recursion
+        // 
+        // // actual regexes
+        // 
+        // this.instructionRules.put(exp, "expression");
+        // this.instructionRules.put(dec, "declaration");
+        // this.instructionRules.put(init, "initialization");
+        // this.instructionRules.put(assign, "assignment");
+        // this.instructionRules.put(flow, "flowController");
 
-        String funcCall = kwBI + delParOpen
-                          + "(" + exp + ")?"
-                          + delParClose;
+    }
 
-        String exp = "(" + id + "|"
-                     + lit + "|"
-                     + funcCall + "|"
-                     + opAritm + "|" + opLog + "|" + opRel
-                     + delParOpen + "|" + delParClose + ")+";
-        String dec = "^" + kwType + id + "$";
-        String init = "^" + kwType + id + opAssign + exp + "$";
-        String assign = "^" + id + opAssign + exp + "$";
-        String flow = "^" + kwFC + delParOpen + exp + delParOpen
-                            + delCurlyOpen
-                            + "(" + exp + "|" + dec + "|" + init + "|" + assign ")*"
-                            + delCurlyClose + "$"; // lacks recursion
-
-        // actual regexes
-
-        this.instructionRules.put(exp, "expression");
-        this.instructionRules.put(dec, "declaration");
-        this.instructionRules.put(init, "initialization");
-        this.instructionRules.put(assign, "assignment");
-        this.instructionRules.put(flow, "flowController");
-
+    public Tree getParseTree() {
+        return this.parseTree;
     }
 
     public LinkedList<Token> getInstruction() {
@@ -94,7 +105,7 @@ class Parser {
         // missing conditional and loop cases
     }
 
-    public boolean isValidInstruction() Token token : instructions{
+    public boolean isValidInstruction() {
         /*
          * Identity type of instruction.
          * Checks if instruction follows all the instructionRules concerning to that
@@ -107,76 +118,128 @@ class Parser {
         return false;
     }
 
-    private boolean isKeyWord(Token pToken) {
-        if (token.getType().equals(this.kwBI) ||
-            token.getType().equals(this.kwFC) ||
-            token.getType().equals(this.kwType)) {
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void buildParseTree() {
         /*
          * Comments.
          * */
 
         // LinkedList<Token> instructions = this.getInstruction();
-        Node lastParent = this.parseTree.root;
+        Node parent = this.parseTree.root();
         Token token;
         int currentToken = 0;
         int startOfExp = -1;
-        boolean beginExp = false;
 
         for (; currentToken < this.instruction.size(); currentToken++) {
-            token = this.instructions.get(currentToken);
+            token = this.instruction.get(currentToken);
+            // System.out.println(token.getName() + " " + token.getType() + " - " + token.getRow() + ":" + token.getCol());
 
             // current is keyword
-            if (!beginExp && this.isKeyWord(token)) {
-                this.parseTree.addNode(token, lastParent);
+            if (this.isKeyWord(token)) {
+                // System.out.println(token.getName() + " " + token.getType() + " - " + token.getRow() + ":" + token.getCol());
+                this.parseTree.addNode(token, parent);
 
             // previous was keyword
-            } else if (!beginExp &&
-                       this.isKeyWord(this.instructions.get(currentToken-1))) {
-                this.parseTree.addNode(token, lastParent);
+            } else if (currentToken > 0 &&
+                   this.isKeyWord(this.instruction.get(currentToken - 1))) {
+                this.parseTree.addNode(token, parent);
 
             // current is '=' sing
-            } else if (!beginExp && token.getType().equals(this.opAssign)) {
-                this.parseTree.addNode(token, lastParent);
-
+            } else if (token.getType().equals(this.opAssign)) {
+                this.parseTree.addNode(token, parent);
+                
             // may form an expression
             } else {
                 // current is a valid start of expression
-                if (!beginExp && (token.getType().equals(this.id) ||
+                if (token.getType().equals(this.id) ||
                     token.getType().equals(this.lit) ||
                     token.getType().equals(this.delParOpen) ||
                     token.getType().equals(this.delQuot) ||
-                    token.getType().equals(this.delDoubQuot))) {
-                        beginExp = !beginExp;
-                        lastParent = new Node(Token("EXP", "", -1, -1), lastParent);
-                        this.parseTree.addNode(token, lastParent);
-
-                // current is a valid end of expression
-                } else if (beginExp && (token.getType().equals(this.id) ||
-                                        token.getType().equals(this.lit) ||
-                                        token.getType().equals(this.delParClose) ||
-                                        token.getType().equals(this.delQuot) ||
-                                        token.getType().equals(this.delDoubQuot))) {
-                        beginExp = !beginExp;
-
-
-                //
-                } else if () {
-
+                    token.getType().equals(this.delDoubQuot)) {
+                    Node expParent = new Node(new Token("EXP", "", -1, -1), parent);
+                    this.parseTree.addNode(expParent.key(), parent);
+                    currentToken = this.buildExpression(currentToken, expParent)-1;
+                    
+                // no way of being an expression
+                } else {
+                    this.parseTree.addNode(token, parent);
                 }
             }
         }
-        // tries to expand the token to a expression
-        // if fails, create a leaf (terminal) node
-}
+    }
+    
+    private boolean isKeyWord(Token pToken) {
+        /*
+         * Utility function checks of the given token is 
+         * a keyword type. 
+         * */
+        
+        if (pToken.getType().equals(this.kwBI) ||
+            pToken.getType().equals(this.kwFC) ||
+            pToken.getType().equals(this.kwType)) {
+            return true;
+            
+        } else {
+            return false;
         }
     }
-
+    
+    private int buildExpression(int pCurrentToken, Node pParent) {
+        /*
+         * Utility function builds a subtree for an expression.
+         * Returns the index of the token where the expression 
+         * ends.
+         * */
+         
+        Token token;
+        int maxSize = this.instruction.size();
+        ArrayList<Node> children = new ArrayList<Node>();
+        Queue<String> parQueue = new LinkedList<>();
+        
+        for (; pCurrentToken < maxSize; pCurrentToken++) {
+            token = this.instruction.get(pCurrentToken);
+            
+            if (token.getName().equals("(")) {
+                parQueue.add("(");
+            
+            } else if (token.getName().equals(")")) {
+                if (parQueue.isEmpty()) {
+                    System.out.println("AUSDHDIAHDWUOJWDIAOWJAIFJO");
+                    // pCurrentToken--;
+                    break;
+                
+                } else {
+                    parQueue.poll();
+                }
+            }
+            
+            if (token.getType().equals(this.id) ||
+                token.getType().equals(this.lit) ||
+                token.getType().equals(this.delParClose) ||
+                token.getType().equals(this.delQuot) ||
+                token.getType().equals(this.delDoubQuot)) {
+                if (pCurrentToken < maxSize - 1 && 
+                    (this.instruction.get(pCurrentToken+1).getType().equals(this.opAritm) ||
+                     this.instruction.get(pCurrentToken+1).getType().equals(this.opLog) ||
+                     this.instruction.get(pCurrentToken+1).getType().equals(this.opRel) ||
+                     this.instruction.get(pCurrentToken+1).getType().equals(this.delParOpen) ||
+                     this.instruction.get(pCurrentToken+1).getType().equals(this.delParClose) ||
+                     this.instruction.get(pCurrentToken+1).getType().equals(this.delQuot) ||
+                     this.instruction.get(pCurrentToken+1).getType().equals(this.delDoubQuot))) {
+                    children.add(new Node(token, pParent));
+                
+                } else {
+                    children.add(new Node(token, pParent));
+                    this.parseTree.addNode(children, pParent.parent());
+                    return pCurrentToken + 1;
+                }
+            
+            } else {
+                children.add(new Node(token, pParent));    
+            }
+        }
+        
+        this.parseTree.addNode(children, pParent.parent());
+        return pCurrentToken;
+    }
+    
 }

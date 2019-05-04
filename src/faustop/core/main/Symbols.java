@@ -18,59 +18,59 @@ class Symbols {
 	static {
         Map<String, String> aMap = new HashMap<>();
 		// type definition
-        aMap.put("inte", "keyword");
-        aMap.put("double", "keyword");
-        aMap.put("olokinho", "keyword"); // char
-        aMap.put("oloko", "keyword"); // string
-        aMap.put("bool", "keyword");
+        aMap.put("inte", "keywordtype");
+        aMap.put("double", "keywordtype");
+        aMap.put("olokinho", "keywordtype"); // char
+        aMap.put("oloko", "keywordtype"); // string
+        aMap.put("bool", "keywordtype");
 
 		// flow control
-		aMap.put("if", "keyword");
-		aMap.put("for", "keyword");
-        aMap.put("while", "keyword");
+		aMap.put("if", "keywordflowcontroller");
+		// aMap.put("for", "keywordflowcontroller");
+        aMap.put("while", "keywordflowcontroller");
 
         // built-in
-        aMap.put("entrai", "keyword");
-        aMap.put("mostrai", "keyword");
+        aMap.put("entrai", "keywordbuiltin");
+        aMap.put("mostrai", "keywordbuiltin");
 
 		// arithmetic operators
-		aMap.put("+", "operator");
-		aMap.put("*", "operator");
-		aMap.put("/", "operator");
-		aMap.put("-", "operator");
-		aMap.put("^", "operator");
-        aMap.put("%", "operator");
+		aMap.put("+", "operatorarithmetic");
+		aMap.put("*", "operatorarithmetic");
+		aMap.put("/", "operatorarithmetic");
+		aMap.put("-", "operatorarithmetic");
+		aMap.put("^", "operatorarithmetic");
+        aMap.put("%", "operatorarithmetic");
 
         // assignment operators
-        aMap.put("=", "operator");
-        aMap.put("+=", "operator");
-		aMap.put("*=", "operator");
-		aMap.put("/=", "operator");
-		aMap.put("-=", "operator");
-        aMap.put("^=", "operator");
-        aMap.put("%=", "operator");
+        aMap.put("=", "operatorassignment");
+        aMap.put("+=", "operatorassignment");
+		aMap.put("*=", "operatorassignment");
+		aMap.put("/=", "operatorassignment");
+		aMap.put("-=", "operatorassignment");
+        aMap.put("^=", "operatorassignment");
+        aMap.put("%=", "operatorassignment");
 
         // logic operators
-        aMap.put("!", "operator");
-        aMap.put("&&", "operator");
-        aMap.put("||", "operator");
+        aMap.put("!", "operatorlogic");
+        aMap.put("&&", "operatorlogic");
+        aMap.put("||", "operatorlogic");
 
         // relational operators
-		aMap.put(">", "operator");
-		aMap.put("<", "operator");
-		aMap.put("<=", "operator");
-		aMap.put(">=", "operator");
-		aMap.put("==", "operator");
-        aMap.put("!=", "operator");
+		aMap.put(">", "operatorrelational");
+		aMap.put("<", "operatorrelational");
+		aMap.put("<=", "operatorrelational");
+		aMap.put(">=", "operatorrelational");
+		aMap.put("==", "operatorrelational");
+        aMap.put("!=", "operatorrelational");
 
 		// delimiters
-		aMap.put("(", "delimiter");
-		aMap.put(")", "delimiter");
-		aMap.put("{", "delimiter");
-		aMap.put("}", "delimiter");
-		aMap.put(";", "delimiter");
-		aMap.put("\'", "delimiter");
-		aMap.put("\"", "delimiter");
+		aMap.put("(", "delimiterparenthesesopen");
+		aMap.put(")", "delimiterparenthesesclose");
+		aMap.put("{", "delimitercurlybracketopen");
+		aMap.put("}", "delimitercurlybracketclose");
+		aMap.put(";", "delimitersemicolon");
+		aMap.put("\'", "delimiterquotationmark");
+		aMap.put("\"", "delimiterdoublequotationmark");
 
         symbols = Collections.unmodifiableMap(aMap);
     }
