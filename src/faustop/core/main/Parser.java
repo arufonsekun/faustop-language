@@ -162,6 +162,7 @@ class Parser {
                 // no way of being an expression
                 } else {
                     this.parseTree.addNode(token, parent);
+                    
                 }
             }
         }

@@ -1,4 +1,3 @@
-
 class Nain {
 
 	public static void main(String[] args) {
@@ -22,8 +21,8 @@ class Nain {
 		}
 		
 		superman.buildParseTree();
-		Tree t = superman.getParseTree();
-		t.traverse(t.root());
+		Tree bDeBosta = superman.getParseTree();
+		bDeBosta.traverse(bDeBosta.root());
 
 		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
 		// String b = "inte a = 3 + 2 * 3;\n";
