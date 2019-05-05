@@ -53,10 +53,24 @@ class Tree {
      * E-mail: junior.ramisch@gmail.com.
      * */
 
-    public Node root;
+    private Node root;
 
     public Tree(Token pKey) {
         this.root = new Node(pKey, null);
+    }
+
+    public Node root() {
+        return this.root;
+    }
+
+    public void addNode(Token pKey, Node pParent) {
+        /*
+         * Inserts a new node at the tree.
+         * */
+
+        Node newNode = new Node(pKey, pParent);
+
+        pParent.addChildren(newNode);
     }
 
     public void addNode(Token pKey, Token pParentKey) {
@@ -70,7 +84,16 @@ class Tree {
         Node newNode = new Node(pKey, parent);
 
         parent.addChildren(newNode);
+    }
 
+    public void addNode(ArrayList<Node> pChildren, Node pParent) {
+        /*
+         * Inserts a new node at the tree.
+         * */
+
+        for (Node child : pChildren) {
+            pParent.addChildren(child);
+        }
     }
 
     private Node search(Token pKey) {
@@ -83,9 +106,11 @@ class Tree {
 
         if (this.root.children() == null) return this.root;
 
-        for (Node child : this.root.children) {
-            return this.search(child);
+        for (Node child : this.root.children()) {
+            return this.search(child.key());
         }
+
+        return null;
     }
 
     public void traverse(Node root) {
@@ -95,10 +120,12 @@ class Tree {
 
         if (root == null) return;
 
-        for (Node child : root.children) {
+        for (Node child : root.children()) {
             this.traverse(child);
             System.out.println(root.key.getName());
         }
+        System.out.println(root.key().getType() + " -> " + root.parent().key().getType());
+        // System.out.println(root.key().getType());
         // faz coisas in order
     }
 

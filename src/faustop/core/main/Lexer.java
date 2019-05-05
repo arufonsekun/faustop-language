@@ -46,7 +46,7 @@ class Lexer {
 		// System.out.println("\\" + lexeme + "\\");
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
 			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)) {
-				type = "identificator";
+				type = "identifier";
 
 			} else if (Pattern.matches("[0-9]+", lexeme) || this.lastLexeme.equals("\"")) {
 				type = "literal";
@@ -83,6 +83,8 @@ class Lexer {
          * */
 
         String lexeme = "";
+
+        // TODO: Ignore ?. ? should not be a lexeme
 
         for ( ; this.codePosition < this.code.length(); this.codePosition++) {
 			// System.out.print(this.codePosition);
