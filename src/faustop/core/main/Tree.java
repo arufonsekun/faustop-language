@@ -72,19 +72,27 @@ class Tree {
 
         pParent.addChildren(newNode);
     }
-
-    public void addNode(Token pKey, Token pParentKey) {
+    
+    public void addNode(Node newNode) {
         /*
          * Inserts a new node at the tree.
          * */
 
-        System.out.println(pKey);
-
-        Node parent = this.search(pParentKey); // fazerwere
-        Node newNode = new Node(pKey, parent);
-
-        parent.addChildren(newNode);
+        newNode.parent().addChildren(newNode);
     }
+
+    // public void addNode(Token pKey, Token pParentKey) {
+    //     /*
+    //      * Inserts a new node at the tree.
+    //      * */
+    // 
+    //     // System.out.println(pKey);
+    // 
+    //     Node parent = this.search(pParentKey); // fazerwere
+    //     Node newNode = new Node(pKey, parent);
+    // 
+    //     parent.addChildren(newNode);
+    // }
 
     public void addNode(ArrayList<Node> pChildren, Node pParent) {
         /*
@@ -96,35 +104,24 @@ class Tree {
         }
     }
 
-    private Node search(Token pKey) {
-        /*
-         * Utility function to search for a given value.
-         * If found returns a Node obj else returns null.
-         * */
-
-        if (this.root == null) return this.root;
-
-        if (this.root.children() == null) return this.root;
-
-        for (Node child : this.root.children()) {
-            return this.search(child.key());
-        }
-
-        return null;
-    }
-
-    public void traverse(Node root) {
+    public void traverse(Node pRoot) {
         /*
          * Traverse through the nodes of the Tree.
          * */
 
-        if (root == null) return;
+        if (pRoot == null) {
+            System.out.println("DASDJHSGDUGDUYSDGYJHSDBKJSBDKSADBKsd");
+            return;
+        }
 
-        for (Node child : root.children()) {
+        for (Node child : pRoot.children()) {
             this.traverse(child);
             // System.out.println(root.key().getName());
         }
-        System.out.println(root.key().getType() + " -> " + root.parent().key().getType());
+        // if (pRoot.key().getType().equals("INSTR")) {
+        //     System.out.println(pRoot.parent().children().indexOf(pRoot));
+        // }
+        System.out.println(pRoot.key().getType() + " -> " + pRoot.parent().key().getType());
         // System.out.println(root.key().getType());
         // faz coisas in order
     }

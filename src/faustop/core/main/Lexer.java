@@ -84,10 +84,9 @@ class Lexer {
 		 * returns an empty String.
          * */
 
+        // TODO: everything in the middle of " should be a single literal token
         String lexeme = "";
         char current, previous;
-
-        // TODO: Ignore ?. ? should not be a lexeme
 
         for ( ; this.codePosition < this.code.length(); this.codePosition++) {
             current = this.code.charAt(this.codePosition);

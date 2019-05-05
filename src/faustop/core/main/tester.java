@@ -1,4 +1,3 @@
-
 class Nain {
 
 	public static void main(String[] args) {
@@ -7,9 +6,8 @@ class Nain {
 		//String a = "como voce\n\n 1+= 1?\n é gostosa\n";
 		// String a = "if\n(aasdsw<= 4)       {\nmostrai(\"MEU OVO\")\n}\n";
 		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
-		// String a = "if(4 > 2) {\nmostrai(\"MIAU\n\");\n}\n";
-		// String a = "inte a = 1 + 1;\n";
-		String a = "if(a > 1) {\n if(b == 2){\nmostrai(\"fuck off\");\n}\na='1';\n}";
+		// String a = "if(4 > 2) {\n1+1\n}\n";
+		String a = "while(a > 4){\nif(b > 3){\nmostrai(\"MEU OVO\");\n}\n}a";
 
 		Lexer lutor = new Lexer();
 		Parser superman = new Parser();
@@ -23,9 +21,9 @@ class Nain {
 			cu = lutor.getNextToken();
 		}
 
-		superman.buildInstruction();
-		Tree t = superman.getParseTree();
-		//t.traverse(t.root());
+		superman.buildParseTree();
+		Tree bDeBosta = superman.getParseTree();
+		bDeBosta.traverse(bDeBosta.root());
 
 		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
 		// String b = "inte a = 3 + 2 * 3;\n";
