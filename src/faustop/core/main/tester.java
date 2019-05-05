@@ -5,25 +5,27 @@ class Nain {
 
 		// String a = "voce destr\n? \n 1u+=iu \n me > =9;()u ovo?Pais da Europa\n";
 		//String a = "como voce\n\n 1+= 1?\n é gostosa\n";
-		String a = "if\n(aasdsw<= 4)       {\nmostrai(\"MEU OVO\")\n}\n";
+		// String a = "if\n(aasdsw<= 4)       {\nmostrai(\"MEU OVO\")\n}\n";
 		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
 		// String a = "if(4 > 2) {\nmostrai(\"MIAU\n\");\n}\n";
-		
+		// String a = "inte a = 1 + 1;\n";
+		String a = "if(a > 1) {\n if(b == 2){\nmostrai(\"fuck off\");\n}\na='1';\n}";
+
 		Lexer lutor = new Lexer();
 		Parser superman = new Parser();
 
 		lutor.setCode(a);
-		
+
 		Token cu = lutor.getNextToken();
 		//
 		while (cu != null) {
 			superman.addToken(cu);
 			cu = lutor.getNextToken();
 		}
-		
-		superman.buildParseTree();
+
+		superman.buildInstruction();
 		Tree t = superman.getParseTree();
-		t.traverse(t.root());
+		//t.traverse(t.root());
 
 		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
 		// String b = "inte a = 3 + 2 * 3;\n";

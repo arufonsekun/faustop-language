@@ -20,7 +20,7 @@ class Lexer {
 	// last position in the code where a '\n' was found
 	private int lastRow;
 	// TODO: FIX THIS GAMBIARRA
-	private boolean openDelimiter = false;
+	private boolean openQuote = false;
 	private String lastLexeme = "";
 
     public void setCode(String pCode) {
@@ -43,12 +43,14 @@ class Lexer {
 		// Matcher mat = reg.matcher(lexeme);
 
 		// System.out.println(this.lastLexeme.equals("\""));
-		// System.out.println("\\" + lexeme + "\\");
+		System.out.println(" " + lexeme);
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
-			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)) {
+			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
+                && !this.lastLexeme.equals("\"")) {
 				type = "identifier";
 
-			} else if (Pattern.matches("[0-9]+", lexeme) || this.lastLexeme.equals("\"")) {
+			} else if (Pattern.matches("[0-9]+", lexeme)
+                       || this.lastLexeme.equals("\"")) {
 				type = "literal";
 
 			} else {
@@ -83,53 +85,61 @@ class Lexer {
          * */
 
         String lexeme = "";
+        char current, previous;
 
         // TODO: Ignore ?. ? should not be a lexeme
 
         for ( ; this.codePosition < this.code.length(); this.codePosition++) {
-			// System.out.print(this.codePosition);
+            current = this.code.charAt(this.codePosition);
+            previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
+
+            if (current == '\"') {
+
+                if (!this.openQuote && this.isDelimiter(previous)) {
+                    this.openQuote = !this.openQuote;
+                    return lexeme;
+                }
+
+                if (this.openQuote && !lexeme.equals("")) {
+
+                    this.openQuote = !this.openQuote;
+                    return lexeme;
+                }
+
+				this.codePosition++;
+				return "\"";
+
+			// comments check
+			}
 
 			// gambiarra? nao
-			if (!this.openDelimiter && (this.codePosition > 0 &&
-				 this.isMathDelimiter(this.code.charAt(this.codePosition-1))) &&
+			else if (!this.openQuote && (this.codePosition > 0 &&
+				 this.isMathDelimiter(previous)) &&
 				(this.code.charAt(this.codePosition) == '=') &&
 				!lexeme.isEmpty()) {
 
 				this.consumeBlanks();
 				this.codePosition++;
-				return lexeme + this.code.charAt(this.codePosition-1);
+				return lexeme + current;
 
 			// delimiters check
-			} else if (!this.openDelimiter &&
-                       (this.isDelimiter(this.code.charAt(this.codePosition)) ||
-				       (this.codePosition > 0 &&
-				        this.isDelimiter(this.code.charAt(this.codePosition-1))))) {
+			} else if (!this.openQuote
+                       && (this.isDelimiter(current)
+				       || (this.codePosition > 0
+				       && this.isDelimiter(previous)))) {
 
-				this.consumeBlanks();
+                this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;
 
 			// string literal check
-			} else if (this.code.charAt(this.codePosition) == '\"') {
-				if (this.openDelimiter) {
-					this.openDelimiter = !this.openDelimiter;
-
-					return lexeme;
-				}
-
-				this.openDelimiter = !this.openDelimiter;
-				this.codePosition++;
-				return "\"";
-
-			// comments check
-			} else if (this.code.charAt(this.codePosition) == '?') {
+			} else if (!this.openQuote && current == '?') {
 				this.consumeComments();
 				this.consumeBlanks();
 			}
 
 			if (this.codePosition >= this.code.length()) return lexeme;
-			lexeme += this.code.charAt(this.codePosition);
+			lexeme += current;
         }
-
         return lexeme;
     }
 
@@ -165,7 +175,7 @@ class Lexer {
 		 * */
 
 		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
-		                     '=', ';', '?', '\n', '\'', '\"', ' ', '<',
+		                     '=', ';', '?', '\n', '\'', ' ', '<',
 						 	 '>', '^'};
 
 		for (int i = 0; i < delimiters.length; i++) {

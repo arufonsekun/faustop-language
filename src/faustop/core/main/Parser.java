@@ -118,12 +118,12 @@ class Parser {
         return false;
     }
 
-    public void buildInstruction(Node pParent) {
+    public void buildInstruction() {
         /*
          * Comments.
          * */
 
-        Node parent = pParent;
+        Node parent = this.parseTree.root();
         Token token;
 
         for (int currentToken = 0; currentToken < this.tokenList.size(); currentToken++) {
@@ -179,6 +179,7 @@ class Parser {
         /*
          * Utility function checks if the given token starts an expression.
          * */
+
         if (pToken.getType().equals(this.id) ||
             pToken.getType().equals(this.lit) ||
             pToken.getType().equals(this.delParOpen) ||
@@ -210,7 +211,6 @@ class Parser {
     private boolean isMiddleOfExpression(Token pToken) {
         /*
          * Utility function checks whether the given token represents
-         *
          * */
 
         if (pToken.getType().equals(this.opAritm) ||
