@@ -19,28 +19,28 @@ class Node {
         this.parent = pParent;
         this.children = new ArrayList<Node>();
     }
-    
+
     // getters
     public Token key() {
         return this.key;
     }
-    
+
     public Node parent() {
         return this.parent;
     }
-    
+
     public ArrayList<Node> children() {
         return this.children;
     }
-    
+
     public void addChildren(Node pNewNode) {
         /*
          * Adds a new child to children list.
          * */
-         
+
         this.children.add(pNewNode);
     }
-    
+
 }
 
 class Tree {
@@ -78,9 +78,9 @@ class Tree {
          * Utility function to search for a given value.
          * If found returns a Node obj else returns null.
          * */
-         
-        if (this.root == null || ) return this.root;
-        
+
+        if (this.root == null) return this.root;
+
         if (this.root.children() == null) return this.root;
 
         for (Node child : this.root.children) {
@@ -97,8 +97,8 @@ class Tree {
 
         for (Node child : root.children) {
             this.traverse(child);
+            System.out.println(root.key.getName());
         }
-        System.out.println(root.key.getName());
         // faz coisas in order
     }
 

@@ -63,7 +63,7 @@ class Parser {
         String assign = "^" + id + opAssign + exp + "$";
         String flow = "^" + kwFC + delParOpen + exp + delParOpen
                             + delCurlyOpen
-                            + "(" + exp + "|" + dec + "|" + init + "|" + assign ")*"
+                            + "(" + exp + "|" + dec + "|" + init + "|" + assign + ")*"
                             + delCurlyClose + "$"; // lacks recursion
 
         // actual regexes
@@ -156,6 +156,7 @@ class Parser {
                     token.getType().equals(this.delDoubQuot))) {
                         beginExp = !beginExp;
                         lastParent = new Node(Token("EXP", "", -1, -1), lastParent);
+
                         this.parseTree.addNode(token, lastParent);
 
                 // current is a valid end of expression
@@ -175,8 +176,5 @@ class Parser {
         }
         // tries to expand the token to a expression
         // if fails, create a leaf (terminal) node
-}
-        }
     }
-
 }
