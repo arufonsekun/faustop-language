@@ -117,116 +117,73 @@ class Parser {
 
         return false;
     }
-
-    public void buildInstruction(Node pParent) {
+    
+    public void buildParseTree() {
         /*
-         * Comments.
+         * Builds the parse tree for the parser.
          * */
-
-        Node parent = pParent;
-        Token token;
-
-        for (int currentToken = 0; currentToken < this.tokenList.size(); currentToken++) {
-            token = this.tokenList.get(currentToken);
-            // System.out.println(token.getName() + " " + token.getType() + " - " + token.getRow() + ":" + token.getCol());
-
-            // current is keyword
-            if (this.isKeyWord(token)) {
-                // System.out.println(token.getName() + " " + token.getType() + " - " + token.getRow() + ":" + token.getCol());
-                this.parseTree.addNode(token, parent);
-
-            // previous was keyword
-            } else if (currentToken > 0 &&
-                   this.isKeyWord(this.tokenList.get(currentToken - 1))) {
-                this.parseTree.addNode(token, parent);
-
-            // may form an expression
-            } else {
-                // current is a valid start of expression
-                if (this.isStartOfExpression(token)) {
-                    Node expParent = new Node(new Token("EXP", "", -1, -1), parent);
-                    this.parseTree.addNode(expParent.key(), parent);
-                    currentToken = this.buildExpression(currentToken, expParent)-1;
-
-                // no way of being an expression
-                } else {
-                    this.parseTree.addNode(token, parent);
-                    
-                }
-            }
-        }
+         
+        this.buildInstruction(this.parseTree.root(), 0);
     }
 
     //
     // Utility functions.
     //
-    private boolean isKeyWord(Token pToken) {
+    
+    private int buildInstruction(Node pParent, int pCurrToken) {
         /*
-         * Utility function checks of the given token is
-         * a keyword type.
+         * Utility function builds a subtree for an instruction.
          * */
 
-        if (pToken.getType().equals(this.kwBI) ||
-            pToken.getType().equals(this.kwFC) ||
-            pToken.getType().equals(this.kwType)) {
-            return true;
+        // Node parent = pParent;
+        Token token;
 
-        } else {
-            return false;
+        for (int currentToken = pCurrToken; currentToken < this.tokenList.size(); currentToken++) {
+            token = this.tokenList.get(currentToken);
+
+            // current is keyword
+            if (this.isKeyWord(token)) {
+                this.parseTree.addNode(token, pParent);
+
+            // previous was keyword
+            } else if (currentToken > 0
+                       && this.isKeyWord(this.tokenList.get(currentToken - 1))) {
+                this.parseTree.addNode(token, pParent);
+
+            // may form new expression or instruction
+            } else {
+                // current is a valid start of expression
+                if (this.isStartOfExpression(token)) {
+                    Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
+                    this.parseTree.addNode(expParent.key(), pParent);
+                    
+                    currentToken = this.buildExpression(currentToken, expParent) - 1;
+
+                // current may be a start of instruction
+                } else if (this.isStartOfInstruction(token)) {
+                    this.parseTree.addNode(token, pParent);
+
+                    Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
+                    this.parseTree.addNode(insParent);
+
+                    currentToken = this.buildInstruction(insParent, currentToken + 1);
+               
+                // current token may ends an instruction
+                } else if (this.isEndOfInstruction(token)) {
+                    this.parseTree.addNode(token, pParent.parent());
+
+                    return currentToken + 1;
+                    
+                // can not be neither an expression nor an instruction
+                } else {
+                    this.parseTree.addNode(token, pParent);
+                }    
+            }
         }
+        
+        return -1;
     }
-
-    private boolean isStartOfExpression(Token pToken) {
-        /*
-         * Utility function checks if the given token starts an expression.
-         * */
-        if (pToken.getType().equals(this.id) ||
-            pToken.getType().equals(this.lit) ||
-            pToken.getType().equals(this.delParOpen) ||
-            pToken.getType().equals(this.delQuot) ||
-            pToken.getType().equals(this.delDoubQuot)) {
-            return true;
-
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isEndOfExpression(Token pToken) {
-        /*
-         * Utility function checks if pToken is ends an expression.
-         */
-
-        if (pToken.getType().equals(this.id) ||
-            pToken.getType().equals(this.lit) ||
-            pToken.getType().equals(this.delParClose) ||
-            pToken.getType().equals(this.delQuot) ||
-            pToken.getType().equals(this.delDoubQuot)) {
-                return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isMiddleOfExpression(Token pToken) {
-        /*
-         * Utility function checks whether the given token represents
-         *
-         * */
-
-        if (pToken.getType().equals(this.opAritm) ||
-            pToken.getType().equals(this.opLog) ||
-            pToken.getType().equals(this.opRel) ||
-            pToken.getType().equals(this.delParOpen) ||
-            pToken.getType().equals(this.delParClose) ||
-            pToken.getType().equals(this.delQuot) ||
-            pToken.getType().equals(this.delDoubQuot)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    
     private int buildExpression(int pCurrentToken, Node pParent) {
         /*
          * Utility function builds a subtree for an expression.
@@ -257,8 +214,8 @@ class Parser {
             }
 
             if (this.isEndOfExpression(token)) {
-                if (pCurrentToken < maxSize - 1 &&
-                    (this.isMiddleOfExpression(this.tokenList.get(pCurrentToken+1)))) {
+                if (pCurrentToken < maxSize - 1
+                    && (this.isMiddleOfExpression(this.tokenList.get(pCurrentToken+1)))) {
                     children.add(new Node(token, pParent));
 
                 } else {
@@ -274,6 +231,103 @@ class Parser {
 
         this.parseTree.addNode(children, pParent.parent());
         return pCurrentToken;
+    }
+
+    private boolean isKeyWord(Token pToken) {
+        /*
+         * Utility function checks of the given token is
+         * a keyword type.
+         * */
+
+        if (pToken.getType().equals(this.kwBI)
+            || pToken.getType().equals(this.kwFC)
+            || pToken.getType().equals(this.kwType)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    private boolean isStartOfExpression(Token pToken) {
+        /*
+         * Utility function checks if the given token starts an expression.
+         * */
+         
+        if (pToken.getType().equals(this.id)
+            || pToken.getType().equals(this.lit)
+            || pToken.getType().equals(this.delParOpen)
+            || pToken.getType().equals(this.delQuot)
+            || pToken.getType().equals(this.delDoubQuot)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private boolean isMiddleOfExpression(Token pToken) {
+        /*
+         * Utility function checks whether the given token represents
+         * */
+
+        if (pToken.getType().equals(this.opAritm)
+            || pToken.getType().equals(this.opLog)
+            || pToken.getType().equals(this.opRel)
+            || pToken.getType().equals(this.delParOpen)
+            || pToken.getType().equals(this.delParClose)
+            || pToken.getType().equals(this.delQuot)
+            || pToken.getType().equals(this.delDoubQuot)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    private boolean isEndOfExpression(Token pToken) {
+        /*
+         * Utility function checks if pToken is ends an expression.
+         */
+
+        if (pToken.getType().equals(this.id)
+            || pToken.getType().equals(this.lit)
+            || pToken.getType().equals(this.delParClose)
+            || pToken.getType().equals(this.delQuot)
+            || pToken.getType().equals(this.delDoubQuot)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    private boolean isStartOfInstruction(Token pToken) {
+        /*
+        * Utility function checks if given token is a 'start'
+        * of instruction.
+        * Actually, checks if the next tokens are a new instruction.
+        * */
+        
+        if (pToken.getType().equals(this.delCurlyOpen)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private boolean isEndOfInstruction(Token pToken) {
+        /*
+        * Utility function checks if given token is a 'end'
+        * of instruction.
+        * Actually, checks if the previous token is the last of
+        * a instruction.
+        * */
+        
+        if (pToken.getType().equals(this.delCurlyOpen)
+            || pToken.getType().equals(this.delCurlyClose)){
+            // || pToken.getType().equals(this.delSemicolon)) {
+            // System.out.println("\tisEndOfInstruction:::::: " + pToken.getType());
+            return true;
+        }
+        
+        return false;
     }
 
 }

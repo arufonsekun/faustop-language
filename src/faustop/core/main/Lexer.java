@@ -42,13 +42,15 @@ class Lexer {
 		// "^[_a-z]\\w*$"
 		// Matcher mat = reg.matcher(lexeme);
 
-		// System.out.println(this.lastLexeme.equals("\""));
+		// System.out.println(this.lastLexeme.equals("\"") + "" + lexeme.equals("\""));
 		// System.out.println("\\" + lexeme + "\\");
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
-			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)) {
+			if (!this.lastLexeme.equals("\"") 
+                && Pattern.matches("([A-z]|_)(\\w*)", lexeme)) {
 				type = "identifier";
 
-			} else if (Pattern.matches("[0-9]+", lexeme) || this.lastLexeme.equals("\"")) {
+			} else if (Pattern.matches("[0-9]+", lexeme) 
+                       || this.lastLexeme.equals("\"")) {
 				type = "literal";
 
 			} else {
@@ -82,9 +84,8 @@ class Lexer {
 		 * returns an empty String.
          * */
 
+        // TODO: everything in the middle of " should be a single literal token
         String lexeme = "";
-
-        // TODO: Ignore ?. ? should not be a lexeme
 
         for ( ; this.codePosition < this.code.length(); this.codePosition++) {
 			// System.out.print(this.codePosition);
