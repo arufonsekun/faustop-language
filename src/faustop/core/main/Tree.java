@@ -19,28 +19,28 @@ class Node {
         this.parent = pParent;
         this.children = new ArrayList<Node>();
     }
-    
+
     // getters
     public Token key() {
         return this.key;
     }
-    
+
     public Node parent() {
         return this.parent;
     }
-    
+
     public ArrayList<Node> children() {
         return this.children;
     }
-    
+
     public void addChildren(Node pNewNode) {
         /*
          * Adds a new child to children list.
          * */
-         
+
         this.children.add(pNewNode);
     }
-    
+
 }
 
 class Tree {
@@ -58,7 +58,7 @@ class Tree {
     public Tree(Token pKey) {
         this.root = new Node(pKey, null);
     }
-    
+
     public Node root() {
         return this.root;
     }
@@ -85,7 +85,7 @@ class Tree {
 
         parent.addChildren(newNode);
     }
-    
+
     public void addNode(ArrayList<Node> pChildren, Node pParent) {
         /*
          * Inserts a new node at the tree.
@@ -101,15 +101,15 @@ class Tree {
          * Utility function to search for a given value.
          * If found returns a Node obj else returns null.
          * */
-         
+
         if (this.root == null) return this.root;
-        
+
         if (this.root.children() == null) return this.root;
 
         for (Node child : this.root.children()) {
             return this.search(child.key());
         }
-        
+
         return null;
     }
 
@@ -122,6 +122,7 @@ class Tree {
 
         for (Node child : root.children()) {
             this.traverse(child);
+            // System.out.println(root.key().getName());
         }
         System.out.println(root.key().getType() + " -> " + root.parent().key().getType());
         // System.out.println(root.key().getType());
