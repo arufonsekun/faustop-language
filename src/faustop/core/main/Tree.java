@@ -122,7 +122,7 @@ class Tree {
 
         for (Node child : root.children()) {
             this.traverse(child);
-            System.out.println(root.key.getName());
+            // System.out.println(root.key().getName());
         }
         System.out.println(root.key().getType() + " -> " + root.parent().key().getType());
         // System.out.println(root.key().getType());
