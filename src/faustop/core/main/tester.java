@@ -7,7 +7,9 @@ class Nain {
 		// String a = "if\n(aasdsw<= 4)       {\nmostrai(\"MEU OVO\")\n}\n";
 		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
 		// String a = "if(4 > 2) {\n1+1\n}\n";
-		String a = "while(a > 4){\nif(b > 3){\nmostrai(\"MEU OVO\");\n}\n}a";
+		String a = "if(a > 4){\nif(b > 3){\na=1;\n}\n}";
+		//
+		// String a = "inte a = 1;";
 
 		Lexer lutor = new Lexer();
 		Parser superman = new Parser();
@@ -24,6 +26,7 @@ class Nain {
 		superman.buildParseTree();
 		Tree bDeBosta = superman.getParseTree();
 		bDeBosta.traverse(bDeBosta.root());
+		System.out.println(superman.instrs);
 
 		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
 		// String b = "inte a = 3 + 2 * 3;\n";

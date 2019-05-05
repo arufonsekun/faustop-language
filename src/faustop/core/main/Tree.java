@@ -72,7 +72,7 @@ class Tree {
 
         pParent.addChildren(newNode);
     }
-    
+
     public void addNode(Node newNode) {
         /*
          * Inserts a new node at the tree.
@@ -85,12 +85,12 @@ class Tree {
     //     /*
     //      * Inserts a new node at the tree.
     //      * */
-    // 
+    //
     //     // System.out.println(pKey);
-    // 
+    //
     //     Node parent = this.search(pParentKey); // fazerwere
     //     Node newNode = new Node(pKey, parent);
-    // 
+    //
     //     parent.addChildren(newNode);
     // }
 
@@ -122,6 +122,8 @@ class Tree {
         //     System.out.println(pRoot.parent().children().indexOf(pRoot));
         // }
         System.out.println(pRoot.key().getType() + " -> " + pRoot.parent().key().getType());
+        // if (!pRoot.key().getName().equals(""))
+            // System.out.println(pRoot.key().getName());
         // System.out.println(root.key().getType());
         // faz coisas in order
     }

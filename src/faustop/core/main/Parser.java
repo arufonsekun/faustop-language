@@ -39,6 +39,7 @@ class Parser {
     private String delSemicolon = "delimitersemicolon";
 
     private String lit = "literal";
+    public int instrs = 0;
 
     public Parser() {
 
@@ -138,22 +139,37 @@ class Parser {
         // Node parent = pParent;
         Token token;
 
+
         for (int currentToken = pCurrToken; currentToken < this.tokenList.size(); currentToken++) {
+            if (currentToken < 0) break;
             token = this.tokenList.get(currentToken);
+            // System.out.println(token.getType());
 
             // current is keyword
-            if (this.isKeyWord(token)) {
-                this.parseTree.addNode(token, pParent);
+            if (this.isKeyWord(token)
+                     && (currentToken > 0
+                         && this.tokenList.get(currentToken - 1)
+                                .getType().equals(this.delCurlyOpen))) {
+                Node insParent = new Node(new Token("INSTR" + this.instrs, "", -1, -1), pParent);
+                this.instrs++;
+                this.parseTree.addNode(insParent);
+                this.parseTree.addNode(token, insParent);
+                currentToken = this.buildInstruction(insParent, currentToken + 1);
 
             // previous was keyword
             } else if (currentToken > 0
                        && this.isKeyWord(this.tokenList.get(currentToken - 1))) {
-                this.parseTree.addNode(token, pParent);
+               // Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
+               // this.parseTree.addNode(insParent);
+               this.parseTree.addNode(token, pParent);
+               // System.out.println(pParent.key().getType());
+               // currentToken = this.buildInstruction(insParent, currentToken+1);
 
             // may form new expression or instruction
             } else {
                 // current is a valid start of expression
-                if (this.isStartOfExpression(token)) {
+                if (this.isStartOfExpression(token)
+                    && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
                     Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
                     this.parseTree.addNode(expParent.key(), pParent);
 
@@ -163,7 +179,8 @@ class Parser {
                 } else if (this.isStartOfInstruction(token)) {
                     this.parseTree.addNode(token, pParent);
 
-                    Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
+                    Node insParent = new Node(new Token("INSTR" + this.instrs, "", -1, -1), pParent);
+                    this.instrs++;
                     this.parseTree.addNode(insParent);
 
                     currentToken = this.buildInstruction(insParent, currentToken + 1);
@@ -171,17 +188,18 @@ class Parser {
                 // current token may ends an instruction
                 } else if (this.isEndOfInstruction(token)) {
                     this.parseTree.addNode(token, pParent.parent());
-
-                    return currentToken + 1;
+                    // System.out.println("Miaau "+token.getType());
+                    return currentToken;
 
                 // can not be neither an expression nor an instruction
                 } else {
                     this.parseTree.addNode(token, pParent);
                 }
             }
+            // return -10;
         }
+        return -10;
 
-        return -1;
     }
 
     private int buildExpression(int pCurrentToken, Node pParent) {

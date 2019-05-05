@@ -43,7 +43,7 @@ class Lexer {
 		// Matcher mat = reg.matcher(lexeme);
 
 		// System.out.println(this.lastLexeme.equals("\""));
-		System.out.println(" " + lexeme);
+		// System.out.println(" " + lexeme);
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
 			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
                 && !this.lastLexeme.equals("\"")) {
