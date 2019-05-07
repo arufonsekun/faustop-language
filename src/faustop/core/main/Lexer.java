@@ -43,7 +43,7 @@ class Lexer {
 		// Matcher mat = reg.matcher(lexeme);
 
 		// System.out.println(this.lastLexeme.equals("\""));
-		// System.out.println(" " + lexeme);
+		// System.out.println("--------------" + lexeme);
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
 			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
                 && !this.lastLexeme.equals("\"")) {
@@ -117,7 +117,7 @@ class Lexer {
 				(this.code.charAt(this.codePosition) == '=') &&
 				!lexeme.isEmpty()) {
 
-				this.consumeBlanks();
+				this.consumeBlanks();//BUG: here is the inseto
 				this.codePosition++;
 				return lexeme + current;
 

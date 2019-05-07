@@ -40,6 +40,7 @@ class Parser {
 
     private String lit = "literal";
     public int instrs = 0;
+    public int exps = 0;
 
     public Parser() {
 
@@ -139,7 +140,6 @@ class Parser {
         // Node parent = pParent;
         Token token;
 
-
         for (int currentToken = pCurrToken; currentToken < this.tokenList.size(); currentToken++) {
             if (currentToken < 0) break;
             token = this.tokenList.get(currentToken);
@@ -147,14 +147,27 @@ class Parser {
 
             // current is keyword
             if (this.isKeyWord(token)
-                     && (currentToken > 0
-                         && this.tokenList.get(currentToken - 1)
-                                .getType().equals(this.delCurlyOpen))) {
+                || (currentToken > 0
+                && this.tokenList.get(currentToken - 1).getType().equals(this.delCurlyOpen))) {
                 Node insParent = new Node(new Token("INSTR" + this.instrs, "", -1, -1), pParent);
                 this.instrs++;
                 this.parseTree.addNode(insParent);
-                this.parseTree.addNode(token, insParent);
-                currentToken = this.buildInstruction(insParent, currentToken + 1);
+
+                if (this.isStartOfExpression(token)
+                    && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
+                    Node expParent = new Node(new Token("EXP" + this.exps, "", -1, -1), insParent);
+                    this.exps++;
+                    this.parseTree.addNode(expParent.key(), insParent);
+                    currentToken = this.buildExpression(currentToken, expParent) - 1;
+                    currentToken = this.buildInstruction(insParent, currentToken + 1);
+
+                    // System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +token.getType() + ">>" + expParent.parent().key().getType() );
+
+                } else {
+                    this.parseTree.addNode(token, insParent);
+                    currentToken = this.buildInstruction(insParent, currentToken + 1);
+                }
+                // System.out.println("\t\t:::::::    "  +token.getType() + ">>" + pParent.key().getType() );
 
             // previous was keyword
             } else if (currentToken > 0
@@ -170,8 +183,12 @@ class Parser {
                 // current is a valid start of expression
                 if (this.isStartOfExpression(token)
                     && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
-                    Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
+                    Node expParent = new Node(new Token("EXP" + this.exps, "", -1, -1), pParent);
+                    this.exps++;
                     this.parseTree.addNode(expParent.key(), pParent);
+
+                    // System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +token.getType() + ">>" + pParent.key().getType() );
+
 
                     currentToken = this.buildExpression(currentToken, expParent) - 1;
 
@@ -183,16 +200,24 @@ class Parser {
                     this.instrs++;
                     this.parseTree.addNode(insParent);
 
+                    // System.out.println("\tAAAAAAAAAAAAAAAA    "  +token.getType() + ">>" + pParent.key().getType() );
                     currentToken = this.buildInstruction(insParent, currentToken + 1);
 
                 // current token may ends an instruction
                 } else if (this.isEndOfInstruction(token)) {
-                    this.parseTree.addNode(token, pParent.parent());
-                    // System.out.println("Miaau "+token.getType());
+                    System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +token.getType() + ">>" + pParent.key().getType() );
+                    if (token.getType().equals(this.delCurlyClose)) {
+                        this.parseTree.addNode(token, pParent.parent());
+
+                    } else {
+                        this.parseTree.addNode(token, pParent);
+                    }
+
                     return currentToken;
 
                 // can not be neither an expression nor an instruction
                 } else {
+                    // System.out.println("\n\t\t:::::::    "  +token.getType() + ">>" + pParent.key().getType() );
                     this.parseTree.addNode(token, pParent);
                 }
             }
@@ -338,7 +363,7 @@ class Parser {
         * a instruction.
         * */
 
-        if (pToken.getType().equals(this.delCurlyOpen)
+        if (pToken.getType().equals(this.delSemicolon)
             || pToken.getType().equals(this.delCurlyClose)){
             // || pToken.getType().equals(this.delSemicolon)) {
             // System.out.println("\tisEndOfInstruction:::::: " + pToken.getType());

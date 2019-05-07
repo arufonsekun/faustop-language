@@ -4,10 +4,10 @@ class Nain {
 
 		// String a = "voce destr\n? \n 1u+=iu \n me > =9;()u ovo?Pais da Europa\n";
 		//String a = "como voce\n\n 1+= 1?\n é gostosa\n";
-		// String a = "if\n(aasdsw<= 4)       {\nmostrai(\"MEU OVO\")\n}\n";
+		String a = "if\n(aasdsw<=4)       {\nmostrai(\"MEU OVO\")\n}\n";
 		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
-		// String a = "if(4 > 2) {\n1+1\n}\n";
-		String a = "if(a > 4){\nif(b > 3){\na=1;\n}\n}";
+		// String a = "if(4 > 2) {\n1+1;\n}\n";
+		// String a = "if(a > 4){\nif(b > 3){\na=1;\n}\n}";
 		//
 		// String a = "inte a = 1;";
 
