@@ -1,13 +1,14 @@
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 class Main {
     public static void main(String[] args) {
-        String cu = "cu2 cu";
-        String pattern = "(_|[A-z])(\\w+)";
+        Boolean_ a = new Boolean_("a", "true");
+        Integer_ b = new Integer_("b", "1");
+        Integer_ c = new Integer_("c", "3");
+        Double_ d = new Double_("d", "1.1");
+        Double_ e = new Double_("e", "1.2");
 
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(cu);
-        System.out.println(m.matches());
+        a.equals(b);
+
+        // System.out.println(b.greaterThan(d));
+        // System.out.println(d.getValue());
     }
 }
