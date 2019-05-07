@@ -12,6 +12,7 @@ class Wrapper {
      * Author: Junior Vitor Ramisch
      * E-mail: junior.ramisch@gmail.com
      * */
+
      public static void main(String[] args) {
 
     	Token token;
@@ -36,6 +37,7 @@ class Wrapper {
 
         parser.buildParseTree(); //build the parse tree based on the token list
         parseTree = parser.getParseTree(); //get the parseTree
+		parseTree.traverse();
         // interpreter.run(parseTree.root());
 
     }
