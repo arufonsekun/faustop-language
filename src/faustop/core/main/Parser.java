@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -16,7 +15,6 @@ class Parser {
      * */
 
     private LinkedList<Token> tokenList = new LinkedList<>();
-    private HashMap<String, String> instructionRules = new HashMap<>();
     private Tree parseTree;
 
     private String kwBI = "keywordbuiltin";
@@ -50,39 +48,6 @@ class Parser {
         // bota um atributo bool que verifica se uma instrução foi processada.
         // começa com true e o wrapper só para de mandar Tokens quando esse
         // atributo for falso.
-
-        //regexes ahead (they should be somehow global)
-
-
-
-        // auxiliar regexes
-        // String exp = "(" + id + "|"
-        //              + lit + "|"
-        //              + funcCall + "|"
-        //              + opAritm + "|" + opLog + "|" + opRel
-        //              + delParOpen + "|" + delParClose + ")+";
-        //
-        // String funcCall = kwBI + delParOpen
-        //                    + "(" + exp + ")?"
-        //                    + delParClose;
-        //
-        //
-        // String dec = "^" + kwType + id + "$";
-        // String init = "^" + kwType + id + opAssign + exp + "$";
-        // String assign = "^" + id + opAssign + exp + "$";
-        // String flow = "^" + kwFC + delParOpen + exp + delParOpen
-        //                     + delCurlyOpen
-        //                     + "(" + exp + "|" + dec + "|" + init + "|" + assign + ")*"
-        //                     + delCurlyClose + "$"; // lacks recursion
-        //
-        // // actual regexes
-        //
-        // this.instructionRules.put(exp, "expression");
-        // this.instructionRules.put(dec, "declaration");
-        // this.instructionRules.put(init, "initialization");
-        // this.instructionRules.put(assign, "assignment");
-        // this.instructionRules.put(flow, "flowController");
-
     }
 
     public Tree getParseTree() {
