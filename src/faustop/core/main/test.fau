@@ -1,0 +1,5 @@
+inte a = 1;
+oloko aa ="Vai a MERDA";
+if (a > 3) {
+    mostrai("MIAU AU");
+}

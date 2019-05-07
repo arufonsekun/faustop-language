@@ -69,7 +69,6 @@ class Lexer {
 		} else {
 			return new Token(type, lexeme, 1, 2);
 		}
-
     }
 
 	private String getLexeme() {
@@ -90,14 +89,20 @@ class Lexer {
             if (current == '\"') {
                 if (!this.openQuote && this.isDelimiter(previous)) {
                     this.openQuote = !this.openQuote;
-                    return lexeme;
+					this.codePosition++;
 
-                } else if (this.openQuote && !lexeme.equals("")) {
+		            return "\"";
+
+				} else if (this.openQuote && !lexeme.equals("")) {
                     this.openQuote = !this.openQuote;
-                    return lexeme;
+					// System.out.println("LIXO |" + lexeme + "|");
+
+		            return lexeme;
                 }
 
+				this.consumeBlanks();
 				this.codePosition++;
+
 				return "\"";
 
             } else if (!this.openQuote
@@ -127,6 +132,7 @@ class Lexer {
 			if (this.codePosition >= this.code.length()) return lexeme;
 			lexeme += current;
         }
+
         return lexeme;
     }
 
