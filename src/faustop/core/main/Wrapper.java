@@ -8,51 +8,64 @@ class Wrapper {
      * will packs lexer, parser and semantic analyzer
      * functionalities together. Wrapper class is reading
      * each .fau file line and dividing each line in tokens.
+	 *
      * Author: Junior Vitor Ramisch
      * E-mail: junior.ramisch@gmail.com
      * */
+
      public static void main(String[] args) {
 
-         Token token;
-         Lexer lexer = new Lexer();
-         Parser parser = new Parser();
-         Interpreter interpreter = new Interpreter();
-         Tree parseTree;//parseTree is passed to interpreter
+    	Token token;
+        Lexer lexer = new Lexer();
+        Parser parser = new Parser();
+        Interpreter interpreter = new Interpreter();
+        Tree parseTree; //parseTree is passed to interpreter
 
-         //try-catch statement required to read files
-         try {
-             File file = new File(args[0]);
-             Scanner reader = new Scanner(file);
+        // System.out.println(sourceCode);
 
-             String sourceCode = "";
-             String buffer = "";
+		String sourceCode = Wrapper.readFile(args);
+		if (sourceCode == null || sourceCode.equals("")) return;
 
-             while(reader.hasNextLine()) {
+        lexer.setCode(sourceCode); //set source code
+        token = lexer.getNextToken(); //get the first token
 
-                 buffer = reader.nextLine();
-                 sourceCode = sourceCode.concat(buffer+'\n');
-             }
+        while (token != null) {
+            parser.addToken(token); // adds the token into the token list
+            System.out.println(""+token.getName()+" type: "+token.getType());
+            token = lexer.getNextToken();
+        }
 
-             // System.out.println(sourceCode);
+        parser.buildParseTree(); //build the parse tree based on the token list
+        parseTree = parser.getParseTree(); //get the parseTree
+		parseTree.traverse();
+        // interpreter.run(parseTree.root());
 
-             lexer.setCode(sourceCode);//set source code
-             token = lexer.getNextToken(); //get the first token
+    }
 
-             while (token != null) {
-                 parser.addToken(token);// adds the token into the token list
-                 // System.out.println("Token value: "+token.getName()+" type: "+token.getType());
-                 token = lexer.getNextToken();
-             }
+	private static String readFile(String[] args) {
+		/*
+		 * Reads the .fau file from system and returns
+		 * a String representing it.
+		 * */
 
-             // System.out.println(sourceCode);
+        try {
+          	File file = new File(args[0]);
+            Scanner reader = new Scanner(file);
 
-             parser.buildParseTree();//build the parse tree based on the token list
-             parseTree = parser.getParseTree();//get the parseTree
-             interpreter.run(parseTree.root());
+            String sourceCode = "";
+            String buffer = "";
 
-         } catch (Exception e) {
-             System.out.println("File opening error");
-             e.printStackTrace();
-         }
-     }
+            while(reader.hasNextLine()) {
+                buffer = reader.nextLine();
+                sourceCode = sourceCode.concat(buffer+'\n');
+            }
+
+			return sourceCode;
+
+		} catch (Exception e) {
+			System.out.println("File opening error");
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

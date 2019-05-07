@@ -1,9 +1,9 @@
 class Double_ extends Variable {
     private double value;
 
-    public Double_(String pName, String pValue) {
+    public Double_() {
         super(pName, "DOUBLE_");
-        this.setValue(pValue);
+
     }
 
     public double getValue() {

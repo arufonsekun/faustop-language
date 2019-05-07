@@ -2,9 +2,8 @@ class Char_ extends Variable {
 
     private char value;
 
-    public Char_(String pName, char pValue) {
+    public Char_() {
         super(pName, "CHAR_");
-        this.setValue(pValue);
     }
 
     public void setValue(char pValue) {

@@ -2,9 +2,8 @@ class String_ extends Variable {
 
     private String value;
 
-    public String_(String name, String pValue) {
+    public String_() {
         super(name, "_STRING");
-        this.setValue(pValue);
     }
 
     public void setValue(String pValue) {

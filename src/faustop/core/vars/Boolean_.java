@@ -9,9 +9,8 @@ class Boolean_ extends Variable {
 
     private boolean value;
 
-    public Boolean_ (String pName, String pValue) {
+    public Boolean_ () {
         super(pName, "BOOLEAN_");
-        setValue(pValue);
     }
 
     public boolean getValue() {

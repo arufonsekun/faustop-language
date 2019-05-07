@@ -2,9 +2,8 @@ class Integer_ extends Variable {
 
     private int value;
 
-    public Integer_(String name, String pValue) {
+    public Integer_() {
         super(name, "INTEGER_");
-        this.setValue(pValue);
     }
 
     public int getValue() {

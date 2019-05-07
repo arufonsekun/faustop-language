@@ -1,4 +1,6 @@
-class Variable {
+package faustop.core.vars;
+
+public class Variable {
 
     /*
      * Superclass of all types. Atributes name and type are commom
