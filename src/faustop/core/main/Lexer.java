@@ -88,18 +88,20 @@ class Lexer {
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
             if (current == '\"') {
+
                 if (!this.openQuote && this.isDelimiter(previous)) {
                     this.openQuote = !this.openQuote;
-                    return lexeme;
+                    this.codePosition++;
+                    return "\"";
 
                 } else if (this.openQuote && !lexeme.equals("")) {
                     this.openQuote = !this.openQuote;
                     return lexeme;
                 }
 
-				this.codePosition++;
-				return "\"";
-
+                this.consumeBlanks();
+                this.codePosition++;
+                return "\"";
             } else if (!this.openQuote
                        && (this.codePosition > 0
                            && this.isMathDelimiter(previous))
