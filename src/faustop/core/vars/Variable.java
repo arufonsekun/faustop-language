@@ -32,4 +32,14 @@ class Variable {
         this.type = pType;
     }
 
+    public boolean logicalAnd(Variable pObj) {System.out.println("Method not supported");}
+
+    public boolean logicalOr(Variable pObj) {System.out.println("Method not supported");}
+
+    public boolean logicalNot() {System.out.println("Method not supported");}
+
+    public boolean equals(Variable pObj) {System.out.println("Method not supported");}
+
+    public boolean differs(Variable pObj) {System.out.println("Method not supported");}
+
 }

@@ -4,7 +4,7 @@ class Boolean extends Variable {
 
     private boolean value;
 
-    public Boolean (String pName, boolean pValue) {
+    public Boolean (String pName, String pValue) {
         /* *
            * Boolean constructor, has name and value as parameters
            * super() calls Variable constructor
@@ -17,8 +17,8 @@ class Boolean extends Variable {
         return this.value;
     }
 
-    public void setValue(boolean pValue) {
-        this.value = pValue;
+    public void setValue(String pValue) {
+        this.value = Boolean.parseBoolean(pValue);
     }
 
     public boolean logicalAnd(Boolean pObj) {
