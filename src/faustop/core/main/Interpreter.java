@@ -1,9 +1,9 @@
 import java.util.HashMap;
-// import vars.Variable;
+import vars.Variable;
 
 class Interpreter {
 
-    // private HashMap<String, Variable> ram = new HashMap<String, Variable>();
+    private HashMap<String, Variable> ram = new HashMap<String, Variable>();
     // private Tree parseTree;
 
     public void run(Node pTreeRoot) {
