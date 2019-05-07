@@ -19,6 +19,9 @@ class Lexer {
     private int codePosition;
 	// last position in the code where a '\n' was found
 	private int lastRow;
+	// TODO: FIX THIS GAMBIARRA
+	private boolean openQuote = false;
+	private String lastLexeme = "";
 
     public void setCode(String pCode) {
         this.code = pCode;
@@ -39,18 +42,29 @@ class Lexer {
 		// "^[_a-z]\\w*$"
 		// Matcher mat = reg.matcher(lexeme);
 
-        if (Pattern.matches("(_|A-z)(\\w+)", "2")) {
-            System.out.println("ASADDSDASSDSD");
-        }
-
+		// System.out.println(this.lastLexeme.equals("\""));
+		// System.out.println("--------------" + lexeme);
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
-			type = "identificador";
+			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
+                && !this.lastLexeme.equals("\"")) {
+				type = "identifier";
+
+			} else if (Pattern.matches("[0-9]+", lexeme)
+                       || this.lastLexeme.equals("\"")) {
+				type = "literal";
+
+			} else {
+				System.out.println("cannot find symbol");
+				return null;
+
+			}
 
 		// ERROR: invalid caracter or word;
 		} else if (type == null) {
-			System.out.println("cannot find symbol");
 			return null;
 		}
+
+		this.lastLexeme = new String(lexeme);
 
 		// no more available tokens
 		if (lexeme.isEmpty()) {
@@ -59,6 +73,7 @@ class Lexer {
 		} else {
 			return new Token(type, lexeme, 1, 2);
 		}
+
     }
 
 	private String getLexeme() {
@@ -69,45 +84,61 @@ class Lexer {
 		 * returns an empty String.
          * */
 
+        // TODO: everything in the middle of " should be a single literal token
         String lexeme = "";
+        char current, previous;
 
         for ( ; this.codePosition < this.code.length(); this.codePosition++) {
-			// System.out.print(this.codePosition);
+            current = this.code.charAt(this.codePosition);
+            previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
+
+            if (current == '\"') {
+
+                if (!this.openQuote && this.isDelimiter(previous)) {
+                    this.openQuote = !this.openQuote;
+                    return lexeme;
+                }
+
+                if (this.openQuote && !lexeme.equals("")) {
+
+                    this.openQuote = !this.openQuote;
+                    return lexeme;
+                }
+
+				this.codePosition++;
+				return "\"";
+
+			// comments check
+			}
 
 			// gambiarra? nao
-			if ((this.codePosition > 0 &&
-				 this.isMathDelimiter(this.code.charAt(this.codePosition-1))) &&
+			else if (!this.openQuote && (this.codePosition > 0 &&
+				 this.isMathDelimiter(previous)) &&
 				(this.code.charAt(this.codePosition) == '=') &&
 				!lexeme.isEmpty()) {
 
-				this.consumeBlanks();
+				this.consumeBlanks();//BUG: here is the inseto
 				this.codePosition++;
-				return lexeme + this.code.charAt(this.codePosition-1);
-			}
+				return lexeme + current;
 
 			// delimiters check
-			if ((this.isDelimiter(this.code.charAt(this.codePosition)) ||
-				(this.codePosition > 0 &&
-				 this.isDelimiter(this.code.charAt(this.codePosition-1))))) {
+			} else if (!this.openQuote
+                       && (this.isDelimiter(current)
+				       || (this.codePosition > 0
+				       && this.isDelimiter(previous)))) {
 
-				if (this.code.charAt(this.codePosition) == '\n') {
-					this.lastRow = this.codePosition;
-				}
-
-				this.consumeBlanks();
+                this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;
-			}
 
-			// comments check
-			if (this.code.charAt(this.codePosition) == '?') {
+			// string literal check
+			} else if (!this.openQuote && current == '?') {
 				this.consumeComments();
 				this.consumeBlanks();
 			}
 
 			if (this.codePosition >= this.code.length()) return lexeme;
-			lexeme += this.code.charAt(this.codePosition);
+			lexeme += current;
         }
-
         return lexeme;
     }
 
@@ -126,7 +157,7 @@ class Lexer {
 
 	private void consumeComments() {
 		/*
-		 * Ignores everything until a '\n' is found.
+		 * Utility function ignores everything until a '\n' is found.
 		 * Called when a '?' (comment) is found.
 		 * */
 
@@ -143,7 +174,8 @@ class Lexer {
 		 * */
 
 		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
-		                     '=', ';', '?', '\n', '\'', '\"', ' '};
+		                     '=', ';', '?', '\n', '\'', ' ', '<',
+						 	 '>', '^'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {
@@ -160,7 +192,7 @@ class Lexer {
 		* the given char is a MATH delimiter.
 		* */
 
-		char[] delimiters = {'+', '*', '-', '/', '>', '<'};
+		char[] delimiters = {'+', '*', '-', '/', '>', '<', '^'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {

@@ -10,15 +10,37 @@ class Node {
      * E-mail: junior.ramisch@gmail.com.
      * */
 
-    public Token key;
-    public ArrayList<Node> children;
-    public Node parent;
+    private Token key;
+    private ArrayList<Node> children;
+    private Node parent;
 
     public Node (Token pKey, Node pParent) {
         this.key = pKey;
         this.parent = pParent;
         this.children = new ArrayList<Node>();
     }
+
+    // getters
+    public Token key() {
+        return this.key;
+    }
+
+    public Node parent() {
+        return this.parent;
+    }
+
+    public ArrayList<Node> children() {
+        return this.children;
+    }
+
+    public void addChildren(Node pNewNode) {
+        /*
+         * Adds a new child to children list.
+         * */
+
+        this.children.add(pNewNode);
+    }
+
 }
 
 class Tree {
@@ -31,41 +53,78 @@ class Tree {
      * E-mail: junior.ramisch@gmail.com.
      * */
 
-    public Node root;
+    private Node root;
 
-    public Tree() {
-
+    public Tree(Token pKey) {
+        this.root = new Node(pKey, null);
     }
 
-    public void addNode(Token pKey) {
+    public Node root() {
+        return this.root;
+    }
+
+    public void addNode(Token pKey, Node pParent) {
         /*
          * Inserts a new node at the tree.
          * */
 
-        System.out.println(pKey);
+        Node newNode = new Node(pKey, pParent);
 
-        Node p = this.getParent(); // fazerwere
-        Node n = new Node(pKey, p);
-
-        p.children.add(n);
-
+        pParent.addChildren(newNode);
     }
 
-    private Node getParent() {
-        return this.root;
+    public void addNode(Node newNode) {
+        /*
+         * Inserts a new node at the tree.
+         * */
+
+        newNode.parent().addChildren(newNode);
     }
 
-    public void traverse(Node root) {
+    // public void addNode(Token pKey, Token pParentKey) {
+    //     /*
+    //      * Inserts a new node at the tree.
+    //      * */
+    //
+    //     // System.out.println(pKey);
+    //
+    //     Node parent = this.search(pParentKey); // fazerwere
+    //     Node newNode = new Node(pKey, parent);
+    //
+    //     parent.addChildren(newNode);
+    // }
+
+    public void addNode(ArrayList<Node> pChildren, Node pParent) {
+        /*
+         * Inserts a new node at the tree.
+         * */
+
+        for (Node child : pChildren) {
+            pParent.addChildren(child);
+        }
+    }
+
+    public void traverse(Node pRoot) {
         /*
          * Traverse through the nodes of the Tree.
          * */
 
-        if (root == null) return;
-
-        for (Node child : root.children) {
-            this.traverse(child);
+        if (pRoot == null) {
+            System.out.println("DASDJHSGDUGDUYSDGYJHSDBKJSBDKSADBKsd");
+            return;
         }
-        System.out.println(root.key.getName());
+
+        for (Node child : pRoot.children()) {
+            this.traverse(child);
+            // System.out.println(root.key().getName());
+        }
+        // if (pRoot.key().getType().equals("INSTR")) {
+        //     System.out.println(pRoot.parent().children().indexOf(pRoot));
+        // }
+        System.out.println(pRoot.key().getType() + " -> " + pRoot.parent().key().getType());
+        // if (!pRoot.key().getName().equals(""))
+            // System.out.println(pRoot.key().getName());
+        // System.out.println(root.key().getType());
         // faz coisas in order
     }
 
