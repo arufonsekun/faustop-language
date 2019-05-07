@@ -8,15 +8,16 @@ class Nain {
 		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
 		// String a = "if(4 > 2) {\n\t1+1;\n}\n";
 		// String a = "if(a > 4){\nif(b > 3){\na=1;\n}\n}";
-		
+
 		// se passar pra esse GG:
-		// String a = "inte a = 0;\nwhile(a > 4) {\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n}\n\ta += 1;\n}\n";
-		System.out.println();
+		// String a = "inte a = 0;\nwhile(a > 4) {\n\ta += 1;\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\n}\n"; // parser OK
+		// String a = "inte a = 0;\nwhile(a > 4) {\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\ta += 1;\n\n}\n"; // not OK
+		// System.out.println();
 		System.out.println(a);
 		System.out.println();
 		// //
 		// String a = "inte a = 1;";
-		
+
 		Lexer lutor = new Lexer();
 		Parser superman = new Parser();
 
