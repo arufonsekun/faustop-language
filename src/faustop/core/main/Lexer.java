@@ -93,9 +93,10 @@ class Lexer {
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
             if (current == '\"') {
-
                 if (!this.openQuote && this.isDelimiter(previous)) {
+                    // System.out.println("Birl");
                     this.openQuote = !this.openQuote;
+                    //this.codePosition++;
                     return lexeme;
                 }
 

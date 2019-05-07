@@ -1,34 +1,36 @@
-
 class Nain {
 
 	public static void main(String[] args) {
 
-		/*String a = "voce destr\n? \n 1u+=iu \n me > =9;()u ovo?Pais da Europa\n";
-		String b = "como voce\n\n 1+= 1?\n é gostosa\n";
-		String c = "if\n(a<4)       {\nmostrai(\"MEU OVO\")\n}\n";
-		// lutor.setCode(a);
-		// lutor.setCode(c);
-		//*/
-		
-		String command = "int @ = 4;\n";
+		// String a = "voce destr\n? \n 1u+=iu \n me > =9;()u ovo?Pais da Europa\n";
+		//String a = "como voce\n\n 1+= 1?\n é gostosa\n";
+		// String a = "if\n(aasdsw<=4)       {\nmostrai(\"MEU OVO\")\n}\n";
+		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
+		// String a = "if(4 > 2) {\n1+1;\n}\n";
+		// String a = "if(a > 4){\nif(b > 3){\na=1;\n}\n}";
+		String a = "stringue a = \"hello world\";\nmostrai(a);\n";
+		// String a = "inte a = 1;";
+
 		Lexer lutor = new Lexer();
-		lutor.setCode(command);
+		Parser superman = new Parser();
+
+		lutor.setCode(a);
+
 		Token cu = lutor.getNextToken();
+		//
 		while (cu != null) {
-			System.out.println(cu.getName() + " " + cu.getType() + " - " + cu.getRow() + ":" + cu.getCol());
+			superman.addToken(cu);
+			System.out.println(cu.getName());
 			cu = lutor.getNextToken();
 		}
 
-		/*Tree t = new Tree();
-		Token to;
+		// superman.buildParseTree();
+		// Tree bDeBosta = superman.getParseTree();
+		// bDeBosta.traverse(bDeBosta.root());
+		// System.out.println(superman.instrs);
 
-		for (int i =0; i < 50; i++) {
-			to = new Token("BUNDA", ""+i, 1, 2);
-			System.out.println(to);
-			t.addNode(to);
-		}
-
-		t.traverse(t.root);*/
+		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
+		// String b = "inte a = 3 + 2 * 3;\n";
 
 	}
 
