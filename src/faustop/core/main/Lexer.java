@@ -54,6 +54,7 @@ class Lexer {
 				type = "literal";
 
 			} else {
+                System.out.println("MIAUA: |"+lexeme+"|");
 				System.out.println("cannot find symbol");
 				return null;
 
@@ -84,7 +85,6 @@ class Lexer {
 		 * returns an empty String.
          * */
 
-        // TODO: everything in the middle of " should be a single literal token
         String lexeme = "";
         char current, previous;
 
@@ -100,7 +100,6 @@ class Lexer {
                 }
 
                 if (this.openQuote && !lexeme.equals("")) {
-
                     this.openQuote = !this.openQuote;
                     return lexeme;
                 }
@@ -108,17 +107,14 @@ class Lexer {
 				this.codePosition++;
 				return "\"";
 
-			// comments check
-			}
-
-			// gambiarra? nao
-			else if (!this.openQuote && (this.codePosition > 0 &&
-				 this.isMathDelimiter(previous)) &&
-				(this.code.charAt(this.codePosition) == '=') &&
-				!lexeme.isEmpty()) {
-
+            } else if (!this.openQuote 
+                       && (this.codePosition > 0 
+                           && this.isMathDelimiter(previous))
+                       && (this.code.charAt(this.codePosition) == '=') 
+                       && !lexeme.isEmpty()) {
+                this.codePosition++;
 				this.consumeBlanks();//BUG: here is the inseto
-				this.codePosition++;
+                // System.out.println("KKKKKKKKKKK :" + lexeme + current);
 				return lexeme + current;
 
 			// delimiters check
@@ -149,8 +145,9 @@ class Lexer {
 		 * */
 
 		while (this.codePosition < this.code.length() &&
-			   (this.code.charAt(this.codePosition) == ' ' ||
-			    this.code.charAt(this.codePosition) == '\n')) {
+			   (this.code.charAt(this.codePosition) == ' '
+			    || this.code.charAt(this.codePosition) == '\n'
+                || this.code.charAt(this.codePosition) == '\t')) {
 			this.codePosition++;
 		}
 	}
@@ -175,7 +172,7 @@ class Lexer {
 
 		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
 		                     '=', ';', '?', '\n', '\'', ' ', '<',
-						 	 '>', '^'};
+						 	 '>', '^', '!'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {
@@ -192,7 +189,7 @@ class Lexer {
 		* the given char is a MATH delimiter.
 		* */
 
-		char[] delimiters = {'+', '*', '-', '/', '>', '<', '^'};
+		char[] delimiters = {'+', '*', '-', '/', '>', '<', '^', '!'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {

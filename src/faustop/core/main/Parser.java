@@ -39,8 +39,8 @@ class Parser {
     private String delSemicolon = "delimitersemicolon";
 
     private String lit = "literal";
-    public int instrs = 0;
-    public int exps = 0;
+    public int instrs = 0; // test
+    public int exps = 0; // test
 
     public Parser() {
 
@@ -132,6 +132,7 @@ class Parser {
     // Utility functions.
     //
 
+    // TODO: Improve this method. To large and with gambiarra
     private int buildInstruction(Node pParent, int pCurrToken) {
         /*
          * Utility function builds a subtree for an instruction.
@@ -150,13 +151,13 @@ class Parser {
                 || (currentToken > 0
                 && this.tokenList.get(currentToken - 1).getType().equals(this.delCurlyOpen))) {
                 Node insParent = new Node(new Token("INSTR" + this.instrs, "", -1, -1), pParent);
-                this.instrs++;
+                this.instrs++; // test
                 this.parseTree.addNode(insParent);
 
                 if (this.isStartOfExpression(token)
                     && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
                     Node expParent = new Node(new Token("EXP" + this.exps, "", -1, -1), insParent);
-                    this.exps++;
+                    this.exps++; //test
                     this.parseTree.addNode(expParent.key(), insParent);
                     currentToken = this.buildExpression(currentToken, expParent) - 1;
                     currentToken = this.buildInstruction(insParent, currentToken + 1);
@@ -169,7 +170,7 @@ class Parser {
                 }
                 // System.out.println("\t\t:::::::    "  +token.getType() + ">>" + pParent.key().getType() );
 
-            // previous was keyword
+            // previous was keyword: just append at the current parent
             } else if (currentToken > 0
                        && this.isKeyWord(this.tokenList.get(currentToken - 1))) {
                // Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
@@ -184,20 +185,17 @@ class Parser {
                 if (this.isStartOfExpression(token)
                     && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
                     Node expParent = new Node(new Token("EXP" + this.exps, "", -1, -1), pParent);
-                    this.exps++;
+                    this.exps++; // test
                     this.parseTree.addNode(expParent.key(), pParent);
-
-                    // System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +token.getType() + ">>" + pParent.key().getType() );
-
-
                     currentToken = this.buildExpression(currentToken, expParent) - 1;
+                    // System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +this.tokenList.get(currentToken).getType() + ">>" + pParent.key().getType() );
 
                 // current may be a start of instruction
                 } else if (this.isStartOfInstruction(token)) {
                     this.parseTree.addNode(token, pParent);
 
                     Node insParent = new Node(new Token("INSTR" + this.instrs, "", -1, -1), pParent);
-                    this.instrs++;
+                    this.instrs++; // test
                     this.parseTree.addNode(insParent);
 
                     // System.out.println("\tAAAAAAAAAAAAAAAA    "  +token.getType() + ">>" + pParent.key().getType() );
@@ -205,11 +203,11 @@ class Parser {
 
                 // current token may ends an instruction
                 } else if (this.isEndOfInstruction(token)) {
-                    System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +token.getType() + ">>" + pParent.key().getType() );
+                    // System.out.println("FGDFGFGFDGDFGGDFGFGDGFDG    "  +token.getType() + ">>" + pParent.key().getType() );
                     if (token.getType().equals(this.delCurlyClose)) {
                         this.parseTree.addNode(token, pParent.parent());
 
-                    } else {
+                    } else {                        
                         this.parseTree.addNode(token, pParent);
                     }
 
@@ -217,14 +215,13 @@ class Parser {
 
                 // can not be neither an expression nor an instruction
                 } else {
-                    // System.out.println("\n\t\t:::::::    "  +token.getType() + ">>" + pParent.key().getType() );
+                    System.out.println("\n\t\t:::::::    "  +token.getType() + ">>" + pParent.key().getType() );
                     this.parseTree.addNode(token, pParent);
                 }
             }
             // return -10;
         }
         return -10;
-
     }
 
     private int buildExpression(int pCurrentToken, Node pParent) {
@@ -239,9 +236,11 @@ class Parser {
         ArrayList<Node> children = new ArrayList<Node>();
         Queue<String> parQueue = new LinkedList<>();
 
+        // System.out.println(this.tokenList.get(pCurrentToken).getType());
         for (; pCurrentToken < maxSize; pCurrentToken++) {
             token = this.tokenList.get(pCurrentToken);
 
+            // parenting check
             if (token.getName().equals("(")) {
                 parQueue.add("(");
 
@@ -256,18 +255,27 @@ class Parser {
                 }
             }
 
+            // possibly an end of expression token
             if (this.isEndOfExpression(token)) {
+                // next token may expand the current expression
                 if (pCurrentToken < maxSize - 1
-                    && (this.isMiddleOfExpression(this.tokenList.get(pCurrentToken+1)))) {
+                    && this.isMiddleOfExpression(this.tokenList.get(pCurrentToken + 1))
+                    || (pCurrentToken > 0 
+                        && !this.tokenList.get(pCurrentToken - 1).getType().equals(this.delDoubQuot))
+                    && !this.isEndOfInstruction(this.tokenList.get(pCurrentToken + 1))) {
                     children.add(new Node(token, pParent));
 
+                // the expression is actually over
                 } else {
                     children.add(new Node(token, pParent));
                     this.parseTree.addNode(children, pParent.parent());
+                    // System.out.println("CCCUCUCUCUUC  ::" + token.getType());
+                    // System.out.println("END OF CU :" + token.getType());
                     return pCurrentToken + 1;
                 }
 
             } else {
+                // System.out.println("CCCUCUCUCUUC  ::" + token.getType());
                 children.add(new Node(token, pParent));
             }
         }
