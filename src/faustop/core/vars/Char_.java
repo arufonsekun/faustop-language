@@ -1,8 +1,8 @@
-class Char extends Variable {
+class Char_ extends Variable {
 
     private char value;
 
-    public Char(String pName, char pValue) {
+    public Char_(String pName, char pValue) {
         super(pName, "CHAR");
         this.setValue(pValue);
     }
@@ -15,27 +15,27 @@ class Char extends Variable {
         return this.value;
     }
 
-    public boolean greaterThan(Char pObj) {
+    public boolean greaterThan(Char_ pObj) {
         return (this.value > pObj.getValue());
     }
 
-    public boolean lessThan(Char pObj) {
+    public boolean lessThan(Char_ pObj) {
         return (this.value < pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Char pObj) {
+    public boolean greaterThanOrEqualTo(Char_ pObj) {
         return (this.value >= pObj.getValue());
     }
 
-    public boolean lessThanOrEqualTo(Char pObj) {
+    public boolean lessThanOrEqualTo(Char_ pObj) {
         return (this.value <= pObj.getValue());
     }
 
-    public boolean equals(Char pObj) {
+    public boolean equals(Char_ pObj) {
         return (this.value == pObj.getValue());
     }
 
-    public boolean differs(Char pObj) {
+    public boolean differs(Char_ pObj) {
         return (this.value != pObj.getValue());
     }
 

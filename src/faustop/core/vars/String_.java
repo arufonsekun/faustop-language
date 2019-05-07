@@ -1,9 +1,9 @@
-class Stringue extends Variable {
+class String_ extends Variable {
 
     private String value;
 
-    public Stringue(String name, String pValue) {
-        super(name, "STRINGUE");
+    public String_(String name, String pValue) {
+        super(name, "_STRING");
         this.setValue(pValue);
     }
 
@@ -15,24 +15,24 @@ class Stringue extends Variable {
         return this.value;
     }
 
-    public boolean greaterThan(Stringue pObj) {
+    public boolean greaterThan(String_ pObj) {
         return this.lexicalOrder(pObj.getValue());
     }
 
-    public boolean lessThan(Stringue pObj) {
+    public boolean lessThan(String_ pObj) {
         if (this.equal(pObj)) return false;
         return !this.lexicalOrder(pObj.getValue());
     }
 
-    public boolean equal(Stringue pObj) {
+    public boolean equal(String_ pObj) {
         return this.value.equals(pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Stringue pObj) {
+    public boolean greaterThanOrEqualTo(String_ pObj) {
         return (this.greaterThan(pObj) || this.equal(pObj));
     }
 
-    public boolean lessThanOrEqualTo(Stringue pObj) {
+    public boolean lessThanOrEqualTo(String_ pObj) {
         return (this.lessThan(pObj) || this.equal(pObj));
     }
 

@@ -32,14 +32,71 @@ class Variable {
         this.type = pType;
     }
 
-    public boolean logicalAnd(Variable pObj) {System.out.println("Method not supported");}
+    private void throwError() {
+        System.out.println("Unsupported method");
+    }
 
-    public boolean logicalOr(Variable pObj) {System.out.println("Method not supported");}
+    //Boolean type methods
+    public void logicalAnd(Variable pObj) {
+        this.throwError();
+    }
 
-    public boolean logicalNot() {System.out.println("Method not supported");}
+    public void logicalOr(Variable pObj) {
+        this.throwError();
+    }
 
-    public boolean equals(Variable pObj) {System.out.println("Method not supported");}
+    public void logicalNot() {
+        this.throwError();
+    }
 
-    public boolean differs(Variable pObj) {System.out.println("Method not supported");}
+    public void equals(Variable pObj) {
+        this.throwError();
+    }
+
+    public void differs(Variable pObj) {
+        this.throwError();
+    }
+
+    //Integer, Double and String commom methods methods
+    public void greaterThan(Variable pObj) {
+        this.throwError();
+    }
+
+    public void lessThan(Variable pObj) {
+        this.throwError();
+    }
+
+    public void greaterThanOrEqualTo(Variable pObj) {
+        this.throwError();
+    }
+
+    public void lessThanOrEqualTo(Variable pObj) {
+        this.throwError();
+    }
+
+    //Integer and Double commom methods
+    public void plus(Variable pObj) {
+        this.throwError();
+    }
+
+    public void minus(Variable pObj) {
+        this.throwError();
+    }
+
+    public void times(Variable pObj) {
+        this.throwError();
+    }
+
+    public void division(Variable pObj) {
+        this.throwError();
+    }
+
+    public void pow(Variable pObj) {
+        this.throwError();
+    }
+
+    public void mod(Variable pObj) {
+        this.throwError();
+    }
 
 }

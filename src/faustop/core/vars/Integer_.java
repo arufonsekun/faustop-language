@@ -1,9 +1,9 @@
-class Integer extends Variable {
+class Integer_ extends Variable {
 
     private int value;
 
-    public Integer(String name, int pValue) {
-        super(name, "INTEGER");
+    public Integer_(String name, String pValue) {
+        super(name, "INTEGER_");
         this.setValue(pValue);
     }
 
@@ -11,31 +11,31 @@ class Integer extends Variable {
         return this.value;
     }
 
-    public void setValue(int pValue) {
-        this.value = pValue;
+    public void setValue(String s) {
+        this.value = Integer.parseInt(s);
     }
 
-    public boolean greaterThan(Integer pObj) {
+    public boolean greaterThan(Integer_ pObj) {
         return (this.value > pObj.getValue());
     }
 
-    public boolean lessThan(Integer pObj) {
+    public boolean lessThan(Integer_ pObj) {
         return (this.value < pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Integer pObj) {
+    public boolean greaterThanOrEqualTo(Integer_ pObj) {
         return (this.value >= pObj.getValue());
     }
 
-    public boolean lessThanOrEqualTo(Integer pObj) {
+    public boolean lessThanOrEqualTo(Integer_ pObj) {
         return (this.value <= pObj.getValue());
     }
 
-    public boolean equals(Integer pObj) {
+    public boolean equals(Integer_ pObj) {
         return (this.value == pObj.getValue());
     }
 
-    public boolean differs(Integer pObj) {
+    public boolean differs(Integer_ pObj) {
         return (this.value != pObj.getValue());
     }
 
@@ -43,7 +43,7 @@ class Integer extends Variable {
      * ?? Return a Integer type or a void ??
      * */
 
-    public void plus(Integer pObj) {
+    public void plus(Integer_ pObj) {
         this.value += pObj.getValue();
     }
 
@@ -51,7 +51,7 @@ class Integer extends Variable {
         this.value += pValue;
     }
 
-    public void minus(Integer pObj) {
+    public void minus(Integer_ pObj) {
         this.value -= pObj.getValue();
     }
 
@@ -59,7 +59,7 @@ class Integer extends Variable {
         this.value -= pValue;
     }
 
-    public void times(Integer pObj) {
+    public void times(Integer_ pObj) {
         this.value *= pObj.getValue();
     }
 
@@ -67,7 +67,7 @@ class Integer extends Variable {
         this.value *= pValue;
     }
 
-    public void division(Integer pObj) {
+    public void division(Integer_ pObj) {
         this.value /= pObj.getValue();
     }
 
@@ -75,7 +75,8 @@ class Integer extends Variable {
         this.value /= pValue;
     }
 
-    public void pow(Integer pObj) {
+    //(int)->casting because pow() returns a Long
+    public void pow(Integer_ pObj) {
         this.value = (int) Math.pow(this.value, pObj.getValue());
     }
 
@@ -83,7 +84,7 @@ class Integer extends Variable {
         this.value = (int) Math.pow(this.value, pValue);
     }
 
-    public void mod(Integer pObj) {
+    public void mod(Integer_ pObj) {
         this.value %= pObj.getValue();
     }
 

@@ -1,8 +1,8 @@
-class Double extends Variable {
+class Double_ extends Variable {
     private double value;
 
-    public Double(String pName, double pValue) {
-        super(pName, "DOUBLE");
+    public Double_(String pName, String pValue) {
+        super(pName, "DOUBLE_");
         this.setValue(pValue);
     }
 
@@ -10,31 +10,31 @@ class Double extends Variable {
         return this.value;
     }
 
-    public void setValue(double pValue) {
-        this.value = pValue;
+    public void setValue(String pValue) {
+        this.value = Double.parseDouble(pValue);
     }
 
-    public boolean greaterThan(Double pObj) {
+    public boolean greaterThan(Double_ pObj) {
         return (this.value > pObj.getValue());
     }
 
-    public boolean lessThan(Double pObj) {
+    public boolean lessThan(Double_ pObj) {
         return (this.value < pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Double pObj) {
+    public boolean greaterThanOrEqualTo(Double_ pObj) {
         return (this.value >= pObj.getValue());
     }
 
-    public boolean lessThanOrEqualTo(Double pObj) {
+    public boolean lessThanOrEqualTo(Double_ pObj) {
         return (this.value <= pObj.getValue());
     }
 
-    public boolean equals(Double pObj) {
+    public boolean equals(Double_ pObj) {
         return (this.value == pObj.getValue());
     }
 
-    public boolean differs(Double pObj) {
+    public boolean differs(Double_ pObj) {
         return (this.value != pObj.getValue());
     }
 
@@ -42,7 +42,7 @@ class Double extends Variable {
     * ?? Return a Double type or a void ??
      * */
 
-    public void plus(Double pObj) {
+    public void plus(Double_ pObj) {
         this.value += pObj.getValue();
     }
 
@@ -50,7 +50,7 @@ class Double extends Variable {
         this.value += pValue;
     }
 
-    public void minus(Double pObj) {
+    public void minus(Double_ pObj) {
         this.value -= pObj.getValue();
     }
 
@@ -58,7 +58,7 @@ class Double extends Variable {
         this.value -= pValue;
     }
 
-    public void times(Double pObj) {
+    public void times(Double_ pObj) {
         this.value *= pObj.getValue();
     }
 
@@ -66,7 +66,7 @@ class Double extends Variable {
         this.value *= pValue;
     }
 
-    public void division(Double pObj) {
+    public void division(Double_ pObj) {
         this.value /= pObj.getValue();
     }
 
@@ -74,7 +74,7 @@ class Double extends Variable {
         this.value /= pValue;
     }
 
-    public void pow(Double pObj) {
+    public void pow(Double_ pObj) {
         this.value = (double) Math.pow(this.value, pObj.getValue());
     }
 
@@ -82,11 +82,4 @@ class Double extends Variable {
         this.value = (double) Math.pow(this.value, pValue);
     }
 
-    public void mod(Double pObj) {
-        this.value %= pObj.getValue();
-    }
-
-    public void mod(double pValue) {
-        this.value %= pValue;
-    }
 }
