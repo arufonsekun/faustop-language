@@ -1,16 +1,16 @@
-//package faustop.core.vars;
-
 class Variable {
+
+    /*
+     * Superclass of all types. Atributes name and type are commom
+     * to every object type like Boolean, Integer, etc.
+     * Author: Junior Vitor Ramisch
+     * E-mail: junior.ramisch@gmail.com
+     * */
 
     private String name;
     private String type;
 
     public Variable (String pName, String pType) {
-        /* *
-           * Constructor of class Variable:
-           * name represents the variable name
-           * type represents the variabel type
-           * */
         setName(pName);
         setType(pType);
 

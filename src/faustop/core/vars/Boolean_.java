@@ -1,14 +1,15 @@
-//package faustop.core.vars;
-
 class Boolean_ extends Variable {
+
+    /*
+     * Boolean type represents a faustop logic
+     * value.
+     * Author: Junior Vitor Ramisch
+     * E-mail: junior.ramisch@gmail.com
+     * */
 
     private boolean value;
 
     public Boolean_ (String pName, String pValue) {
-        /* *
-           * Boolean_ constructor, has name and value as parameters
-           * super() calls Variable constructor
-           * */
         super(pName, "BOOLEAN_");
         setValue(pValue);
     }
