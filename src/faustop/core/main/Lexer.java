@@ -11,6 +11,9 @@ class Lexer {
      *
      * Author: Jean Carlo Hilger.
      * E-mail: hilgerjeancarlo@gmail.com.
+	 *
+	 * Author: Junior Vitor Ramisch.
+	 * E-mail: junior.ramisch@gmail.com.
      * */
 
     // the full input (.fau) code
@@ -20,6 +23,9 @@ class Lexer {
 	// last position in the code where a '\n' was found
 	private int lastRow;
 	// TODO: FIX THIS GAMBIARRA
+	private boolean openQuote = false;
+	private String lastLexeme = "";
+
 	private boolean openQuote = false;
 	private String lastLexeme = "";
 
@@ -37,13 +43,6 @@ class Lexer {
 
 		String type = Symbols.symbols.get(lexeme);
 
-		// Pattern reg = Pattern.compile("([A-Za-z])\\w+");
-		// ^[a-zA-Z_$][a-zA-Z_$0-9]*$
-		// "^[_a-z]\\w*$"
-		// Matcher mat = reg.matcher(lexeme);
-
-		// System.out.println(this.lastLexeme.equals("\""));
-		// System.out.println("--------------" + lexeme);
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
 			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
                 && !this.lastLexeme.equals("\"")) {
@@ -93,33 +92,32 @@ class Lexer {
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
             if (current == '\"') {
+
                 if (!this.openQuote && this.isDelimiter(previous)) {
-                    // System.out.println("Birl");
                     this.openQuote = !this.openQuote;
-                    //this.codePosition++;
-                    return lexeme;
-                }
+					this.codePosition++;
 
-                if (this.openQuote && !lexeme.equals("")) {
+		            return "\"";
 
+				} else if (this.openQuote && !lexeme.equals("")) {
                     this.openQuote = !this.openQuote;
-                    return lexeme;
+					// System.out.println("LIXO |" + lexeme + "|");
+
+		            return lexeme;
                 }
-
-				this.codePosition++;
-				return "\"";
-
-			// comments check
-			}
-
-			// gambiarra? nao
-			else if (!this.openQuote && (this.codePosition > 0 &&
-				 this.isMathDelimiter(previous)) &&
-				(this.code.charAt(this.codePosition) == '=') &&
-				!lexeme.isEmpty()) {
 
 				this.consumeBlanks();//BUG: here is the inseto
 				this.codePosition++;
+
+				return "\"";
+
+            } else if (!this.openQuote
+                       && (this.codePosition > 0
+                           && this.isMathDelimiter(previous))
+                       && (this.code.charAt(this.codePosition) == '=')
+                       && !lexeme.isEmpty()) {
+                this.codePosition++;
+				this.consumeBlanks();
 				return lexeme + current;
 
 			// delimiters check
@@ -145,13 +143,14 @@ class Lexer {
 
 	private void consumeBlanks() {
 		/*
-		 * Ignores the spaces (' ') in the input code
+		 * Ignores the blank spaces (e.g. ' ', '\t', '\n') in the input code
 		 * when tokenizing.
 		 * */
 
 		while (this.codePosition < this.code.length() &&
-			   (this.code.charAt(this.codePosition) == ' ' ||
-			    this.code.charAt(this.codePosition) == '\n')) {
+			   (this.code.charAt(this.codePosition) == ' '
+			    || this.code.charAt(this.codePosition) == '\n'
+                || this.code.charAt(this.codePosition) == '\t')) {
 			this.codePosition++;
 		}
 	}
@@ -176,7 +175,7 @@ class Lexer {
 
 		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
 		                     '=', ';', '?', '\n', '\'', ' ', '<',
-						 	 '>', '^'};
+						 	 '>', '^', '!'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {
@@ -193,7 +192,7 @@ class Lexer {
 		* the given char is a MATH delimiter.
 		* */
 
-		char[] delimiters = {'+', '*', '-', '/', '>', '<', '^'};
+		char[] delimiters = {'+', '*', '-', '/', '>', '<', '^', '!'};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {

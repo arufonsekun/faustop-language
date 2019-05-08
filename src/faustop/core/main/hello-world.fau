@@ -1,2 +1,2 @@
-inte a = "hello world";
+inte a;
 mostrai(a);
