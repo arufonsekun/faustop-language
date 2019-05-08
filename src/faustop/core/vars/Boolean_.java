@@ -1,3 +1,5 @@
+package vars;
+
 class Boolean_ extends Variable {
 
     /*
@@ -9,8 +11,9 @@ class Boolean_ extends Variable {
 
     private boolean value;
 
-    public Boolean_ () {
+    public Boolean_ (String pName, String pValue) {
         super(pName, "BOOLEAN_");
+        this.setValue(pValue);
     }
 
     public boolean getValue() {

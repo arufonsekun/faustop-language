@@ -1,9 +1,11 @@
-class Double_ extends Variable {
+package vars;
+
+public class Double_ extends Variable {
     private double value;
 
-    public Double_() {
+    public Double_(String pName, String pValue) {
         super(pName, "DOUBLE_");
-
+        this.setValue(pValue);
     }
 
     public double getValue() {

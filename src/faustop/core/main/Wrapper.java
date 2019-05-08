@@ -31,13 +31,14 @@ class Wrapper {
 
         while (token != null) {
             parser.addToken(token); // adds the token into the token list
-            System.out.println(""+token.getName()+" type: "+token.getType());
+            // System.out.println(""+token.getName()+" type: "+token.getType());
             token = lexer.getNextToken();
         }
 
         parser.buildParseTree(); //build the parse tree based on the token list
         parseTree = parser.getParseTree(); //get the parseTree
-		parseTree.traverse();
+        // parseTree.traverse(parseTree.root());
+        interpreter.run(parseTree.root());
         // interpreter.run(parseTree.root());
 
     }

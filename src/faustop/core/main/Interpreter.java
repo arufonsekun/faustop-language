@@ -1,10 +1,14 @@
 import java.util.HashMap;
-import faustop.core.vars.Variable;
+import java.util.ArrayList;
+import vars.*;
 
 class Interpreter {
 
-    private HashMap<String, Variable> ram = new HashMap<String, Variable>();
-    // private Tree parseTree;
+    private HashMap<String, Integer_> ramInt = new HashMap<String, Integer_>();
+    private HashMap<String, Double_> ramDob = new HashMap<String, Double_>();
+    private HashMap<String, Char_> ramCh = new HashMap<String, Char_>();
+    private HashMap<String, String_> ramStr = new HashMap<String, String_>();
+    private HashMap<String, Boolean_> ramBo = new HashMap<String, Boolean_>();
 
     public void run(Node pTreeRoot) {
 
@@ -24,56 +28,54 @@ class Interpreter {
     }
 
     private void newVariable(Node pParent) {
-        String type, name, value;
+        String type="", name="", value="";
         boolean assign;
-        Variable var;
 
         for (Node child : pParent.children()) {
-            if (this.isString(child.key())) {
-                var = new String_();
-
-            } else if (this.isChar(child.key())) {
-                var = new Char_();
-
-            } else if (this.isInt(child.key())) {
-                var = new Integer_();
-
-            } else if (this.isDouble(child.key())) {
-                var = new Double_();
-
-            } else if (this.isBool(child.key())) {
-                var = new Boolean_();
-
-            } else if (this.is)
+            if (Symbols.isKeyWord(child.key())) {
+                type = child.key().getName();
+            }
+            else if (Symbols.isIdentifier(child.key())) {
+                name = child.key().getName();
+            }
+            else if (Symbols.isExpression(child.key())) {
+                //value = Expression parse handler
+            }
         }
 
-        //inte a;
-        System.out.println((pParent.children()).get(0).key().getName());
-        System.out.println((pParent.children()).get(1).key().getName());
-        System.out.println((pParent.children()).get(2).key().getName());
+        if (this.isString(type)) {
+            String_ a = new String(0)
+        } else if (this.isChar(type)) {
 
-        // if (children.get(2).key().getType().equals("delimitersemicolon")) {
-        //     this.ram[]
-        // }
+        } else if (this.isInt(type)) {
+
+        } else if (this.isDouble(type)) {
+
+        } else {
+
+        }
+
+        // System.out.println(ram.get(a).getName());
+        // ram.put(name, var);
     }
 
-    private boolean isString(Token pToken) {
+    private boolean isString(String pToken) {
         return pToken.getName().equals("oloko");
     }
 
-    private boolean isChar(Token pToken) {
+    private boolean isChar(String pToken) {
         return pToken.getName().equals("olokinho");
     }
 
-    private boolean isInt(Token pToken) {
+    private boolean isInt(String pToken) {
         return pToken.getName().equals("inte");
     }
 
-    private boolean isDouble(Token pToken) {
+    private boolean isDouble(String pToken) {
         return pToken.getName().equals("double");
     }
 
-    private boolean isBool(Token pToken) {
+    private boolean isBool(String pToken) {
         return pToken.getName().equals("bool");
     }
 

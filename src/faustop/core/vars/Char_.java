@@ -1,9 +1,12 @@
-class Char_ extends Variable {
+package vars;
+
+public class Char_ extends Variable {
 
     private char value;
 
-    public Char_() {
+    public Char_(String pName, char pValue) {
         super(pName, "CHAR_");
+        this.setValue(pValue);
     }
 
     public void setValue(char pValue) {

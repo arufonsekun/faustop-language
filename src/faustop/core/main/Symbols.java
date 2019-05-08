@@ -7,26 +7,26 @@ import java.util.Collections;
 
 class Symbols {
 
-	private static final String kwBI = "keywordbuiltin";
-    private static final String kwFC = "keywordflowcontroller";
-    private static final String kwType = "keywordtype";
+	public static final String kwBI = "keywordbuiltin";
+    public static final String kwFC = "keywordflowcontroller";
+    public static final String kwType = "keywordtype";
 
-    private static final String id = "identifier";
+    public static final String id = "identifier";
 
-    private static final String opAritm = "operatorarithmetic";
-    private static final String opLog = "operatorlogic";
-    private static final String opAssign = "operatorassignment";
-    private static final String opRel = "operatorrelational";
+    public static final String opAritm = "operatorarithmetic";
+    public static final String opLog = "operatorlogic";
+    public static final String opAssign = "operatorassignment";
+    public static final String opRel = "operatorrelational";
 
-    private static final String delParOpen = "delimiterparenthesesopen";
-    private static final String delParClose = "delimiterparenthesesclose";
-    private static final String delCurlyOpen = "delimitercurlybracketopen";
-    private static final String delCurlyClose = "delimitercurlybracketclose";
-    private static final String delQuot = "delimiterquotationmark";
-    private static final String delDoubQuot = "delimiterdoublequotationmark";
-    private static final String delSemicolon = "delimitersemicolon";
+    public static final String delParOpen = "delimiterparenthesesopen";
+    public static final String delParClose = "delimiterparenthesesclose";
+    public static final String delCurlyOpen = "delimitercurlybracketopen";
+    public static final String delCurlyClose = "delimitercurlybracketclose";
+    public static final String delQuot = "delimiterquotationmark";
+    public static final String delDoubQuot = "delimiterdoublequotationmark";
+    public static final String delSemicolon = "delimitersemicolon";
 
-    private static final String lit = "literal";
+    public static final String lit = "literal";
 
     public static final Map<String, String> symbols;
 
@@ -102,9 +102,9 @@ class Symbols {
          * a keyword type.
          * */
 
-        if (pToken.getType().equals(this.kwBI)
-            || pToken.getType().equals(this.kwFC)
-            || pToken.getType().equals(this.kwType)) {
+        if (pToken.getType().equals(Symbols.kwBI)
+            || pToken.getType().equals(Symbols.kwFC)
+            || pToken.getType().equals(Symbols.kwType)) {
             return true;
         }
 
@@ -116,11 +116,11 @@ class Symbols {
          * Utility function checks if the given token starts an expression.
          * */
 
-        if (pToken.getType().equals(this.id)
-            || pToken.getType().equals(this.lit)
-            || pToken.getType().equals(this.delParOpen)
-            || pToken.getType().equals(this.delQuot)
-            || pToken.getType().equals(this.delDoubQuot)) {
+        if (pToken.getType().equals(Symbols.id)
+            || pToken.getType().equals(Symbols.lit)
+            || pToken.getType().equals(Symbols.delParOpen)
+            || pToken.getType().equals(Symbols.delQuot)
+            || pToken.getType().equals(Symbols.delDoubQuot)) {
             return true;
         }
 
@@ -132,13 +132,13 @@ class Symbols {
          * Utility function checks whether the given token represents
          * */
 
-        if (pToken.getType().equals(this.opAritm)
-            || pToken.getType().equals(this.opLog)
-            || pToken.getType().equals(this.opRel)
-            || pToken.getType().equals(this.delParOpen)
-            || pToken.getType().equals(this.delParClose)
-            || pToken.getType().equals(this.delQuot)
-            || pToken.getType().equals(this.delDoubQuot)) {
+        if (pToken.getType().equals(Symbols.opAritm)
+            || pToken.getType().equals(Symbols.opLog)
+            || pToken.getType().equals(Symbols.opRel)
+            || pToken.getType().equals(Symbols.delParOpen)
+            || pToken.getType().equals(Symbols.delParClose)
+            || pToken.getType().equals(Symbols.delQuot)
+            || pToken.getType().equals(Symbols.delDoubQuot)) {
             return true;
         }
 
@@ -150,11 +150,11 @@ class Symbols {
          * Utility function checks if pToken is ends an expression.
          */
 
-        if (pToken.getType().equals(this.id)
-            || pToken.getType().equals(this.lit)
-            || pToken.getType().equals(this.delParClose)
-            || pToken.getType().equals(this.delQuot)
-            || pToken.getType().equals(this.delDoubQuot)) {
+        if (pToken.getType().equals(Symbols.id)
+            || pToken.getType().equals(Symbols.lit)
+            || pToken.getType().equals(Symbols.delParClose)
+            || pToken.getType().equals(Symbols.delQuot)
+            || pToken.getType().equals(Symbols.delDoubQuot)) {
             return true;
         }
 
@@ -168,7 +168,7 @@ class Symbols {
         * Actually, checks if the next tokens are a new instruction.
         * */
 
-        if (pToken.getType().equals(this.delCurlyOpen)) {
+        if (pToken.getType().equals(Symbols.delCurlyOpen)) {
             return true;
         }
 
@@ -183,14 +183,26 @@ class Symbols {
         * a instruction.
         * */
 
-        if (pToken.getType().equals(this.delSemicolon)
-            || pToken.getType().equals(this.delCurlyClose)) {
-            // || pToken.getType().equals(this.delSemicolon)) {
+        if (pToken.getType().equals(Symbols.delSemicolon)
+            || pToken.getType().equals(Symbols.delCurlyClose)) {
+            // || pToken.getType().equals(Symbols.delSemicolon)) {
             // System.out.println("\tisEndOfInstruction:::::: " + pToken.getType());
             return true;
         }
 
         return false;
     }
+
+	public static boolean isIdentifier(Token pToken) {
+		return pToken.getType().equals(Symbols.id);
+	}
+
+	public static boolean isAssignment(Token pToken) {
+		return pToken.getType().equals(Symbols.opAssign);
+	}
+
+	public static boolean isExpression(Token pToken) {
+		return pToken.getName().equals("EXP");
+	}
 
 }

@@ -1,9 +1,12 @@
-class Integer_ extends Variable {
+package vars;
+
+public class Integer_ extends Variable {
 
     private int value;
 
-    public Integer_() {
-        super(name, "INTEGER_");
+    public Integer_(String pName, String pValue) {
+        super(pName, "INTEGER_");
+        this.setValue(pValue);
     }
 
     public int getValue() {

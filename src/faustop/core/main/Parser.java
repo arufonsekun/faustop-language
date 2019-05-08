@@ -80,13 +80,13 @@ class Parser {
             // current is keyword
             if (Symbols.isKeyWord(token)
                 || (currentToken > 0
-                	&& this.tokenList.get(currentToken - 1).getType().equals(this.delCurlyOpen))) {
+                	&& this.tokenList.get(currentToken - 1).getType().equals(Symbols.delCurlyOpen))) {
                 Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
 
                 this.parseTree.addNode(insParent);
 
                 if (Symbols.isStartOfExpression(token)
-                    && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
+                    && !this.tokenList.get(currentToken + 1).getType().equals(Symbols.opAssign)) {
                     Node expParent = new Node(new Token("EXP", "", -1, -1), insParent);
 
                     this.parseTree.addNode(expParent.key(), insParent);
@@ -107,7 +107,7 @@ class Parser {
             } else {
                 // current is a valid start of expression
                 if (Symbols.isStartOfExpression(token)
-                    && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
+                    && !this.tokenList.get(currentToken + 1).getType().equals(Symbols.opAssign)) {
                     Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
 
                     this.parseTree.addNode(expParent.key(), pParent);
@@ -124,7 +124,7 @@ class Parser {
 
                 // current token may ends an instruction
                 } else if (Symbols.isEndOfInstruction(token)) {
-                    if (token.getType().equals(this.delCurlyClose)) {
+                    if (token.getType().equals(Symbols.delCurlyClose)) {
                         this.parseTree.addNode(token, pParent.parent());
 
                     } else {
@@ -172,13 +172,13 @@ class Parser {
             }
 
             // possibly an end of expression token
-            if (this.isEndOfExpression(token)) {
+            if (Symbols.isEndOfExpression(token)) {
                 // next token may expand the current expression
                 if (pCurrentToken < maxSize - 1
-                    && this.isMiddleOfExpression(this.tokenList.get(pCurrentToken + 1))
+                    && Symbols.isMiddleOfExpression(this.tokenList.get(pCurrentToken + 1))
                     || (pCurrentToken > 0
-                        && !this.tokenList.get(pCurrentToken - 1).getType().equals(this.delDoubQuot))
-                    && !this.isEndOfInstruction(this.tokenList.get(pCurrentToken + 1))) {
+                        && !this.tokenList.get(pCurrentToken - 1).getType().equals(Symbols.delDoubQuot))
+                    && !Symbols.isEndOfInstruction(this.tokenList.get(pCurrentToken + 1))) {
                     children.add(new Node(token, pParent));
 
                 // the expression is actually over
@@ -197,7 +197,5 @@ class Parser {
         this.parseTree.addNode(children, pParent.parent());
         return pCurrentToken;
     }
-
-
 
 }

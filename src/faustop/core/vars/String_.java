@@ -1,9 +1,12 @@
+package vars;
+
 class String_ extends Variable {
 
     private String value;
 
-    public String_() {
+    public String_(String name, String pValue) {
         super(name, "_STRING");
+        this.setValue(pValue);
     }
 
     public void setValue(String pValue) {
