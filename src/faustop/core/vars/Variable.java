@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 package vars;
 
 public class Variable {
+=======
+class Variable {
+>>>>>>> 8b1165647ead12ecf8af6a87e1a6995260fed1d4
 
     /*
      * Superclass of all types. Atributes name and type are commom
@@ -47,9 +51,15 @@ public class Variable {
         this.throwError();
     }
 
+<<<<<<< HEAD
     /*public void logicalNot() {
         this.throwError();
     }*/
+=======
+    public void logicalNot() {
+        this.throwError();
+    }
+>>>>>>> 8b1165647ead12ecf8af6a87e1a6995260fed1d4
 
     public void equals(Variable pObj) {
         this.throwError();
