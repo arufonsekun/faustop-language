@@ -12,10 +12,11 @@ class Nain {
 		// String a = "inte a = cu+bosta + 2 * 3 + (1 + 2)/5^9;\n"; // Parser ok
 		// String a = "if(4 > 2) {\n\t1+1;\n}\n";
 		// String a = "if(a > 4){\nif(b > 3){\na=1;\n}\n}";
-		
+
 		// String a = "inte a = 10 + 2 - 8 + 3;";
-		String a = "inte cucuu = 9 * 1 - 10 + 2 * 8 - 3;";
-		// String a = "inte cucuu = 9;";
+		// String a = "inte cucuu = 9 * 1 - 10 + 2 * 8 - 3;";
+		// String a = "inte cucuu = 6 + 9 * 5 * 7 - 9 + 4 * 2 - 6;";
+		String a = "inte cucuu = 6 + 9 * 5 / 15 - 9 + 4 * 2 / 8;";
 
 		// se passar pra esse GG:
 		// String a = "inte a = 0;\nwhile(a > 4) {\n\ta += 1;\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\n}\n"; // parser OK
@@ -40,7 +41,7 @@ class Nain {
 
 		superman.buildParseTree();
 		Tree bDeBosta = superman.getParseTree();
-		
+
 		try {
 			Nain.traverse(bDeBosta.root());
 		} catch (Exception e) {
@@ -54,7 +55,7 @@ class Nain {
 		// String b = "inte a = 3 + 2 * 3;\n";
 
 	}
-	
+
 	public static void traverse(Node pRoot) {
         /*
          * Traverse through the nodes of the Tree.
@@ -68,15 +69,15 @@ class Nain {
         for (Node child : pRoot.children()) {
             Nain.traverse(child);
         }
-        
+
 		if (pRoot.parent() != null
 			&& pRoot.parent().key().getType().equals("EXP")) {
 			// System.out.println(pRoot.children());
 			// ExpressionParser.eval(child);
 			Nain.cu.add(pRoot);
-			
+
 		}
-		
+
         // System.out.println(pRoot.key().getType() + " -> " + pRoot.parent().key().getType());
     }
 
