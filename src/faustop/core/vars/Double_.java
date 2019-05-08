@@ -83,3 +83,4 @@ class Double_ extends Variable {
     }
 
 }
+// Reviewed by Fernando
