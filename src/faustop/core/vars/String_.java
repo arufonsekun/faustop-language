@@ -1,11 +1,11 @@
 package vars;
 
-class String_ extends Variable {
+public class String_ extends Variable {
 
     private String value;
 
     public String_(String name, String pValue) {
-        super(name, "_STRING");
+        super(name, "STRING");
         this.setValue(pValue);
     }
 

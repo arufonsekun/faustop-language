@@ -26,9 +26,6 @@ class Lexer {
 	private boolean openQuote = false;
 	private String lastLexeme = "";
 
-	private boolean openQuote = false;
-	private String lastLexeme = "";
-
     public void setCode(String pCode) {
         this.code = pCode;
     }

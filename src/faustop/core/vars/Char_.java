@@ -5,7 +5,7 @@ public class Char_ extends Variable {
     private char value;
 
     public Char_(String pName, char pValue) {
-        super(pName, "CHAR_");
+        super(pName, "CHAR");
         this.setValue(pValue);
     }
 

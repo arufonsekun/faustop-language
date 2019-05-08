@@ -5,7 +5,7 @@ public class Integer_ extends Variable {
     private int value;
 
     public Integer_(String pName, String pValue) {
-        super(pName, "INTEGER_");
+        super(pName, "INTEGER");
         this.setValue(pValue);
     }
 

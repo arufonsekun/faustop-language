@@ -4,7 +4,7 @@ public class Double_ extends Variable {
     private double value;
 
     public Double_(String pName, String pValue) {
-        super(pName, "DOUBLE_");
+        super(pName, "DOUBLE");
         this.setValue(pValue);
     }
 

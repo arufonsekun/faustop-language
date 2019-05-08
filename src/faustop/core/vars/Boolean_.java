@@ -1,6 +1,6 @@
 package vars;
 
-class Boolean_ extends Variable {
+public class Boolean_ extends Variable {
 
     /*
      * Boolean type represents a faustop logic
@@ -12,7 +12,7 @@ class Boolean_ extends Variable {
     private boolean value;
 
     public Boolean_ (String pName, String pValue) {
-        super(pName, "BOOLEAN_");
+        super(pName, "BOOLEAN");
         this.setValue(pValue);
     }
 
