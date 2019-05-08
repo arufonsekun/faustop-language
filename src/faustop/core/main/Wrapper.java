@@ -1,3 +1,4 @@
+package main;
 import java.io.File;
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ class Wrapper {
 
         while (token != null) {
             parser.addToken(token); // adds the token into the token list
-            // System.out.println(""+token.getName()+" type: "+token.getType());
+            System.out.println(""+token.getName()+" type: "+token.getType());
             token = lexer.getNextToken();
         }
 

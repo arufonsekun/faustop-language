@@ -1,5 +1,5 @@
 //package faustop.core.main;
-
+package main;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,11 +20,11 @@ class Lexer {
     private String code;
     // last position reading the code
     private int codePosition;
-	// last position in the code where a '\n' was found
-	private int lastRow;
-	// TODO: FIX THIS GAMBIARRA
-	private boolean openQuote = false;
-	private String lastLexeme = "";
+  	// last position in the code where a '\n' was found
+  	private int lastRow;
+  	// TODO: FIX THIS GAMBIARRA
+  	private boolean openQuote = false;
+  	private String lastLexeme = "";
 
     public void setCode(String pCode) {
         this.code = pCode;
@@ -46,7 +46,8 @@ class Lexer {
 				type = "identifier";
 
 			} else if (Pattern.matches("[0-9]+", lexeme)
-                       || this.lastLexeme.equals("\"")) {
+                       || this.lastLexeme.equals("\"")
+                           || Pattern.matches("^(?:0|[1-9][0-9]*)\\.[0-9]+$", lexeme)) {
 				type = "literal";
 
 			} else {

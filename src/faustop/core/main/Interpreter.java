@@ -1,14 +1,15 @@
+package main;
 import java.util.HashMap;
 import java.util.ArrayList;
 import vars.*;
 
 class Interpreter {
 
-    private HashMap<String, Integer_> intMap = new HashMap<String, Integer_>();
-    private HashMap<String, Double_> douMap = new HashMap<String, Double_>();
-    private HashMap<String, Char_> charMap = new HashMap<String, Char_>();
-    private HashMap<String, String_> strMap = new HashMap<String, String_>();
-    private HashMap<String, Boolean_> booMap = new HashMap<String, Boolean_>();
+    public HashMap<String, Integer_> intMap = new HashMap<String, Integer_>();
+    public HashMap<String, Double_> douMap = new HashMap<String, Double_>();
+    public HashMap<String, Char_> charMap = new HashMap<String, Char_>();
+    public HashMap<String, String_> strMap = new HashMap<String, String_>();
+    public HashMap<String, Boolean_> booMap = new HashMap<String, Boolean_>();
 
     public void run(Node pTreeRoot) {
 

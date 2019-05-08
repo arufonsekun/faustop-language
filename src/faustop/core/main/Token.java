@@ -1,5 +1,5 @@
 //package faustop.core.main;
-
+package main;
 class Token {
     /*
      * Represents a Token.
