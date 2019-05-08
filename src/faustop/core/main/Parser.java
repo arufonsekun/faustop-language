@@ -175,6 +175,8 @@ class Parser {
         ArrayList<Node> children = new ArrayList<Node>();
         Queue<String> parQueue = new LinkedList<>();
 
+        System.out.println(pParent.key().getType());
+
         for (; pCurrentToken < maxSize; pCurrentToken++) {
             token = this.tokenList.get(pCurrentToken);
 
@@ -214,7 +216,7 @@ class Parser {
             }
         }
 
-        this.parseTree.addNode(children, pParent.parent());
+        this.parseTree.addNode(children, pParent);
         return pCurrentToken;
     }
 

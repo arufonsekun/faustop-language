@@ -115,17 +115,15 @@ class Tree {
         }
 
         for (Node child : pRoot.children()) {
+            if (child.key().getType().equals("EXP")) {
+                // ExpressionParser.eval(child);
+                // System.out.println(child.children());
+                
+            }
             this.traverse(child);
-            // System.out.println(root.key().getName());
         }
-        // if (pRoot.key().getType().equals("INSTR")) {
-        //     System.out.println(pRoot.parent().children().indexOf(pRoot));
-        // }
+        
         System.out.println(pRoot.key().getType() + " -> " + pRoot.parent().key().getType());
-        // if (!pRoot.key().getName().equals(""))
-            // System.out.println(pRoot.key().getName());
-        // System.out.println(root.key().getType());
-        // faz coisas in order
     }
 
 }
