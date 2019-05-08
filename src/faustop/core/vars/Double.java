@@ -1,19 +1,15 @@
 package vars;
 
-public class Double_ extends Variable {
+public class Double extends Variable {
     private double value;
 
-    public Double_(String pName, String pValue) {
-        super(pName, "DOUBLE");
+    public Double(String pName, String pValue) {
+        super(pName, "DOUBLE", pValue);
         this.setValue(pValue);
     }
 
-    public double getValue() {
-        return this.value;
-    }
-
-    public void setValue(String pValue) {
-        this.value = Double.parseDouble(pValue);
+    public double getDValue() {
+        return Double.parseDouble(this.getValue());
     }
 
     public boolean greaterThan(Double_ pObj) {
