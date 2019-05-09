@@ -1,33 +1,40 @@
-package vars;
+package faustop.core.vars;
 
-public class Stringue extends Variable {
+public class String_ extends Variable {
 
-    public Stringue(String name, String pValue) {
-        super(name, "STRING", pValue);
+	private String value;
+
+    public String_(String name, String pValue) {
+        super(name, "STRING");
+		this.setValue(pValue);
     }
 
     public void setValue(String pValue) {
-        super.setValue(pValue);
+        this.value = pValue;
     }
 
-    public boolean greaterThan(Stringue pObj) {
+	public String getValue() {
+		return this.value;
+	}
+
+    public boolean greaterThan(String_ pObj) {
         return this.lexicalOrder(pObj.getValue());
     }
 
-    public boolean lessThan(Stringue pObj) {
+    public boolean lessThan(String_ pObj) {
         if (this.equal(pObj)) return false;
         return !this.lexicalOrder(pObj.getValue());
     }
 
-    public boolean equal(Stringue pObj) {
+    public boolean equal(String_ pObj) {
         return this.getValue().equals(pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Stringue pObj) {
+    public boolean greaterThanOrEqualTo(String_ pObj) {
         return (this.greaterThan(pObj) || this.equal(pObj));
     }
 
-    public boolean lessThanOrEqualTo(Stringue pObj) {
+    public boolean lessThanOrEqualTo(String_ pObj) {
         return (this.lessThan(pObj) || this.equal(pObj));
     }
 

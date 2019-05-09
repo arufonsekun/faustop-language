@@ -1,6 +1,6 @@
 package vars;
 
-public class Boolean extends Variable {
+public class Boolean_ extends Variable {
 
     /*
      * Boolean type represents a faustop logic
@@ -10,8 +10,8 @@ public class Boolean extends Variable {
      * */
     private boolean value;
 
-    public Boolean (String pName, String pValue) {
-        super(pName, "BOOLEAN", pValue);
+    public Boolean_ (String pName) {
+        super(pName, "BOOLEAN");
     }
 
     public boolean getValue() {
@@ -22,11 +22,11 @@ public class Boolean extends Variable {
         this.setValue(pValue);
     }
 
-    public boolean logicalAnd(Boolean pObj) {
+    public boolean logicalAnd(Boolean_ pObj) {
         return (this.value && pObj.getValue());
     }
 
-    public boolean logicalOr(Boolean pObj) {
+    public boolean logicalOr(Boolean_ pObj) {
         return (this.value || pObj.getValue());
     }
 
@@ -34,11 +34,11 @@ public class Boolean extends Variable {
         return !(this.value);
     }
 
-    public boolean equals(Boolean pObj) {
+    public boolean equals(Boolean_ pObj) {
         return (this.value == pObj.getValue());
     }
 
-    public boolean differs(Boolean pObj) {
+    public boolean differs(Boolean_ pObj) {
         return (this.value != pObj.getValue());
     }
 

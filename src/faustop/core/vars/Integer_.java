@@ -1,36 +1,43 @@
 package faustop.core.vars;
 
-public class Inte extends Variable {
+public class Integer_ extends Variable {
 
-    public Inte(String pName, String pValue) {
-        super(pName, "INTEGER", pValue);
+	private int value;
+
+    public Integer_(String pName, String pValue) {
+        super(pName, "INTEGER");
+		this.setValue(pValue);
     }
 
     public int getValue() {
-        return Integer.parseInt(this.getStrValue());
+        return this.value;
     }
 
-    public boolean greaterThan(Inte pObj) {
+	public void setValue(String pValue) {
+		this.value = Integer.parseInt(pValue);
+	}
+
+    public boolean greaterThan(Integer_ pObj) {
         return (this.getValue() > pObj.getValue());
     }
 
-    public boolean lessThan(Inte pObj) {
+    public boolean lessThan(Integer_ pObj) {
         return (this.getValue() < pObj.getValue());
     }
 
-    public boolean greaterThanOrEqualTo(Inte pObj) {
+    public boolean greaterThanOrEqualTo(Integer_ pObj) {
         return (this.getValue() >= pObj.getValue());
     }
 
-    public boolean lessThanOrEqualTo(Inte pObj) {
+    public boolean lessThanOrEqualTo(Integer_ pObj) {
         return (this.getValue() <= pObj.getValue());
     }
 
-    public boolean equals(Inte pObj) {
+    public boolean equals(Integer_ pObj) {
         return (this.getValue() == pObj.getValue());
     }
 
-    public boolean differs(Inte pObj) {
+    public boolean differs(Integer_ pObj) {
         return (this.getValue() != pObj.getValue());
     }
 
@@ -38,7 +45,7 @@ public class Inte extends Variable {
      * ?? Return a Integer type or a void ??
      * */
 
-    public void plus(Inte pObj) {
+    public void plus(Integer_ pObj) {
         this.setValue(Integer.toString(this.getValue() + pObj.getValue()));
     }
 
@@ -46,7 +53,7 @@ public class Inte extends Variable {
         this.setValue(Integer.toString(this.getValue() + pValue));
     }
 
-    public void minus(Inte pObj) {
+    public void minus(Integer_ pObj) {
         this.setValue(Integer.toString(this.getValue() - pObj.getValue()));
     }
 
@@ -54,7 +61,7 @@ public class Inte extends Variable {
         this.setValue(Integer.toString(this.getValue() - pValue));
     }
 
-    public void times(Inte pObj) {
+    public void times(Integer_ pObj) {
         this.setValue(Integer.toString(this.getValue() * pObj.getValue()));
     }
 
@@ -62,7 +69,7 @@ public class Inte extends Variable {
         this.setValue(Integer.toString(this.getValue() * pValue));
     }
 
-    public void division(Inte pObj) {
+    public void division(Integer_ pObj) {
         this.setValue(Integer.toString(this.getValue() / pObj.getValue()));
     }
 
@@ -75,7 +82,7 @@ public class Inte extends Variable {
         this.setValue(Integer.toString((int) Math.pow(this.getValue(), pValue)));
     }
 
-    public void mod(Inte pObj) {
+    public void mod(Integer_ pObj) {
         this.setValue(Integer.toString(this.getValue() % pObj.getValue()));
     }
 

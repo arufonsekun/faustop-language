@@ -2,8 +2,9 @@ package faustop.core.test;
 import faustop.core.vars.*;
 class Main {
     public static void main(String[] args) {
-        Inte a = new Inte("a", "1");
-        a.plus(1);
-        System.out.println(a.getValue()+1);
+        Integer_ a = new Integer_("a", "1");
+		String_ b = new String_("b", "miaau");
+        a.plus(a);
+        System.out.println(b.getValue());
     }
 }
