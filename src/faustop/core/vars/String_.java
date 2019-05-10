@@ -1,4 +1,6 @@
-class String_ extends Variable {
+package faustop.core.vars;
+
+public class String_ extends Variable {
 
     private String value;
 

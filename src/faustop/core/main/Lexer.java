@@ -4,18 +4,20 @@ package faustop.core.main;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Lexer {
-    /*
-     * Represents a Lexer.
-     * A lexer is the responsible for executing the
-     * lexical analisys stage.
-     *
-     * Author: Jean Carlo Hilger.
-     * E-mail: hilgerjeancarlo@gmail.com.
-	 *
-	 * Author: Junior Vitor Ramisch.
-	 * E-mail: junior.ramisch@gmail.com.
-     * */
+import faustop.core.main.util.*;
+
+/*
+ * Represents a Lexer.
+ * A lexer is the responsible for executing the
+ * lexical analisys stage.
+ *
+ * Author: Jean Carlo Hilger.
+ * E-mail: hilgerjeancarlo@gmail.com.
+ *
+ * Author: Junior Vitor Ramisch.
+ * E-mail: junior.ramisch@gmail.com.
+ * */
+public class Lexer {
 
     // the full input (.fau) code
     private String code;
@@ -47,8 +49,11 @@ class Lexer {
 				type = "identifier";
 
 			} else if (Pattern.matches("[0-9]+", lexeme)
-                       || this.lastLexeme.equals("\"")) {
+                       || this.lastLexeme.equals("\"")
+					   || Pattern.matches("^(?:0|[1-9][0-9]*)\\.[0-9]+$", lexeme)) {
+				// TODO: separate this or in two ifs, and put literalnumber for one and literalstr to anothre
 				type = "literal";
+				System.out.println("ASGHDUIAGHSDYSDSYASDGHSUISDHBAJISDSAD: : :::   " + lexeme);
 
 			} else {
 				System.out.println("cannot find symbol");

@@ -1,8 +1,8 @@
-package faustop.core.main;
+package faustop.core.main.util;
 
 import java.util.ArrayList;
 
-class Tree {
+public class Tree {
     /*
      * Simple representation of a n-ary tree.
      * Used to store the Parse tree from

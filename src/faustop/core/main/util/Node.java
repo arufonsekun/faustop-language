@@ -1,8 +1,8 @@
-package faustop.core.main;
+package faustop.core.main.util;
 
 import java.util.ArrayList;
 
-class Node {
+public class Node {
     /*
      * Simple class representing a node of a n-ary tree.
      *

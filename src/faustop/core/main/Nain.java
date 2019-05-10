@@ -1,7 +1,11 @@
-package faustop	.core.main;
+package faustop.core.main;
+
 import java.util.ArrayList;
 
-class Nain {
+import faustop.core.main.util.*;
+import faustop.core.main.*;
+
+public class Nain {
 
 	public static ArrayList<Node> cu = new ArrayList<Node>();
 
@@ -17,7 +21,9 @@ class Nain {
 		// String a = "inte a = 10 + 2 - 8 + 3;";
 		// String a = "inte cucuu = 9 * 1 - 10 + 2 * 8 - 3;";
 		// String a = "inte cucuu = 6 + 9 * 5 * 7 - 9 + 4 * 2 - 6;";
-		String a = "inte cucuu = 6 + 9 * 5 / 15 - 9 + 4 * 2 / 8;";
+		// String a = "inte cucuu = 6 + 9 * 5 / 15 - 9 + 4 * 2 / 8 + 9 + 9 * 8 * 8 + 5;";
+		// String a = "inte cu = 5 + 1 - 6 * 3 + 9 * 9 *1 -8 +5 -45;";
+		String a = "inte cu = 116565 + 4.651651;";
 
 		// se passar pra esse GG:
 		// String a = "inte a = 0;\nwhile(a > 4) {\n\ta += 1;\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\n}\n"; // parser OK
@@ -50,6 +56,8 @@ class Nain {
 			e.printStackTrace();
 			// return null;
 		}
+
+		System.out.println(Nain.cu);
 		ExpressionParser.eval(Nain.cu);
 
 		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";

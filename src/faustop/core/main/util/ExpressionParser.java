@@ -1,4 +1,4 @@
-package faustop.core.main;
+package faustop.core.main.util;
 
 import java.util.regex.Pattern;
 import java.util.ArrayList;
@@ -7,32 +7,19 @@ import java.util.function.Consumer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Collections;
+
 import faustop.core.vars.*;
+import faustop.core.main.util.*;
 
 // TODO: search for 'test' in comments and remake the code below the comment
 
-class ExpressionParser {
-    /*
-     * Resposible for handling expressions (arithmetic and logic).
-     *
-     * Author: Jean Carlo Hilger
-     * E-mail: hilgerjeancarlo@gmail.com
-     * */
-
- 	static {
-        // arithmetic operator
-        // Consumer<Integer_> sp = Integer_()::plus;
-
-        // sp = Integer_::minus;
-        // aMap.put("-", sp);
-        // sp = Integer_times;
-        // aMap.put("*", sp); // char
-        // sp = Integer_division;
-        // aMap.put("/", sp); // string
-
-        //INTEGER_METHODS = Collections.unmodifiableMap(aMap);
-    }
-
+/*
+ * Resposible for handling expressions (arithmetic and logic).
+ *
+ * Author: Jean Carlo Hilger
+ * E-mail: hilgerjeancarlo@gmail.com
+ * */
+public class ExpressionParser {
 
     public static String eval(ArrayList<Node> pExpList) {
         /*
@@ -40,10 +27,14 @@ class ExpressionParser {
          * a string with the result value of that string.
          * */
 
-        Integer_ a = new Integer_("a", "1");
-        Integer_ b = new Integer_("b", "2");
-        OperatorParser.INTEGER_METHODS.get("+").apply(a, b);
-        System.out.println("Miaaauiaiu"+a.getValue());
+		OperatorParser.init();
+		// //
+        // Integer_ a = new Integer_("a", "2.18");
+        // Integer_ b = new Integer_("b", "9");
+		// OperatorParser.INTEGER.get("-").apply(a, 1.18);
+        // OperatorParser.INTEGER.get("*").apply(b, 9);
+		// System.out.println("\tAAAAAAAAA: " + a.getValue());
+        // System.out.println("\tBBBBBBBBB : " + b.getValue());
 
         ArrayList<Node> postfix = buildPostFix(pExpList);
         for (Node n : postfix) {
@@ -111,60 +102,99 @@ class ExpressionParser {
 
         Stack<Node> helper = new Stack<Node>();
         ArrayList<Node> expression = new ArrayList<Node>();
-        boolean first = true;
 
         // test
-        Node aux;
-        int aux1 = 0;
+        Node aux=null;
+		int aux1;
 
         for (Node child : pPostFixExp) {
             // Symbols.isIdentifier(child.key()) || Symbols.isLiteral(child.key())
-            if (child.key().getType().equals("identifier")
-                || child.key().getType().equals("literal")) {
+            if (child.key().getType().equals("literal")) {
                 helper.push(child);
+
+			} else if (child.key().getType().equals("identifier")) {
+				helper.push(new Node(new Token("literal",
+							         Memory.getValueOf(child.key().getName()), -1, -1),
+							child.parent()));
+							// System.out.println("MERDAM<ERDAM<ERDA::::");
 
             // Symbols.isOperator(child.key())
             } else if (child.key().getType().equals("operatorarithmetic")
                        || child.key().getType().equals("operatorlogic")
                        || child.key().getType().equals("operatorrelational")
                        || child.key().getType().equals("operatorassignment")) {
-                // if (first) {
-                //     expression.add(0, helper.pop());
-                //     first = false;
+
+				// if (child.key().getType().equals())
+
+				// first, tries to convert to int
+				try {
+					// aux = helper.poll();
+					aux = helper.pop();
+
+					int a = Integer.parseInt(aux.key().getName());
+					Integer_ b = new Integer_("b", helper.peek().key().getName());
+
+					OperatorParser.INTEGER.get(child.key().getName()).apply(b, a);
+
+					aux = new Node(new Token("literal", "" + b.getValue(), -1, -1), child.parent());
+
+				} catch (Exception e1) {
+
+					helper.push(aux);
+
+					// System.out.println(231232);
+					// if fails, tries to double
+					try {
+						// System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+						// double a = Double.parseDouble(helper.pop().key().getName());
+						aux = helper.pop();
+
+						double a = Double.parseDouble(aux.key().getName());
+						Double_ b = new Double_("b", helper.peek().key().getName());
+
+						OperatorParser.DOUBLE.get(child.key().getName()).apply(b, a);
+
+						aux = new Node(new Token("literal", "" + b.getValue(), -1, -1), child.parent());
+
+					// at last, convert to string
+					} catch (Exception e2) {
+						helper.push(aux);
+
+						System.out.println("TUDO ERRADO");
+					}
+				}
+
+                // if (child.key().getName().equals("+")) {
+                //     // aux1 = 0;
+                //     aux1 = Integer.parseInt(helper.pop().key().getName());
+                //     aux1 = Integer.parseInt(helper.pop().key().getName()) + aux1;
+                //     System.out.println("PLUS " + aux1);
+				//
+                // } else if (child.key().getName().equals("-")) {
+                //     // aux1 = 0;
+                //     aux1 = Integer.parseInt(helper.pop().key().getName());
+                //     aux1 = Integer.parseInt(helper.pop().key().getName()) - aux1;
+                //     System.out.println("MINUS " + aux1);
+				//
+                // } else if (child.key().getName().equals("*")) {
+                //     aux1 = 1;
+                //     aux1 *= Integer.parseInt(helper.pop().key().getName());
+                //     aux1 *= Integer.parseInt(helper.pop().key().getName());
+                //     System.out.println("TIMES " + aux1);
+				//
+                // } else {
+                //     aux1 = Integer.parseInt(helper.pop().key().getName());
+                //     aux1 = Integer.parseInt(helper.pop().key().getName()) / aux1;
+                //     System.out.println("TIMES " + aux1);
+				//
                 // }
 
-                // expression.add(0, helper.pop());
-                // expression.add(0, child);
-                // expression.add(0, helper.pop());
+				// TODO: change this??
+				helper.pop();
 
-                // test
+				helper.push(aux);
 
-                if (child.key().getName().equals("+")) {
-                    aux1 = 0;
-                    aux1 += Integer.parseInt(helper.pop().key().getName());
-                    aux1 += Integer.parseInt(helper.pop().key().getName());
-                    System.out.println("PLUS " + aux1);
-
-                } else if (child.key().getName().equals("-")) {
-                    // aux1 = 0;
-                    aux1 = Integer.parseInt(helper.pop().key().getName());
-                    aux1 = Integer.parseInt(helper.pop().key().getName()) - aux1;
-                    System.out.println("MINUS " + aux1);
-
-                } else if (child.key().getName().equals("*")) {
-                    aux1 = 1;
-                    aux1 *= Integer.parseInt(helper.pop().key().getName());
-                    aux1 *= Integer.parseInt(helper.pop().key().getName());
-                    System.out.println("TIMES " + aux1);
-
-                } else {
-                    aux1 = Integer.parseInt(helper.pop().key().getName());
-                    aux1 = Integer.parseInt(helper.pop().key().getName()) / aux1;
-                    System.out.println("TIMES " + aux1);
-
-                }
-
-                helper.push(new Node(new Token("operatorarithmetic", ""+aux1, 1, 2), child.parent()));
+                // helper.push(new Node(new Token("operatorarithmetic", ""+aux1, 1, 2), child.parent()));
             }
         }
 
@@ -199,5 +229,6 @@ class ExpressionParser {
 
         return -1;
     }
+
 
 }

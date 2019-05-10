@@ -1,3 +1,6 @@
+package faustop.core.vars;
+
+
 class Boolean_ extends Variable {
 
     /*

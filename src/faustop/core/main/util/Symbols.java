@@ -1,11 +1,11 @@
-package faustop.core.main;
+package faustop.core.main.util;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class Symbols {
+public class Symbols {
 
     public static final Map<String, String> symbols;
 

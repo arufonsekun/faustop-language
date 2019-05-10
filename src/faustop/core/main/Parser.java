@@ -5,8 +5,9 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Queue;
 
+import faustop.core.main.util.*;
 
-class Parser {
+public class Parser {
     /*
      * Represents a Parser.
      * A parser is the responsible for executing the
