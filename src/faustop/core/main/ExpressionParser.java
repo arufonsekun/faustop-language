@@ -1,6 +1,12 @@
+package faustop.core.main;
+
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.function.Consumer;
+import java.util.HashMap;
+import java.util.Map;
+import faustop.core.vars.*;
 
 // TODO: search for 'test' in comments and remake the code below the comment
 
@@ -11,6 +17,26 @@ class ExpressionParser {
      * Author: Jean Carlo Hilger
      * E-mail: hilgerjeancarlo@gmail.com
      * */
+
+    
+    private static final Map<String, Consumer<Integer_>> INTEGER_METHODS;
+
+ 	static {
+        Map<String, Consumer<Integer_>> aMap = new HashMap<>();
+        
+        // arithmetic operator
+        Consumer<Integer_> sp = Integer_()::plus;
+        aMap.put("+", sp);
+        sp = Integer_::minus;
+        aMap.put("-", sp);
+        sp = Integer_times;
+        aMap.put("*", sp); // char
+        sp = Integer_division;
+        aMap.put("/", sp); // string
+
+        INTEGER_METHODS = Collections.unmodifiableMap(aMap);
+    }
+    
 
     public static String eval(ArrayList<Node> pExpList) {
         /*
@@ -111,6 +137,8 @@ class ExpressionParser {
                 // expression.add(0, helper.pop());
 
                 // test
+                Consumer<Integer_> test = ExpressionParser.INTEGER_METHODS.get(child.key().getName());
+               
                 if (child.key().getName().equals("+")) {
                     aux1 = 0;
                     aux1 += Integer.parseInt(helper.pop().key().getName());
@@ -171,5 +199,12 @@ class ExpressionParser {
 
         return -1;
     }
+
+}
+
+/**/
+public static interface MethodParser {
+
+    public String plus(<T> a);
 
 }

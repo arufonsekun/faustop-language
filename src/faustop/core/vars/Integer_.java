@@ -1,4 +1,6 @@
-class Integer_ extends Variable {
+package faustop.core.vars;
+
+public class Integer_ extends Variable {
 
     private int value;
 

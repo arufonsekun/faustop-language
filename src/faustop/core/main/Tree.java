@@ -1,4 +1,4 @@
-// package faustop.core.main;
+package faustop.core.main;
 
 import java.util.ArrayList;
 

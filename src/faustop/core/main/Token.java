@@ -1,4 +1,4 @@
-//package faustop.core.main;
+package faustop.core.main;
 
 class Token {
     /*

@@ -1,3 +1,5 @@
+package faustop.core.vars;
+
 class Variable {
 
     /*
