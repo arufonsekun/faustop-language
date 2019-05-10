@@ -1,4 +1,5 @@
 //package faustop.core.main;
+package faustop.core.main;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
