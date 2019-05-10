@@ -19,14 +19,7 @@ class ExpressionParser {
      * E-mail: hilgerjeancarlo@gmail.com
      * */
 
-
-    private static final Map<String, MethodParser> INTEGER_METHODS;
-
  	static {
-        MethodParser<Integer_, Integer> plus = (pObj, pValue) -> pObj.plus(pValue);
-
-        Map<String, MethodParser> aMap = new HashMap<>();
-        aMap.put("+", plus);
         // arithmetic operator
         // Consumer<Integer_> sp = Integer_()::plus;
 
@@ -37,7 +30,7 @@ class ExpressionParser {
         // sp = Integer_division;
         // aMap.put("/", sp); // string
 
-        INTEGER_METHODS = Collections.unmodifiableMap(aMap);
+        //INTEGER_METHODS = Collections.unmodifiableMap(aMap);
     }
 
 
@@ -49,7 +42,7 @@ class ExpressionParser {
 
         Integer_ a = new Integer_("a", "1");
         Integer_ b = new Integer_("b", "2");
-        ExpressionParser.INTEGER_METHODS.get("+").apply(a, 1);
+        OperatorParser.INTEGER_METHODS.get("+").apply(a, b);
         System.out.println("Miaaauiaiu"+a.getValue());
 
         ArrayList<Node> postfix = buildPostFix(pExpList);
@@ -207,11 +200,4 @@ class ExpressionParser {
         return -1;
     }
 
-}
-
-/**/
-@FunctionalInterface
-interface MethodParser <T1, T2>{
-    public void apply(T1 arg1, T2 arg2);
-    // public String plus(<T> a);
 }
