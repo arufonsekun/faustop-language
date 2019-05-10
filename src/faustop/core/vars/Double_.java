@@ -1,4 +1,4 @@
-package vars;
+package faustop.core.vars;
 
 public class Double_ extends Variable {
     private double value;
@@ -12,9 +12,9 @@ public class Double_ extends Variable {
         return this.value;
     }
 
-    public void setValue(String pValue) {
-        this.value = Double.parseDouble(pValue);
-    }
+	public void setValue(String pValue) {
+		this.value = Double.parseDouble(pValue);
+	}
 
     public boolean greaterThan(Double_ pObj) {
         return (this.value > pObj.getValue());
@@ -41,7 +41,7 @@ public class Double_ extends Variable {
     }
 
     /*
-    * ?? Return a Double type or a void ??
+    * ?? Return a Double_ type or a void ??
      * */
 
     public void plus(Double_ pObj) {

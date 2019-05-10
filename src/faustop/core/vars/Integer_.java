@@ -1,44 +1,44 @@
-package vars;
+package faustop.core.vars;
 
 public class Integer_ extends Variable {
 
-    private int value;
+	private int value;
 
     public Integer_(String pName, String pValue) {
         super(pName, "INTEGER");
-        this.setValue(pValue);
+		this.setValue(pValue);
     }
 
     public int getValue() {
         return this.value;
     }
 
-    public void setValue(String s) {
-        this.value = Integer.parseInt(s);
-    }
+	public void setValue(String pValue) {
+		this.value = Integer.parseInt(pValue);
+	}
 
     public boolean greaterThan(Integer_ pObj) {
-        return (this.value > pObj.getValue());
+        return (this.getValue() > pObj.getValue());
     }
 
     public boolean lessThan(Integer_ pObj) {
-        return (this.value < pObj.getValue());
+        return (this.getValue() < pObj.getValue());
     }
 
     public boolean greaterThanOrEqualTo(Integer_ pObj) {
-        return (this.value >= pObj.getValue());
+        return (this.getValue() >= pObj.getValue());
     }
 
     public boolean lessThanOrEqualTo(Integer_ pObj) {
-        return (this.value <= pObj.getValue());
+        return (this.getValue() <= pObj.getValue());
     }
 
     public boolean equals(Integer_ pObj) {
-        return (this.value == pObj.getValue());
+        return (this.getValue() == pObj.getValue());
     }
 
     public boolean differs(Integer_ pObj) {
-        return (this.value != pObj.getValue());
+        return (this.getValue() != pObj.getValue());
     }
 
     /*
@@ -46,52 +46,48 @@ public class Integer_ extends Variable {
      * */
 
     public void plus(Integer_ pObj) {
-        this.value += pObj.getValue();
+        this.setValue(Integer.toString(this.getValue() + pObj.getValue()));
     }
 
     public void plus(int pValue) {
-        this.value += pValue;
+        this.setValue(Integer.toString(this.getValue() + pValue));
     }
 
     public void minus(Integer_ pObj) {
-        this.value -= pObj.getValue();
+        this.setValue(Integer.toString(this.getValue() - pObj.getValue()));
     }
 
     public void minus(int pValue) {
-        this.value -= pValue;
+        this.setValue(Integer.toString(this.getValue() - pValue));
     }
 
     public void times(Integer_ pObj) {
-        this.value *= pObj.getValue();
+        this.setValue(Integer.toString(this.getValue() * pObj.getValue()));
     }
 
     public void times(int pValue) {
-        this.value *= pValue;
+        this.setValue(Integer.toString(this.getValue() * pValue));
     }
 
     public void division(Integer_ pObj) {
-        this.value /= pObj.getValue();
+        this.setValue(Integer.toString(this.getValue() / pObj.getValue()));
     }
 
     public void division(int pValue) {
-        this.value /= pValue;
+        this.setValue(Integer.toString(this.getValue() / pValue));
     }
 
     //(int)->casting because pow() returns a Long
-    public void pow(Integer_ pObj) {
-        this.value = (int) Math.pow(this.value, pObj.getValue());
-    }
-
     public void pow(int pValue) {
-        this.value = (int) Math.pow(this.value, pValue);
+        this.setValue(Integer.toString((int) Math.pow(this.getValue(), pValue)));
     }
 
     public void mod(Integer_ pObj) {
-        this.value %= pObj.getValue();
+        this.setValue(Integer.toString(this.getValue() % pObj.getValue()));
     }
 
     public void mod(int pValue) {
-        this.value %= pValue;
+        this.setValue(Integer.toString(this.getValue() % pValue));
     }
 
 }

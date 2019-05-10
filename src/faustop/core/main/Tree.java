@@ -1,5 +1,5 @@
 // package faustop.core.main;
-
+package main;
 import java.util.ArrayList;
 
 class Node {

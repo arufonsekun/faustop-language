@@ -1,3 +1,4 @@
+package main;
 class Nain {
 
 	public static void main(String[] args) {

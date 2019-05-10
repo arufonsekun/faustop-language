@@ -1,13 +1,14 @@
-package vars;
+package faustop.core.vars;
+
+/*
+* Superclass of all types. Atributes name and type are commom
+* to every object type like Boolean, Integer, etc.
+*
+* Author: Junior Vitor Ramisch
+* E-mail: junior.ramisch@gmail.com
+* */
 
 public class Variable {
-
-    /*
-     * Superclass of all types. Atributes name and type are commom
-     * to every object type like Boolean, Integer, etc.
-     * Author: Junior Vitor Ramisch
-     * E-mail: junior.ramisch@gmail.com
-     * */
 
     private String name;
     private String type;
@@ -17,7 +18,7 @@ public class Variable {
         this.setName(name);
     }
 
-    public String getName() {
+    public String getSName() {
         return this.name;
     }
 
