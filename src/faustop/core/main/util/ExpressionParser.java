@@ -37,18 +37,12 @@ public class ExpressionParser {
         // System.out.println("\tBBBBBBBBB : " + b.getValue());
 
         ArrayList<Node> postfix = buildPostFix(pExpList);
-        for (Node n : postfix) {
-            System.out.println(n.key().getName());
-        }
-        System.out.println();
-        System.out.println();
-        ArrayList<Node> expression = postfixToAnswer(postfix);
 
-        for (Node n : expression) {
-            System.out.println(n.key().getName());
-        }
-
-        return "";
+		System.out.println();
+        System.out.println();
+        String expressionVal = postfixToAnswer(postfix);
+		System.out.println(expressionVal);
+        return expressionVal;
     }
 
     //
@@ -94,7 +88,7 @@ public class ExpressionParser {
         return expression;
     }
 
-    private static ArrayList<Node> postfixToAnswer(ArrayList<Node> pPostFixExp) {
+    private static String postfixToAnswer(ArrayList<Node> pPostFixExp) {
         /*
          * Receives the postfix expression and returns
          * the right order which it should be evaluated.
@@ -164,30 +158,6 @@ public class ExpressionParser {
 					}
 				}
 
-                // if (child.key().getName().equals("+")) {
-                //     // aux1 = 0;
-                //     aux1 = Integer.parseInt(helper.pop().key().getName());
-                //     aux1 = Integer.parseInt(helper.pop().key().getName()) + aux1;
-                //     System.out.println("PLUS " + aux1);
-				//
-                // } else if (child.key().getName().equals("-")) {
-                //     // aux1 = 0;
-                //     aux1 = Integer.parseInt(helper.pop().key().getName());
-                //     aux1 = Integer.parseInt(helper.pop().key().getName()) - aux1;
-                //     System.out.println("MINUS " + aux1);
-				//
-                // } else if (child.key().getName().equals("*")) {
-                //     aux1 = 1;
-                //     aux1 *= Integer.parseInt(helper.pop().key().getName());
-                //     aux1 *= Integer.parseInt(helper.pop().key().getName());
-                //     System.out.println("TIMES " + aux1);
-				//
-                // } else {
-                //     aux1 = Integer.parseInt(helper.pop().key().getName());
-                //     aux1 = Integer.parseInt(helper.pop().key().getName()) / aux1;
-                //     System.out.println("TIMES " + aux1);
-				//
-                // }
 
 				// TODO: change this??
 				helper.pop();
@@ -199,7 +169,7 @@ public class ExpressionParser {
         }
 
         System.out.println("Ans: " + helper.pop().key().getName());
-        return expression;
+        return helper.pop().key().getName();
     }
 
     private static int getPriority(String pOperator) {

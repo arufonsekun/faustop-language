@@ -71,7 +71,7 @@ public class Nain {
          * */
 
         if (pRoot == null) {
-            System.out.println("DASDJHSGDUGDUYSDGYJHSDBKJSBDKSADBKsd");
+            // System.out.println("DASDJHSGDUGDUYSDGYJHSDBKJSBDKSADBKsd");
             return;
         }
 

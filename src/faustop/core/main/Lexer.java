@@ -23,21 +23,21 @@ public class Lexer {
     private String code;
     // last position reading the code
     private int codePosition;
-	// last position in the code where a '\n' was found
-	private int lastRow;
-
-	private boolean openQuote = false;
-	private String lastLexeme = "";
+  	// last position in the code where a '\n' was found
+  	private int lastRow;
+  	// TODO: FIX THIS GAMBIARRA
+  	private boolean openQuote = false;
+  	private String lastLexeme = "";
 
     public void setCode(String pCode) {
         this.code = pCode;
     }
 
+    /*
+    * Reads the code until a Token is identified.
+    * Once found, the Token is returned.
+    * */
     public Token getNextToken() {
-        /*
-         * Reads the code until a Token is identified.
-         * Once found, the Token is returned.
-         * */
 
 		String lexeme = this.getLexeme();
 
@@ -53,7 +53,6 @@ public class Lexer {
 					   || Pattern.matches("^(?:0|[1-9][0-9]*)\\.[0-9]+$", lexeme)) {
 				// TODO: separate this or in two ifs, and put literalnumber for one and literalstr to anothre
 				type = "literal";
-				System.out.println("ASGHDUIAGHSDYSDSYASDGHSUISDHBAJISDSAD: : :::   " + lexeme);
 
 			} else {
 				System.out.println("cannot find symbol");
@@ -78,32 +77,40 @@ public class Lexer {
 
     }
 
+    /*
+    * Reads the code and returns the smaller
+    * meaningful portion of the string.
+    * If there is no more lexemes to be build,
+    * returns an empty String.
+    * */
 	private String getLexeme() {
-        /*
-         * Reads the code and returns the smaller
-         * meaningful portion of the string.
-		 * If there is no more lexemes to be build,
-		 * returns an empty String.
-         * */
 
+        // TODO: everything in the middle of " should be a single literal token
         String lexeme = "";
         char current, previous;
 
-        for ( ; this.codePosition < this.code.length(); this.codePosition++) {
+        while (this.codePosition < this.code.length()) {
             current = this.code.charAt(this.codePosition);
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
             if (current == '\"') {
+
                 if (!this.openQuote && this.isDelimiter(previous)) {
                     this.openQuote = !this.openQuote;
-                    return lexeme;
+					this.codePosition++;
+
+		            return "\"";
 
                 } else if (this.openQuote && !lexeme.equals("")) {
                     this.openQuote = !this.openQuote;
-                    return lexeme;
+					// System.out.println("LIXO |" + lexeme + "|");
+
+		            return lexeme;
                 }
 
+				this.consumeBlanks();//BUG: here is the inseto
 				this.codePosition++;
+
 				return "\"";
 
             } else if (!this.openQuote
@@ -132,15 +139,16 @@ public class Lexer {
 
 			if (this.codePosition >= this.code.length()) return lexeme;
 			lexeme += current;
+            this.codePosition++;
         }
         return lexeme;
     }
 
+    /*
+    * Ignores the blank spaces (e.g. ' ', '\t', '\n') in the input code
+    * when tokenizing.
+    * */
 	private void consumeBlanks() {
-		/*
-		 * Ignores the blank spaces (e.g. ' ', '\t', '\n') in the input code
-		 * when tokenizing.
-		 * */
 
 		while (this.codePosition < this.code.length() &&
 			   (this.code.charAt(this.codePosition) == ' '
@@ -150,11 +158,11 @@ public class Lexer {
 		}
 	}
 
+    /*
+    * Utility function ignores everything until a '\n' is found.
+    * Called when a '?' (comment) is found.
+    * */
 	private void consumeComments() {
-		/*
-		 * Utility function ignores everything until a '\n' is found.
-		 * Called when a '?' (comment) is found.
-		 * */
 
 		while (this.code.charAt(this.codePosition) != '\n' &&
 		       this.codePosition < this.code.length()) {
@@ -162,11 +170,11 @@ public class Lexer {
 		}
 	}
 
+    /*
+    * Utility function checks whether or not
+    * the given char is a delimiter.
+    * */
 	private boolean isDelimiter(char x) {
-		/*
-		 * Utility function checks whether or not
-		 * the given char is a delimiter.
-		 * */
 
 		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
 		                     '=', ';', '?', '\n', '\'', ' ', '<',
@@ -181,11 +189,11 @@ public class Lexer {
 		return false;
 	}
 
+    /*
+    * Utility function checks whether or not
+    * the given char is a MATH delimiter.
+    * */
 	private boolean isMathDelimiter(char x) {
-		/*
-		* Utility function checks whether or not
-		* the given char is a MATH delimiter.
-		* */
 
 		char[] delimiters = {'+', '*', '-', '/', '>', '<', '^', '!'};
 

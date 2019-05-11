@@ -26,26 +26,6 @@ public class Parser {
     private LinkedList<Token> tokenList = new LinkedList<>();
     private Tree parseTree;
 
-    private String kwBI = "keywordbuiltin";
-    private String kwFC = "keywordflowcontroller";
-    private String kwType = "keywordtype";
-
-    private String id = "identifier";
-
-    private String opAritm = "operatorarithmetic";
-    private String opLog = "operatorlogic";
-    private String opAssign = "operatorassignment";
-    private String opRel = "operatorrelational";
-
-    private String delParOpen = "delimiterparenthesesopen";
-    private String delParClose = "delimiterparenthesesclose";
-    private String delCurlyOpen = "delimitercurlybracketopen";
-    private String delCurlyClose = "delimitercurlybracketclose";
-    private String delQuot = "delimiterquotationmark";
-    private String delDoubQuot = "delimiterdoublequotationmark";
-    private String delSemicolon = "delimitersemicolon";
-
-    private String lit = "literal";
 
     public Parser() {
         this.parseTree = new Tree(new Token("INSTRUCTION", "", -1, -1));
@@ -101,15 +81,15 @@ public class Parser {
             token = this.tokenList.get(currentToken);
 
             // current is keyword
-            if (this.isKeyWord(token)
+            if (Symbols.isKeyWord(token)
                 || (currentToken > 0
-                	&& this.tokenList.get(currentToken - 1).getType().equals(this.delCurlyOpen))) {
+                	&& this.tokenList.get(currentToken - 1).getType().equals(Symbols.delCurlyOpen))) {
                 Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
 
                 this.parseTree.addNode(insParent);
 
-                if (this.isStartOfExpression(token)
-                    && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
+                if (Symbols.isStartOfExpression(token)
+                    && !this.tokenList.get(currentToken + 1).getType().equals(Symbols.opAssign)) {
                     Node expParent = new Node(new Token("EXP", "", -1, -1), insParent);
 
                     this.parseTree.addNode(expParent.key(), insParent);
@@ -123,21 +103,21 @@ public class Parser {
 
             // previous was keyword: just append at the current parent
             } else if (currentToken > 0
-                       && this.isKeyWord(this.tokenList.get(currentToken - 1))) {
+                       && Symbols.isKeyWord(this.tokenList.get(currentToken - 1))) {
                this.parseTree.addNode(token, pParent);
 
             // may form new expression or instruction
             } else {
                 // current is a valid start of expression
-                if (this.isStartOfExpression(token)
-                    && !this.tokenList.get(currentToken + 1).getType().equals(this.opAssign)) {
+                if (Symbols.isStartOfExpression(token)
+                    && !this.tokenList.get(currentToken + 1).getType().equals(Symbols.opAssign)) {
                     Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
 
                     this.parseTree.addNode(expParent.key(), pParent);
                     currentToken = this.buildExpression(currentToken, expParent) - 1;
 
                 // current may be a start of instruction
-                } else if (this.isStartOfInstruction(token)) {
+                } else if (Symbols.isStartOfInstruction(token)) {
                     this.parseTree.addNode(token, pParent);
 
                     Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
@@ -146,8 +126,8 @@ public class Parser {
                     currentToken = this.buildInstruction(insParent, currentToken + 1);
 
                 // current token may ends an instruction
-                } else if (this.isEndOfInstruction(token)) {
-                    if (token.getType().equals(this.delCurlyClose)) {
+                } else if (Symbols.isEndOfInstruction(token)) {
+                    if (token.getType().equals(Symbols.delCurlyClose)) {
                         this.parseTree.addNode(token, pParent.parent());
 
                     } else {
@@ -178,7 +158,7 @@ public class Parser {
         ArrayList<Node> children = new ArrayList<Node>();
         Queue<String> parQueue = new LinkedList<>();
 
-        System.out.println(pParent.key().getType());
+        // System.out.println(pParent.key().getType());
 
         for (; pCurrentToken < maxSize; pCurrentToken++) {
             token = this.tokenList.get(pCurrentToken);
@@ -197,13 +177,13 @@ public class Parser {
             }
 
             // possibly an end of expression token
-            if (this.isEndOfExpression(token)) {
+            if (Symbols.isEndOfExpression(token)) {
                 // next token may expand the current expression
                 if (pCurrentToken < maxSize - 1
-                    && this.isMiddleOfExpression(this.tokenList.get(pCurrentToken + 1))
+                    && Symbols.isMiddleOfExpression(this.tokenList.get(pCurrentToken + 1))
                     || (pCurrentToken > 0
-                        && !this.tokenList.get(pCurrentToken - 1).getType().equals(this.delDoubQuot))
-                    && !this.isEndOfInstruction(this.tokenList.get(pCurrentToken + 1))) {
+                        && !this.tokenList.get(pCurrentToken - 1).getType().equals(Symbols.delDoubQuot))
+                    && !Symbols.isEndOfInstruction(this.tokenList.get(pCurrentToken + 1))) {
                     children.add(new Node(token, pParent));
 
                 // the expression is actually over
@@ -221,103 +201,6 @@ public class Parser {
 
         this.parseTree.addNode(children, pParent);
         return pCurrentToken;
-    }
-
-    private boolean isKeyWord(Token pToken) {
-        /*
-         * Utility function checks of the given token is
-         * a keyword type.
-         * */
-
-        if (pToken.getType().equals(this.kwBI)
-            || pToken.getType().equals(this.kwFC)
-            || pToken.getType().equals(this.kwType)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isStartOfExpression(Token pToken) {
-        /*
-         * Utility function checks if the given token starts an expression.
-         * */
-
-        if (pToken.getType().equals(this.id)
-            || pToken.getType().equals(this.lit)
-            || pToken.getType().equals(this.delParOpen)
-            || pToken.getType().equals(this.delQuot)
-            || pToken.getType().equals(this.delDoubQuot)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isMiddleOfExpression(Token pToken) {
-        /*
-         * Utility function checks whether the given token represents
-         * */
-
-        if (pToken.getType().equals(this.opAritm)
-            || pToken.getType().equals(this.opLog)
-            || pToken.getType().equals(this.opRel)
-            || pToken.getType().equals(this.delParOpen)
-            || pToken.getType().equals(this.delParClose)
-            || pToken.getType().equals(this.delQuot)
-            || pToken.getType().equals(this.delDoubQuot)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isEndOfExpression(Token pToken) {
-        /*
-         * Utility function checks if pToken is ends an expression.
-         */
-
-        if (pToken.getType().equals(this.id)
-            || pToken.getType().equals(this.lit)
-            || pToken.getType().equals(this.delParClose)
-            || pToken.getType().equals(this.delQuot)
-            || pToken.getType().equals(this.delDoubQuot)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isStartOfInstruction(Token pToken) {
-        /*
-        * Utility function checks if given token is a 'start'
-        * of instruction.
-        * Actually, checks if the next tokens are a new instruction.
-        * */
-
-        if (pToken.getType().equals(this.delCurlyOpen)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isEndOfInstruction(Token pToken) {
-        /*
-        * Utility function checks if given token is a 'end'
-        * of instruction.
-        * Actually, checks if the previous token is the last of
-        * a instruction.
-        * */
-
-        if (pToken.getType().equals(this.delSemicolon)
-            || pToken.getType().equals(this.delCurlyClose)) {
-            // || pToken.getType().equals(this.delSemicolon)) {
-            // System.out.println("\tisEndOfInstruction:::::: " + pToken.getType());
-            return true;
-        }
-
-        return false;
     }
 
 }

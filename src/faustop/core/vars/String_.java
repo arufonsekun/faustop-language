@@ -2,20 +2,20 @@ package faustop.core.vars;
 
 public class String_ extends Variable {
 
-    private String value;
+	private String value;
 
     public String_(String name, String pValue) {
-        super(name, "_STRING");
-        this.setValue(pValue);
+        super(name, "STRING");
+		this.setValue(pValue);
     }
 
     public void setValue(String pValue) {
         this.value = pValue;
     }
 
-    public String getValue() {
-        return this.value;
-    }
+	public String getValue() {
+		return this.value;
+	}
 
     public boolean greaterThan(String_ pObj) {
         return this.lexicalOrder(pObj.getValue());
@@ -27,7 +27,7 @@ public class String_ extends Variable {
     }
 
     public boolean equal(String_ pObj) {
-        return this.value.equals(pObj.getValue());
+        return this.getValue().equals(pObj.getValue());
     }
 
     public boolean greaterThanOrEqualTo(String_ pObj) {
@@ -38,25 +38,25 @@ public class String_ extends Variable {
         return (this.lessThan(pObj) || this.equal(pObj));
     }
 
+    /*
+    * lexicalOrder() returns true if value class attribute comes before
+    * in the lexicographic order, false otherwise.
+    * */
     private boolean lexicalOrder(String pValue) {
 
-        /*
-         * lexicalOrder() returns true if value class attribute comes before
-         * in the lexicographic order, false otherwise.
-         * */
-
-        int valueSize = this.value.length();
+        String value = this.getValue();
+        int valueSize = value.length();
         int pValueSize = pValue.length();
         int size = valueSize < pValueSize ? valueSize : pValueSize;
 
         for (int i = 0; i < size; i++) {
-            if (this.value.charAt(i) != pValue.charAt(i)) {
-                if (this.value.charAt(i) > pValue.charAt(i)) return true;
+            if (value.charAt(i) != pValue.charAt(i)) {
+                if (value.charAt(i) > pValue.charAt(i)) return true;
                 else return false;
             }
         }
 
-        if (this.value.charAt(size-1) == pValue.charAt(size-1))
+        if (value.charAt(size-1) == pValue.charAt(size-1))
             if (valueSize == pValueSize) return false;
             else return valueSize > pValueSize;
         return false;

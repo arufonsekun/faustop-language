@@ -1,36 +1,26 @@
 package faustop.core.vars;
 
 
-class Boolean_ extends Variable {
+public class Boolean_ extends Variable {
 
     /*
      * Boolean type represents a faustop logic
      * value.
-     * Author: Junior Vitor Ramisch
+     * @ author: Junior Vitor Ramisch
      * E-mail: junior.ramisch@gmail.com
      * */
-
     private boolean value;
 
-    public Boolean_ (String pName, String pValue) {
-        super(pName, "BOOLEAN_");
-        setValue(pValue);
+    public Boolean_ (String pName) {
+        super(pName, "BOOLEAN");
     }
 
     public boolean getValue() {
-        return this.value;
+        return this.getValue();
     }
 
     public void setValue(String pValue) {
-        if (pValue.equals("true")) {
-            this.value = true;
-            return;
-        } else if (pValue.equals("false")){
-            this.value = false;
-            return;
-        }
-        System.out.println("ValueError");
-        return;
+        this.setValue(pValue);
     }
 
     public boolean logicalAnd(Boolean_ pObj) {
