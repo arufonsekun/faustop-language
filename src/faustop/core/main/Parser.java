@@ -1,11 +1,13 @@
-package main;
+package faustop.core.main;
+
 import java.util.LinkedList;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Queue;
 
+import faustop.core.main.util.*;
 
-class Parser {
+public class Parser {
     /*
      * Represents a Parser.
      * A parser is the responsible for executing the
@@ -156,6 +158,8 @@ class Parser {
         ArrayList<Node> children = new ArrayList<Node>();
         Queue<String> parQueue = new LinkedList<>();
 
+        // System.out.println(pParent.key().getType());
+
         for (; pCurrentToken < maxSize; pCurrentToken++) {
             token = this.tokenList.get(pCurrentToken);
 
@@ -195,7 +199,7 @@ class Parser {
             }
         }
 
-        this.parseTree.addNode(children, pParent.parent());
+        this.parseTree.addNode(children, pParent);
         return pCurrentToken;
     }
 

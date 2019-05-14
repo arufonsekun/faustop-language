@@ -1,4 +1,5 @@
-package vars;
+package faustop.core.vars;
+
 
 public class Boolean_ extends Variable {
 
@@ -15,7 +16,7 @@ public class Boolean_ extends Variable {
     }
 
     public boolean getValue() {
-        return super.getValue().equals("true") ? true : false;
+        return this.getValue();
     }
 
     public void setValue(String pValue) {

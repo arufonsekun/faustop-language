@@ -1,7 +1,8 @@
 package faustop.core.vars;
 
 public class Double_ extends Variable {
-    private double value;
+
+	private double value;
 
     public Double_(String pName, String pValue) {
         super(pName, "DOUBLE");

@@ -45,10 +45,6 @@ public class Integer_ extends Variable {
      * ?? Return a Integer type or a void ??
      * */
 
-    public void plus(Integer_ pObj) {
-        this.setValue(Integer.toString(this.getValue() + pObj.getValue()));
-    }
-
     public void plus(int pValue) {
         this.setValue(Integer.toString(this.getValue() + pValue));
     }

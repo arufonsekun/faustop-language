@@ -1,8 +1,12 @@
-package main;
+package faustop.core.main;
+
 import java.io.File;
 import java.util.Scanner;
 
-class Wrapper {
+import faustop.core.main.util.*;
+import faustop.core.main.*;
+
+public class Wrapper {
     /*
      * For now Wrapper will be used just for testing Lexer,
      * Parser in the same class. In the future Wrapper class
@@ -32,7 +36,7 @@ class Wrapper {
 
         while (token != null) {
             parser.addToken(token); // adds the token into the token list
-            System.out.println(""+token.getName()+" type: "+token.getType());
+            // System.out.println(""+token.getName()+" type: "+token.getType());
             token = lexer.getNextToken();
         }
 

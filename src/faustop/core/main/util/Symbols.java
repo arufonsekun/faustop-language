@@ -1,11 +1,11 @@
-// package faustop.core.main;
-package main;
+package faustop.core.main.util;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class Symbols {
+public class Symbols {
 
 	public static final String kwBI = "keywordbuiltin";
     public static final String kwFC = "keywordflowcontroller";
@@ -202,7 +202,7 @@ class Symbols {
 	}
 
 	public static boolean isExpression(Token pToken) {
-		return pToken.getName().equals("EXP");
+		return pToken.getType().equals("EXP");
 	}
 
 }

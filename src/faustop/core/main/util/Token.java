@@ -1,6 +1,6 @@
-//package faustop.core.main;
-package main;
-class Token {
+package faustop.core.main.util;
+
+public class Token {
     /*
      * Represents a Token.
      * A token is the smallest lexical unit of
