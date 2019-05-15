@@ -17,72 +17,98 @@ public class Double_ extends Variable {
 		this.value = Double.parseDouble(pValue);
 	}
 
-    public boolean greaterThan(Double_ pObj) {
-        return (this.value > pObj.getValue());
+    public String greaterThan(Double_ pObj) {
+		String ans = Boolean.toString(this.value > pObj.getValue());
+        return ans;
     }
 
-    public boolean lessThan(Double_ pObj) {
-        return (this.value < pObj.getValue());
+    public String lessThan(Double_ pObj) {
+		String ans = Boolean.toString(this.value < pObj.getValue());
+        return ans;
     }
 
-    public boolean greaterThanOrEqualTo(Double_ pObj) {
-        return (this.value >= pObj.getValue());
+    public String greaterThanOrEqualTo(Double_ pObj) {
+		String ans = Boolean.toString(this.value >= pObj.getValue());
+        return ans;
     }
 
-    public boolean lessThanOrEqualTo(Double_ pObj) {
-        return (this.value <= pObj.getValue());
+    public String lessThanOrEqualTo(Double_ pObj) {
+		String ans = Boolean.toString(this.value <= pObj.getValue());
+        return ans;
     }
 
-    public boolean equals(Double_ pObj) {
-        return (this.value == pObj.getValue());
+    public String equals(Double_ pObj) {
+		String ans = Boolean.toString(this.value == pObj.getValue());
+        return ans;
     }
 
-    public boolean differs(Double_ pObj) {
-        return (this.value != pObj.getValue());
+    public String differs(Double_ pObj) {
+		String ans = Boolean.toString(this.value != pObj.getValue());
+        return ans;
     }
 
     /*
     * ?? Return a Double_ type or a void ??
      * */
 
-    public void plus(Double_ pObj) {
-        this.value += pObj.getValue();
+    public String plus(Double_ pObj) {
+		String ans = Double.toString(this.getValue() + pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void plus(double pValue) {
-        this.value += pValue;
+    public String plus(double pValue) {
+		String ans = Double.toString(this.getValue() + pValue);
+        this.setValue(ans);
+        return ans;
     }
 
-    public void minus(Double_ pObj) {
-        this.value -= pObj.getValue();
+    public String minus(Double_ pObj) {
+		String ans = Double.toString(this.getValue() - pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void minus(double pValue) {
-        this.value -= pValue;
+    public String minus(double pValue) {
+		String ans = Double.toString(this.getValue() - pValue);
+        this.setValue(ans);
+		return ans;
     }
 
-    public void times(Double_ pObj) {
-        this.value *= pObj.getValue();
+    public String times(Double_ pObj) {
+		String ans = Double.toString(this.getValue() * pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void times(double pValue) {
-        this.value *= pValue;
+    public String times(double pValue) {
+		String ans = Double.toString(this.getValue() * pValue);
+        this.setValue(ans);
+		return ans;
     }
 
-    public void division(Double_ pObj) {
-        this.value /= pObj.getValue();
+    public String division(Double_ pObj) {
+		String ans = Double.toString(this.getValue() / pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void division(double pValue) {
-        this.value /= pValue;
+    public String division(double pValue) {
+		String ans = Double.toString(this.getValue() / pValue);
+        this.setValue(ans);
+		return ans;
     }
 
-    public void pow(Double_ pObj) {
-        this.value = (double) Math.pow(this.value, pObj.getValue());
+    public String pow(Double_ pObj) {
+		String ans = Double.toString((double) Math.pow(this.value, pObj.getValue()));
+        this.setValue(ans);
+		return ans;
     }
 
-    public void pow(double pValue) {
-        this.value = (double) Math.pow(this.value, pValue);
+    public String pow(double pValue) {
+		String ans = Double.toString((double) Math.pow(this.value, pValue));
+        this.setValue(ans);
+		return ans;
     }
 
 }
