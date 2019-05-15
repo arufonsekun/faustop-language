@@ -1,6 +1,6 @@
 # Compiled class file
 *.class
-
+**.Tester.java
 # Log file
 *.log
 

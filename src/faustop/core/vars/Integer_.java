@@ -17,73 +17,99 @@ public class Integer_ extends Variable {
 		this.value = Integer.parseInt(pValue);
 	}
 
-    public boolean greaterThan(Integer_ pObj) {
-        return (this.getValue() > pObj.getValue());
+    public String greaterThan(Integer_ pObj) {
+		String ans = Boolean.toString(this.getValue() > pObj.getValue());
+        return ans;
     }
 
-    public boolean lessThan(Integer_ pObj) {
-        return (this.getValue() < pObj.getValue());
+    public String lessThan(Integer_ pObj) {
+		String ans = Boolean.toString(this.getValue() < pObj.getValue());
+        return ans;
     }
 
-    public boolean greaterThanOrEqualTo(Integer_ pObj) {
-        return (this.getValue() >= pObj.getValue());
+    public String greaterThanOrEqualTo(Integer_ pObj) {
+		String ans = Boolean.toString(this.getValue() >= pObj.getValue());
+        return ans;
     }
 
-    public boolean lessThanOrEqualTo(Integer_ pObj) {
-        return (this.getValue() <= pObj.getValue());
+    public String lessThanOrEqualTo(Integer_ pObj) {
+		String ans = Boolean.toString(this.getValue() <= pObj.getValue());
+        return ans;
     }
 
-    public boolean equals(Integer_ pObj) {
-        return (this.getValue() == pObj.getValue());
+    public String equals(Integer_ pObj) {
+		String ans  = Boolean.toString(this.getValue() == pObj.getValue());
+        return ans;
     }
 
-    public boolean differs(Integer_ pObj) {
-        return (this.getValue() != pObj.getValue());
+    public String differs(Integer_ pObj) {
+		String ans = Boolean.toString(this.getValue() != pObj.getValue());
+        return ans;
     }
 
     /*
      * ?? Return a Integer type or a void ??
      * */
 
-    public void plus(int pValue) {
-        this.setValue(Integer.toString(this.getValue() + pValue));
+    public String plus(int pValue) {
+		String ans = Integer.toString(this.getValue() + pValue);
+        this.setValue(ans);
+		return ans;
     }
 
-    public void minus(Integer_ pObj) {
-        this.setValue(Integer.toString(this.getValue() - pObj.getValue()));
+    public String minus(Integer_ pObj) {
+		String ans = Integer.toString(this.getValue() - pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void minus(int pValue) {
-        this.setValue(Integer.toString(this.getValue() - pValue));
+    public String minus(int pValue) {
+		String ans = Integer.toString(this.getValue() - pValue);
+        this.setValue(ans);
+		return ans;
     }
 
-    public void times(Integer_ pObj) {
-        this.setValue(Integer.toString(this.getValue() * pObj.getValue()));
+    public String times(Integer_ pObj) {
+		String ans = Integer.toString(this.getValue() * pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void times(int pValue) {
-        this.setValue(Integer.toString(this.getValue() * pValue));
+    public String times(int pValue) {
+		String ans = Integer.toString(this.getValue() * pValue);
+        this.setValue(ans);
+		return ans;
     }
 
-    public void division(Integer_ pObj) {
-        this.setValue(Integer.toString(this.getValue() / pObj.getValue()));
+    public String division(Integer_ pObj) {
+		String ans = Integer.toString(this.getValue() / pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void division(int pValue) {
-        this.setValue(Integer.toString(this.getValue() / pValue));
+    public String division(int pValue) {
+		String ans = Integer.toString(this.getValue() / pValue);
+        this.setValue(ans);
+		return ans;
     }
 
     //(int)->casting because pow() returns a Long
-    public void pow(int pValue) {
-        this.setValue(Integer.toString((int) Math.pow(this.getValue(), pValue)));
+    public String pow(int pValue) {
+		String ans = Integer.toString((int) Math.pow(this.getValue(), pValue));
+        this.setValue(ans);
+		return ans;
     }
 
-    public void mod(Integer_ pObj) {
-        this.setValue(Integer.toString(this.getValue() % pObj.getValue()));
+    public String mod(Integer_ pObj) {
+		String ans = Integer.toString(this.getValue() % pObj.getValue());
+        this.setValue(ans);
+		return ans;
     }
 
-    public void mod(int pValue) {
-        this.setValue(Integer.toString(this.getValue() % pValue));
+    public String mod(int pValue) {
+		String ans = Integer.toString(this.getValue() % pValue);
+        this.setValue(ans);
+		return ans;
     }
 
 }

@@ -17,26 +17,36 @@ public class String_ extends Variable {
 		return this.value;
 	}
 
-    public boolean greaterThan(String_ pObj) {
-        return this.lexicalOrder(pObj.getValue());
+    public String greaterThan(String pObj) {
+		String ans = Boolean.toString(this.lexicalOrder(pObj));
+        return ans;
     }
 
-    public boolean lessThan(String_ pObj) {
-        if (this.equal(pObj)) return false;
-        return !this.lexicalOrder(pObj.getValue());
+    public String lessThan(String pObj) {
+        if (this.equal(pObj).equals("true")) return "false";
+        return Boolean.toString(!this.lexicalOrder(pObj));
     }
 
-    public boolean equal(String_ pObj) {
-        return this.getValue().equals(pObj.getValue());
+    public String equal(String pObj) {
+		Boolean ans = this.getValue().equals(pObj);
+        return Boolean.toString(ans);
     }
 
-    public boolean greaterThanOrEqualTo(String_ pObj) {
-        return (this.greaterThan(pObj) || this.equal(pObj));
+    public String greaterThanOrEqualTo(String pObj) {
+		Boolean ans = this.greaterThan(pObj).equals("true") || this.equal(pObj).equals("true");
+        return Boolean.toString(ans);
     }
 
-    public boolean lessThanOrEqualTo(String_ pObj) {
-        return (this.lessThan(pObj) || this.equal(pObj));
+    public String lessThanOrEqualTo(String pObj) {
+		Boolean ans1 = this.lessThan(pObj).equals("true");
+		Boolean ans2 = this.equal(pObj).equals("true");
+        return Boolean.toString(ans1 || ans2);
     }
+
+	public String differs(String pValue) {
+		Boolean ans = this.value.equals(pValue);
+		return Boolean.toString(!ans);
+	}
 
     /*
     * lexicalOrder() returns true if value class attribute comes before

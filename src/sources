@@ -12,6 +12,8 @@
 ./faustop/core/main/util/Symbols.java
 ./faustop/core/main/util/OperatorParser.java
 ./faustop/core/main/util/Memory.java
+./faustop/core/main/util/Tree.java
+./faustop/core/main/util/If.java
 ./faustop/core/main/util/While.java
 ./faustop/core/main/util/If.java
 ./faustop/core/main/util/Node.java
