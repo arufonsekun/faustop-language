@@ -1,9 +1,10 @@
 ./faustop/core/vars/Double_.java
 ./faustop/core/vars/Integer_.java
+./faustop/core/vars/Tester.java
 ./faustop/core/vars/Boolean_.java
 ./faustop/core/vars/Variable.java
 ./faustop/core/vars/String_.java
-./faustop/core/lib/StandarLibrary.java
+./faustop/core/lib/StandardLibrary.java
 ./faustop/core/main/Lexer.java
 ./faustop/core/main/util/FlowController.java
 ./faustop/core/main/util/Tree.java
@@ -12,8 +13,6 @@
 ./faustop/core/main/util/Symbols.java
 ./faustop/core/main/util/OperatorParser.java
 ./faustop/core/main/util/Memory.java
-./faustop/core/main/util/Tree.java
-./faustop/core/main/util/If.java
 ./faustop/core/main/util/While.java
 ./faustop/core/main/util/If.java
 ./faustop/core/main/util/Node.java

@@ -61,6 +61,10 @@ public class Parser {
          * Builds the parse tree for the parser.
          * */
 
+        // TEST
+        // for (Token t : this.tokenList) {
+        //     System.out.println(t.getName());
+        // }
         this.buildInstruction(this.parseTree.root(), 0);
     }
 

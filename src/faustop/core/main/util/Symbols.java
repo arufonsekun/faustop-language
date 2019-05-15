@@ -42,7 +42,7 @@ public class Symbols {
         aMap.put("olokinho", "keywordtype"); // int
         aMap.put("oloko", "keywordtype"); // double
         aMap.put("bicho", "keywordtype"); // string
-        aMap.put("bool", "keywordtype"); // boolean
+        aMap.put("paiseuropa", "keywordtype"); // boolean
 
 		// flow control
 		aMap.put("eagora", "keywordflowcontroller"); // if

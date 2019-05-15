@@ -41,6 +41,8 @@ public class Lexer {
 
 		String lexeme = this.getLexeme();
 
+        // System.out.println("|" + lexeme + "|");
+
 		String type = Symbols.symbols.get(lexeme);
 
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
@@ -74,7 +76,6 @@ public class Lexer {
 		} else {
 			return new Token(type, lexeme, 1, 2);
 		}
-
     }
 
     /*
@@ -85,7 +86,7 @@ public class Lexer {
     * */
 	private String getLexeme() {
 
-        // TODO: everything in the middle of " should be a single literal token
+        // TODO: REFACTOR THIS METHOD
         String lexeme = "";
         char current, previous;
 
@@ -126,7 +127,7 @@ public class Lexer {
 			} else if (!this.openQuote
                        && (this.isDelimiter(current)
 				       || (this.codePosition > 0
-				       && this.isDelimiter(previous)))) {
+				            && this.isDelimiter(previous)))) {
 
                 this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;

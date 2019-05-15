@@ -17,33 +17,33 @@ public class Integer_ extends Variable {
 		this.value = Integer.parseInt(pValue);
 	}
 
-    public String greaterThan(Integer_ pObj) {
-		String ans = Boolean.toString(this.getValue() > pObj.getValue());
+    public String greaterThan(int pValue) {
+		String ans = Boolean.toString(this.getValue() > pValue);
         return ans;
     }
 
-    public String lessThan(Integer_ pObj) {
-		String ans = Boolean.toString(this.getValue() < pObj.getValue());
+    public String lessThan(int pValue) {
+		String ans = Boolean.toString(this.getValue() < pValue);
         return ans;
     }
 
-    public String greaterThanOrEqualTo(Integer_ pObj) {
-		String ans = Boolean.toString(this.getValue() >= pObj.getValue());
+    public String greaterThanOrEqualTo(int pValue) {
+		String ans = Boolean.toString(this.getValue() >= pValue);
         return ans;
     }
 
-    public String lessThanOrEqualTo(Integer_ pObj) {
-		String ans = Boolean.toString(this.getValue() <= pObj.getValue());
+    public String lessThanOrEqualTo(int pValue) {
+		String ans = Boolean.toString(this.getValue() <= pValue);
         return ans;
     }
 
-    public String equals(Integer_ pObj) {
-		String ans  = Boolean.toString(this.getValue() == pObj.getValue());
+    public String equal(int pValue) {
+		String ans  = Boolean.toString(this.getValue() == pValue);
         return ans;
     }
 
-    public String differs(Integer_ pObj) {
-		String ans = Boolean.toString(this.getValue() != pObj.getValue());
+    public String differs(int pValue) {
+		String ans = Boolean.toString(this.getValue() != pValue);
         return ans;
     }
 

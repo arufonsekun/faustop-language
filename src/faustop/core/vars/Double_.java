@@ -17,33 +17,33 @@ public class Double_ extends Variable {
 		this.value = Double.parseDouble(pValue);
 	}
 
-    public String greaterThan(Double_ pObj) {
-		String ans = Boolean.toString(this.value > pObj.getValue());
+    public String greaterThan(double pValue) {
+		String ans = Boolean.toString(this.getValue() > pValue);
         return ans;
     }
 
-    public String lessThan(Double_ pObj) {
-		String ans = Boolean.toString(this.value < pObj.getValue());
+    public String lessThan(double pValue) {
+		String ans = Boolean.toString(this.getValue() < pValue);
         return ans;
     }
 
-    public String greaterThanOrEqualTo(Double_ pObj) {
-		String ans = Boolean.toString(this.value >= pObj.getValue());
+    public String greaterThanOrEqualTo(double pValue) {
+		String ans = Boolean.toString(this.getValue() >= pValue);
         return ans;
     }
 
-    public String lessThanOrEqualTo(Double_ pObj) {
-		String ans = Boolean.toString(this.value <= pObj.getValue());
+    public String lessThanOrEqualTo(double pValue) {
+		String ans = Boolean.toString(this.getValue() <= pValue);
         return ans;
     }
 
-    public String equals(Double_ pObj) {
-		String ans = Boolean.toString(this.value == pObj.getValue());
+    public String equal(double pValue) {
+		String ans = Boolean.toString(this.getValue() == pValue);
         return ans;
     }
 
-    public String differs(Double_ pObj) {
-		String ans = Boolean.toString(this.value != pObj.getValue());
+    public String differs(double pValue) {
+		String ans = Boolean.toString(this.getValue() != pValue);
         return ans;
     }
 
