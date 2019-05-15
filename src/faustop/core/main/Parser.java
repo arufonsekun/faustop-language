@@ -25,12 +25,14 @@ public class Parser {
 
     private LinkedList<Token> tokenList = new LinkedList<>();
     private Tree parseTree;
-
-
+//    // TESTSETETSETSTSETSTESET
+    private int expcount = 0;
+    private int inscount = 0;
+    
     public Parser() {
         this.parseTree = new Tree(new Token("INSTRUCTION", "", -1, -1));
     }
-
+    
     public Tree getParseTree() {
         return this.parseTree;
     }
@@ -42,20 +44,7 @@ public class Parser {
     public void addToken(Token pToken) {
         this.tokenList.add(pToken);
     }
-
-    public boolean isValidInstruction() {
-        /*
-         * Identity type of instruction.
-         * Checks if instruction follows all the instructionRules concerning to that
-         * kind of instruction.
-         * The Interpreter must, then, if instruction is valid, execute it;
-         * else, it must throw an error. Nevertheless, the instruction
-         * LinkedList must be clear afterwards.
-         * */
-
-        return false;
-    }
-
+    
     public void buildParseTree() {
         /*
          * Builds the parse tree for the parser.
@@ -66,145 +55,146 @@ public class Parser {
         //     System.out.println(t.getName());
         // }
         this.buildInstruction(this.parseTree.root(), 0);
+        // System.out.println();
+        // System.out.println();
+        // System.out.println("===========================================================");
     }
-
-    //
-    // Utility functions.
-    //
-
-    // TODO: Improve this method. To large and with gambiarra
-    private int buildInstruction(Node pParent, int pCurrToken) {
-        /*
-         * Utility function builds a subtree for an instruction.
-         * */
+    
+    /*
+    * Utility function builds a subtree for an instruction.
+    * */
+    private void buildInstruction(Node pParent, int pCurrToken) {
 
         Token token;
-
-        for (int currentToken = pCurrToken; currentToken < this.tokenList.size(); currentToken++) {
-            if (currentToken < 0) break;
-            token = this.tokenList.get(currentToken);
-
-            // current is keyword
-            if (Symbols.isKeyWord(token)
-                || (currentToken > 0
-                	&& this.tokenList.get(currentToken - 1).getType().equals(Symbols.delCurlyOpen))) {
-                Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
-
-                this.parseTree.addNode(insParent);
-
-                if (Symbols.isStartOfExpression(token)
-                    && !this.tokenList.get(currentToken + 1).getType().equals(Symbols.opAssign)) {
-                    Node expParent = new Node(new Token("EXP", "", -1, -1), insParent);
-
-                    this.parseTree.addNode(expParent.key(), insParent);
-                    currentToken = this.buildExpression(currentToken, expParent) - 1;
-                    currentToken = this.buildInstruction(insParent, currentToken + 1);
-
+        Node parent = pParent;
+        int maxSize = this.tokenList.size();
+        
+        for (int currToken=pCurrToken; currToken < maxSize; currToken++) {
+            token = this.tokenList.get(currToken);
+            
+            // current token starts a new instruction
+            if (Symbols.isStartOfInstruction(token)) {
+                
+                // System.out.println("aaaaaa   " + parent.key().getName());
+    /////////////// BUG TODO : GAMBIARRARARARARARARRA START
+                if (currToken < maxSize - 1 // avoid outOfRange
+                    && this.tokenList.get(currToken + 1).getType().equals(Symbols.opAssign)) {
+                    // System.out.println(token.getName());
+                    // só adiciona
+                    this.parseTree.addNode(token, parent);
+                    // currToken++;
+    /////////////// BUG TODO : GAMBARRARARRARARARRARARRARRARARI END
                 } else {
-                    this.parseTree.addNode(token, insParent);
-                    currentToken = this.buildInstruction(insParent, currentToken + 1);
+                    parent = this.createInstNode(token, parent);
                 }
-
-            // previous was keyword: just append at the current parent
-            } else if (currentToken > 0
-                       && Symbols.isKeyWord(this.tokenList.get(currentToken - 1))) {
-               this.parseTree.addNode(token, pParent);
-
-            // may form new expression or instruction
-            } else {
-                // current is a valid start of expression
-                if (Symbols.isStartOfExpression(token)
-                    && !this.tokenList.get(currentToken + 1).getType().equals(Symbols.opAssign)) {
-                    Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
-
-                    this.parseTree.addNode(expParent.key(), pParent);
-                    currentToken = this.buildExpression(currentToken, expParent) - 1;
-
-                // current may be a start of instruction
-                } else if (Symbols.isStartOfInstruction(token)) {
-                    this.parseTree.addNode(token, pParent);
-
-                    Node insParent = new Node(new Token("INSTR", "", -1, -1), pParent);
-
-                    this.parseTree.addNode(insParent);
-                    currentToken = this.buildInstruction(insParent, currentToken + 1);
-
-                // current token may ends an instruction
-                } else if (Symbols.isEndOfInstruction(token)) {
-                    if (token.getType().equals(Symbols.delCurlyClose)) {
-                        this.parseTree.addNode(token, pParent.parent());
-
-                    } else {
-                        this.parseTree.addNode(token, pParent);
-                    }
-
-                    return currentToken;
-
-                // can not be neither the start/end of an expression nor an instruction
-                } else {
-                    this.parseTree.addNode(token, pParent);
-                }
+                // currToken++;
+            
+            // current token ends the current instruction
+            } else if (Symbols.isEndOfInstruction(token)) {
+                parent = this.endInstNode(token, parent);
+                // currToken++;
+                
             }
+            
+            // current token starts a new expression
+            if (Symbols.isStartOfExpression(token)) {
+                Node expParent = this.createExpNode(token, parent);
+                currToken = this.buildExpression(currToken+1, expParent) - 1;
+            }
+            
+            // this.parseTree.addNode(token, parent);
         }
-
-        return -10; // avoid return errors
     }
-
-    private int buildExpression(int pCurrentToken, Node pParent) {
-        /*
-         * Utility function builds a subtree for an expression.
-         * Returns the index of the token where the expression
-         * ends.
-         * */
-
+    
+    /*
+     * Builds an expression node.
+     * */
+    private int buildExpression(int pCurrToken, Node pParent) {
         Token token;
         int maxSize = this.tokenList.size();
-        ArrayList<Node> children = new ArrayList<Node>();
-        Queue<String> parQueue = new LinkedList<>();
-
-        // System.out.println(pParent.key().getType());
-
-        for (; pCurrentToken < maxSize; pCurrentToken++) {
-            token = this.tokenList.get(pCurrentToken);
-
-            // parenting check
-            if (token.getName().equals("(")) {
-                parQueue.add("(");
-
-            } else if (token.getName().equals(")")) {
-                if (parQueue.isEmpty()) {
-                    break;
-
-                } else {
-                    parQueue.poll();
-                }
-            }
-
-            // possibly an end of expression token
+        
+        int currToken=pCurrToken;
+        
+        for(; currToken < maxSize; currToken++) {
+            token = this.tokenList.get(currToken);
+            
+            // vê se é fim mesmo ou se dá pra botar mais merda
             if (Symbols.isEndOfExpression(token)) {
                 // next token may expand the current expression
-                if (pCurrentToken < maxSize - 1
-                    && Symbols.isMiddleOfExpression(this.tokenList.get(pCurrentToken + 1))
-                    || (pCurrentToken > 0
-                        && !this.tokenList.get(pCurrentToken - 1).getType().equals(Symbols.delDoubQuot))
-                    && !Symbols.isEndOfInstruction(this.tokenList.get(pCurrentToken + 1))) {
-                    children.add(new Node(token, pParent));
-
-                // the expression is actually over
+                if (currToken < maxSize - 1 // avoid outOfRange
+                    && Symbols.isMiddleOfExpression(this.tokenList.get(currToken + 1))) {       
+                    this.parseTree.addNode(token, pParent); // BUG: isso pode dar merda
+                                                            // por causa dos pontero  
+                        
+                // the expression is really ended
                 } else {
-                    children.add(new Node(token, pParent));
-                    this.parseTree.addNode(children, pParent.parent());
-
-                    return pCurrentToken + 1;
+                    this.parseTree.addNode(token, pParent); // BUG: isso pode dar merda
+                                                            // por causa dos pontero
+                    return currToken + 1;
                 }
-
+            
             } else {
-                children.add(new Node(token, pParent));
+                this.parseTree.addNode(token, pParent); // BUG: isso pode dar merda
+                                                        // por causa dos pontero                                                                                                         
             }
         }
-
-        this.parseTree.addNode(children, pParent);
-        return pCurrentToken;
+        
+        return currToken + 1;
+    }
+    
+    /*
+     * Utility function creates and returns a new 
+     * instruction node (INST).
+     * */
+    private Node createInstNode(Token pToken, Node pParent) {
+        Node insParent = new Node(new Token("INSTR", pToken.getType(), -1, -1), pParent);
+        this.inscount++;
+        
+        if (pToken.getType().equals(Symbols.delCurlyOpen)) {
+            this.parseTree.addNode(pToken, pParent);
+            this.parseTree.addNode(insParent);
+        
+        } else {
+            this.parseTree.addNode(insParent);
+            this.parseTree.addNode(pToken, insParent);
+        }
+        
+        return insParent;
+    }
+    
+    /* TODO: comment
+     * Utility function returns the new parent
+     * for whereblavblallal.
+     * */
+    private Node endInstNode(Token pToken, Node pParent) {
+        if (pToken.getType().equals(Symbols.delCurlyClose)) {
+            this.parseTree.addNode(pToken, pParent.parent());
+            return pParent.parent().parent();
+        
+        } else {
+            this.parseTree.addNode(pToken, pParent);
+            return pParent.parent();
+        }
+    }
+  
+    /*
+     * Utility function creates and returns a new 
+     * expression node (EXP).
+     * */
+    private Node createExpNode(Token pToken, Node pParent) {
+        Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
+        this.expcount++;
+        
+        if (pToken.getType().equals(Symbols.opAssign)) {
+            this.parseTree.addNode(pToken, pParent);
+            this.parseTree.addNode(expParent); // expParent.key(), expParent.parent()
+        
+        } else {
+            this.parseTree.addNode(expParent);
+            this.parseTree.addNode(pToken, expParent);
+        }
+        
+        return expParent;
     }
 
 }

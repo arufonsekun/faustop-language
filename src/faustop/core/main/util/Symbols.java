@@ -61,14 +61,8 @@ public class Symbols {
 		aMap.put("^", "operatorarithmetic");
         aMap.put("%", "operatorarithmetic");
 
-        // assignment operators
+        // assignment operator
         aMap.put("=", "operatorassignment");
-        aMap.put("+=", "operatorassignment");
-		aMap.put("*=", "operatorassignment");
-		aMap.put("/=", "operatorassignment");
-		aMap.put("-=", "operatorassignment");
-        aMap.put("^=", "operatorassignment");
-        aMap.put("%=", "operatorassignment");
 
         // logic operators
         aMap.put("!", "operatorlogic");
@@ -115,28 +109,26 @@ public class Symbols {
          * Utility function checks if the given token starts an expression.
          * */
 
-        if (pToken.getType().equals(Symbols.id)
-            || pToken.getType().equals(Symbols.lit)
+        if (pToken.getType().equals(Symbols.lit)
             || pToken.getType().equals(Symbols.delParOpen)
-            || pToken.getType().equals(Symbols.delQuot)
-            || pToken.getType().equals(Symbols.delDoubQuot)) {
+            || pToken.getType().equals(Symbols.delDoubQuot)
+			|| pToken.getType().equals(Symbols.opAssign)) {
             return true;
         }
 
         return false;
     }
 
+	/*
+	* Utility function checks whether the given token represents
+	* a 'expandible' token.
+	* */
     public static final boolean isMiddleOfExpression(Token pToken) {
-        /*
-         * Utility function checks whether the given token represents
-         * */
 
-        if (pToken.getType().equals(Symbols.opAritm)
-            || pToken.getType().equals(Symbols.opLog)
-            || pToken.getType().equals(Symbols.opRel)
+        if (Symbols.isOperator(pToken)
             || pToken.getType().equals(Symbols.delParOpen)
-            || pToken.getType().equals(Symbols.delParClose)
-            || pToken.getType().equals(Symbols.delQuot)
+			|| pToken.getType().equals(Symbols.delParClose)
+            || pToken.getType().equals(Symbols.lit)
             || pToken.getType().equals(Symbols.delDoubQuot)) {
             return true;
         }
@@ -167,7 +159,9 @@ public class Symbols {
         * Actually, checks if the next tokens are a new instruction.
         * */
 
-        if (pToken.getType().equals(Symbols.delCurlyOpen)) {
+        if (pToken.getType().equals(Symbols.delCurlyOpen)
+		    || Symbols.isKeyWord(pToken)
+			|| pToken.getType().equals(Symbols.id)) {
             return true;
         }
 
@@ -178,22 +172,37 @@ public class Symbols {
         /*
         * Utility function checks if given token is a 'end'
         * of instruction.
-        * Actually, checks if the previous token is the last of
-        * a instruction.
         * */
 
         if (pToken.getType().equals(Symbols.delSemicolon)
             || pToken.getType().equals(Symbols.delCurlyClose)) {
-            // || pToken.getType().equals(Symbols.delSemicolon)) {
-            // System.out.println("\tisEndOfInstruction:::::: " + pToken.getType());
             return true;
         }
 
         return false;
     }
+	
+	/*
+	* Utility function checks if given token is 
+	* an operator of any type.
+	* */
+	public static final boolean isOperator(Token pToken) {
+		if (pToken.getType().equals(Symbols.opAritm)
+			|| pToken.getType().equals(Symbols.opRel)
+			// || pToken.getType().equals(Symbol.opAssign)
+			|| pToken.getType().equals(Symbols.opLog)) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	public static boolean isIdentifier(Token pToken) {
 		return pToken.getType().equals(Symbols.id);
+	}
+	
+	public static boolean isLiteral(Token pToken) {
+		return pToken.getType().equals(Symbols.lit);
 	}
 
 	public static boolean isAssignment(Token pToken) {

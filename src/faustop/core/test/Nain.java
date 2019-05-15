@@ -1,4 +1,4 @@
-package faustop.core.main;
+package faustop.core.test;
 
 import java.util.ArrayList;
 
@@ -23,10 +23,10 @@ public class Nain {
 		// String a = "inte cucuu = 6 + 9 * 5 * 7 - 9 + 4 * 2 - 6;";
 		// String a = "inte cucuu = 6 + 9 * 5 / 15 - 9 + 4 * 2 / 8 + 9 + 9 * 8 * 8 + 5;";
 		// String a = "inte cu = 5 + 1 - 6 * 3 + 9 * 9 *1 -8 +5 -45;";
-		String a = "inte cu = 116565 + 4.651651;";
+		// String a = "cu = 1 + 1 - (1 * 9)/;";
 
 		// se passar pra esse GG:
-		// String a = "inte a = 0;\nwhile(a > 4) {\n\ta += 1;\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\n}\n"; // parser OK
+		String a = "inte a = 0;\nwhile(a > 4) {\n\ta += 1;\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\n}\n"; // parser OK
 		// String a = "inte a = 0;\nwhile(a > 4) {\n\tif (a != 2) {\n\t\tmostrai(\"SUCK\");\n\t}\n\ta += 1;\n\n}\n"; // not OK
 		// System.out.println();
 		// System.out.println(a);
@@ -48,17 +48,18 @@ public class Nain {
 
 		superman.buildParseTree();
 		Tree bDeBosta = superman.getParseTree();
+		bDeBosta.traverse(bDeBosta.root());
 
 		try {
-			Nain.traverse(bDeBosta.root());
+			// Nain.traverse(bDeBosta.root());
 		} catch (Exception e) {
 			System.out.println("File opening error");
 			e.printStackTrace();
 			// return null;
 		}
 
-		System.out.println(Nain.cu);
-		ExpressionParser.eval(Nain.cu);
+		// System.out.println(Nain.cu);
+		// ExpressionParser.eval(Nain.cu);
 
 		// String a = "if (cu > (3 + 1) * 6) {\noloko res = \"MAIOR\";\n}\n";
 		// String b = "inte a = 3 + 2 * 3;\n";

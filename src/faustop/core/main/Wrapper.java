@@ -42,6 +42,9 @@ public class Wrapper {
 
         parser.buildParseTree(); //build the parse tree based on the token list
         parseTree = parser.getParseTree(); //get the parseTree
+        // Node bosta = Wrapper.cu(parseTree.root());
+        // System.out.println(bosta);
+        // parseTree.traverse(bosta);
         // parseTree.traverse(parseTree.root());
         interpreter.run(parseTree.root());
         // interpreter.run(parseTree.root());
@@ -74,4 +77,23 @@ public class Wrapper {
 			return null;
 		}
 	}
+    
+    private static Node cu(Node r) {
+        if (r == null) {
+            System.out.println("FODASE");
+            return null;
+        }
+
+        for (Node child : r.children()) {
+           
+            if (child.key().getType().equals("EXP")) {
+                System.out.println(child.children());
+                return child;
+            }
+            
+            Wrapper.cu(child);
+        }
+        
+        return r;
+    }
 }

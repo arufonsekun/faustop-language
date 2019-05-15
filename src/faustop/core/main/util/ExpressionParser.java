@@ -64,18 +64,13 @@ public class ExpressionParser {
         Stack<Node> helper = new Stack<Node>();
 
         for (Node child : pExpList) {
-            // Symbols.isIdentifier(child.key()) || Symbols.isLiteral(child.key())
-            if (child.key().getType().equals("identifier")
-                || child.key().getType().equals("literal")) {
+            // 
+            if (Symbols.isIdentifier(child.key()) 
+                || Symbols.isLiteral(child.key())) {
                 expression.add(child);
                 // System.out.println(child.key().getType() + " - " + child.key().getName());
 
-            // Symbols.isOperator(child.key())
-            } else if (child.key().getType().equals("operatorarithmetic")
-                       || child.key().getType().equals("operatorlogic")
-                       || child.key().getType().equals("operatorrelational")
-                       || child.key().getType().equals("operatorassignment")) {
-
+        } else if (Symbols.isOperator(child.key())) {
                 while(!helper.empty()
                       && (ExpressionParser.getPriority(helper.peek().key().getName()))
                           >= ExpressionParser.getPriority(child.key().getName())) {
@@ -116,11 +111,7 @@ public class ExpressionParser {
 							         Memory.getValueOf(child.key().getName()), -1, -1),
 							child.parent()));
 
-            } else if (child.key().getType().equals("operatorarithmetic")
-                       || child.key().getType().equals("operatorlogic")
-                       || child.key().getType().equals("operatorrelational")
-                       || child.key().getType().equals("operatorassignment")) {
-
+            } else if (Symbols.isOperator(child.key())) {
                 String val;
 				// first, tries to convert to int
 				try {

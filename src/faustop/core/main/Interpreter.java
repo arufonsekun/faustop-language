@@ -19,7 +19,9 @@ public class Interpreter {
 
             if (child.key().getType().equals("keywordtype")) {
                 this.newVariable(child.parent());
-            }
+            
+			}
+			
             //System.out.println(child.key().getType());
 
             this.run(child);
@@ -39,9 +41,10 @@ public class Interpreter {
                 name = child.key().getName();
 
 			} else if (Symbols.isExpression(child.key())) {
-				this.testa.clear();
-                this.traverse(child.parent());
-				value = ExpressionParser.eval(this.testa);
+				// this.testa.clear();
+                // this.traverse(child.parent());
+				// value = ExpressionParser.eval(this.testa);
+				value = ExpressionParser.eval(child.children());
             }
         }
 
