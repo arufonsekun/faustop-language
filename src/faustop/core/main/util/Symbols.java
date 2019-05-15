@@ -39,20 +39,19 @@ public class Symbols {
 	static {
         Map<String, String> aMap = new HashMap<>();
 		// type definition
-        aMap.put("inte", "keywordtype");
-        aMap.put("double", "keywordtype");
-        aMap.put("olokinho", "keywordtype"); // char
-        aMap.put("oloko", "keywordtype"); // string
-        aMap.put("bool", "keywordtype");
+        aMap.put("olokinho", "keywordtype"); // int
+        aMap.put("oloko", "keywordtype"); // double
+        aMap.put("bicho", "keywordtype"); // string
+        aMap.put("bool", "keywordtype"); // boolean
 
 		// flow control
-		aMap.put("if", "keywordflowcontroller");
+		aMap.put("eagora", "keywordflowcontroller"); // if
 		// aMap.put("for", "keywordflowcontroller");
-        aMap.put("while", "keywordflowcontroller");
+        aMap.put("churrasqueira", "keywordflowcontroller"); // while
 
         // built-in
-        aMap.put("entrai", "keywordbuiltin");
-        aMap.put("mostrai", "keywordbuiltin");
+        aMap.put("entrai", "keywordbuiltin"); // input
+        aMap.put("mostrai", "keywordbuiltin"); // output
 
 		// arithmetic operators
 		aMap.put("+", "operatorarithmetic");

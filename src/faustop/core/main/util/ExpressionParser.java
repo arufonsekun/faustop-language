@@ -38,7 +38,7 @@ public class ExpressionParser {
 
         ArrayList<Node> postfix = buildPostFix(pExpList);
 
-		System.out.println();
+		// System.out.println();
         System.out.println();
         String expressionVal = postfixToAnswer(postfix);
 		System.out.println(expressionVal);
@@ -126,7 +126,7 @@ public class ExpressionParser {
 					aux = helper.pop();
 
 					int a = Integer.parseInt(aux.key().getName());
-					Integer_ b = new Integer_("b", helper.peek().key().getName());
+					Integer_ b = new Integer_("b", Integer.parseInt(helper.peek().key().getName()));
 
 					OperatorParser.INTEGER.get(child.key().getName()).apply(b, a);
 
@@ -144,7 +144,7 @@ public class ExpressionParser {
 						aux = helper.pop();
 
 						double a = Double.parseDouble(aux.key().getName());
-						Double_ b = new Double_("b", helper.peek().key().getName());
+						Double_ b = new Double_("b", Double.parseDouble(helper.peek().key().getName()));
 
 						OperatorParser.DOUBLE.get(child.key().getName()).apply(b, a);
 
@@ -158,18 +158,35 @@ public class ExpressionParser {
 					}
 				}
 
-
-				// TODO: change this??
 				helper.pop();
 
 				helper.push(aux);
-
-                // helper.push(new Node(new Token("operatorarithmetic", ""+aux1, 1, 2), child.parent()));
             }
         }
 
-        System.out.println("Ans: " + helper.pop().key().getName());
+        // System.out.println("Ans: " + helper.pop().key().getName());
         return helper.pop().key().getName();
+    }
+    
+    /*
+     * Utility function to convert a `Node` list to
+     * a `String` list (containing the values only).
+     * */
+    private static String nodeToString(ArrayList<Node> pExpression) {
+        ArrayList<String> expression = new ArrayList<String>();
+        
+        for (Node node : pExpression) {
+            // if `node` is a literal, simply add its value
+            if (node.key().getType().equals("literal")) {
+                expression.add(node.key().getName());
+
+            // if `node` is a identifier, get its value in `Memory`
+            } else if (node.key().getType().equals("identifier")) {
+               expression.add(Memory.getValueOf(node.key().getName());
+            }
+        }
+        
+        return expression;
     }
 
     private static int getPriority(String pOperator) {

@@ -136,14 +136,14 @@ public class Parser {
 
                     return currentToken;
 
-                // can not be neither an expression nor an instruction
+                // can not be neither the start/end of an expression nor an instruction
                 } else {
                     this.parseTree.addNode(token, pParent);
                 }
             }
         }
 
-        return -10;
+        return -10; // avoid return errors
     }
 
     private int buildExpression(int pCurrentToken, Node pParent) {
