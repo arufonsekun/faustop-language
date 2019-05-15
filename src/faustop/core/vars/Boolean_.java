@@ -23,24 +23,24 @@ public class Boolean_ extends Variable {
         this.setValue(pValue);
     }
 
-    public boolean logicalAnd(Boolean_ pObj) {
-        return (this.value && pObj.getValue());
+    public String logicalAnd(Boolean pValue) {
+        return Boolean.toString(this.value && pValue);
     }
 
-    public boolean logicalOr(Boolean_ pObj) {
-        return (this.value || pObj.getValue());
+    public String logicalOr(Boolean pValue) {
+        return Boolean.toString(this.value || pValue);
     }
 
-    public boolean logicalNot() {
-        return !(this.value);
+    public String logicalNot() {
+        return Boolean.toString(!(this.value));
     }
 
-    public boolean equals(Boolean_ pObj) {
-        return (this.value == pObj.getValue());
+    public String equal(Boolean pValue) {
+        return Boolean.toString(this.value == pValue);
     }
 
-    public boolean differs(Boolean_ pObj) {
-        return (this.value != pObj.getValue());
+    public String differs(Boolean pValue) {
+        return Boolean.toString(this.value != pValue);
     }
 
 }

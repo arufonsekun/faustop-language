@@ -1,4 +1,8 @@
-olokinho a = 3;
-if (5 > 4) {
-    mostrai("miaau");
+olokinho meuoau = 1 - 9 * 7;
+mostrai("Miaau");
+eagora (meuoau > 9 + 4) {
+	churrasqueira (1 > 0) {
+		mostrai("FODASE");
+		olokinho a = 2;
+	}
 }

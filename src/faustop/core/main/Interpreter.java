@@ -25,17 +25,10 @@ public class Interpreter {
             if (child.key().getType().equals("keywordtype")) {
 				//olokinho, oloko, string, bool
                 this.newVariable(child.parent());
-            } else if (child.key().getType().equals("keywordbuiltin")) {
-				//mostrai(), entrai();
-				//this.handleBuiltIn(child.parent());
-				//break;
-			} else if (child.key().getType().equals("keywordflowcontroller")) {
-				//if, else, while
-				System.out.println(child.children().isEmpty());
-				//System.out.println(child.children().get(0).key().getName());
-				this.traverse(child);
-				break;
+
 			}
+			
+            //System.out.println(child.key().getType());
 
             this.run(child);
         }
@@ -60,8 +53,6 @@ public class Interpreter {
         boolean assign;
 
         for (Node child : pParent.children()) {
-			// System.out.println(child.key().getType());
-			// System.out.println(child.parent().children());
             if (Symbols.isKeyWord(child.key())) {
                 type = child.key().getName();
 
@@ -69,8 +60,10 @@ public class Interpreter {
                 name = child.key().getName();
 
 			} else if (Symbols.isExpression(child.key())) {
-                this.traverse(child.parent());
-				value = ExpressionParser.eval(this.testa);
+				// this.testa.clear();
+                // this.traverse(child.parent());
+				// value = ExpressionParser.eval(this.testa);
+				value = ExpressionParser.eval(child.children());
             }
         }
 
@@ -79,39 +72,38 @@ public class Interpreter {
         if (this.isString(type)) {
             // String_ a = new String_(name, "");
             // strMap.put(name, a);
-        } else if (this.isInt(type)) {
+
+	    } else if (this.isInt(type)) {
             Integer_ c = new Integer_(name, value);
             Memory.intMap.put(name, c);
-        } else if (this.isDouble(type)) {
+
+		} else if (this.isDouble(type)) {
             Double_ d = new Double_(name, value);
             Memory.doubleMap.put(name, d);
-        } else {
+
+		} else {
             // Boolean_ e = new Boolean_(name, true);
             // booMap.put(name, e);
         }
-        //System.out.println(Memory.intMap.get(name).getValue());
+        // xSystem.out.println(Memory.intMap.get(name).getValue());
         //System.out.println(strMap.get(name).getType() + " "+strMap.get(name).getName());
 		//testa.clear();
 	}
 
     private boolean isString(String pTType) {
-        return pTType.equals("oloko");
-    }
-
-    private boolean isChar(String pTType) {
-        return pTType.equals("olokinho");
+        return pTType.equals("bicho");
     }
 
     private boolean isInt(String pTType) {
-        return pTType.equals("inte");
+        return pTType.equals("olokinho");
     }
 
     private boolean isDouble(String pTType) {
-        return pTType.equals("double");
+        return pTType.equals("oloko");
     }
 
     private boolean isBool(String pTType) {
-        return pTType.equals("bool");
+        return pTType.equals("paiseuropa");
     }
 
 	// TODO: THIS IS A GAMBI

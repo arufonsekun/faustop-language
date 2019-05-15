@@ -74,15 +74,11 @@ public class Tree {
         }
 
         for (Node child : pRoot.children()) {
-            if (child.key().getType().equals("EXP")) {
-                // ExpressionParser.eval(child);
-                // System.out.println(child.children());
-
-            }
+           
             this.traverse(child);
         }
 
-        System.out.println(pRoot.key().getType() + " -> " + pRoot.parent().key().getType());
+        System.out.println(pRoot.key().getType() + " |"+pRoot.key().getName()+"|" + " -> " + pRoot.parent().key().getType());
     }
 
 }
