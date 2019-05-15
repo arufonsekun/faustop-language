@@ -37,6 +37,8 @@ public class Symbols {
     //                        EXPRESSION OPERATOR EXPRESSION
 
 	static {
+		//TODO: 2nd paramether of `put()` method should be the previous defined strings
+
         Map<String, String> aMap = new HashMap<>();
 		// type definition
         aMap.put("inte", "keywordtype");
