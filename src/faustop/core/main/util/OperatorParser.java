@@ -39,19 +39,21 @@ public class OperatorParser {
 	    MethodParser<Integer_, Integer> minus = (pObj, pValue) -> pObj.minus(pValue);
 	    MethodParser<Integer_, Integer> times = (pObj, pValue) -> pObj.times(pValue);
 	    MethodParser<Integer_, Integer> division = (pObj, pValue) -> pObj.division(pValue);
-        
+
         MethodParser<Integer_, Integer> grTh = (pObj, pValue) -> pObj.greaterThan(pValue);
         MethodParser<Integer_, Integer> grThOrEq = (pObj, pValue) -> pObj.greaterThanOrEqualTo(pValue);
         MethodParser<Integer_, Integer> lessTh = (pObj, pValue) -> pObj.lessThan(pValue);
         MethodParser<Integer_, Integer> lessThOrEq = (pObj, pValue) -> pObj.lessThanOrEqualTo(pValue);
         MethodParser<Integer_, Integer> eq = (pObj, pValue) -> pObj.equal(pValue);
         MethodParser<Integer_, Integer> dif = (pObj, pValue) -> pObj.differs(pValue);
+        MethodParser<Integer_, Integer> mod = (pObj, pValue) -> pObj.mod(pValue);
 
 		OperatorParser.INTEGER.put("+", plus);
 	    OperatorParser.INTEGER.put("-", minus);
 	    OperatorParser.INTEGER.put("*", times);
 	    OperatorParser.INTEGER.put("/", division);
-        
+        OperatorParser.INTEGER.put("%", mod);
+
         OperatorParser.INTEGER.put(">", grTh);
         OperatorParser.INTEGER.put(">=", grThOrEq);
         OperatorParser.INTEGER.put("<", lessTh);
@@ -68,7 +70,7 @@ public class OperatorParser {
  	    MethodParser<Double_, Double> minus = (pObj, pValue) -> pObj.minus(pValue);
  	    MethodParser<Double_, Double> times = (pObj, pValue) -> pObj.times(pValue);
  	    MethodParser<Double_, Double> division = (pObj, pValue) -> pObj.division(pValue);
-         
+
          MethodParser<Double_, Double> grTh = (pObj, pValue) -> pObj.greaterThan(pValue);
          MethodParser<Double_, Double> grThOrEq = (pObj, pValue) -> pObj.greaterThanOrEqualTo(pValue);
          MethodParser<Double_, Double> lessTh = (pObj, pValue) -> pObj.lessThan(pValue);
@@ -80,7 +82,7 @@ public class OperatorParser {
  	    OperatorParser.DOUBLE.put("-", minus);
  	    OperatorParser.DOUBLE.put("*", times);
  	    OperatorParser.DOUBLE.put("/", division);
-         
+
          OperatorParser.DOUBLE.put(">", grTh);
          OperatorParser.DOUBLE.put(">=", grThOrEq);
          OperatorParser.DOUBLE.put("<", lessTh);
@@ -88,7 +90,7 @@ public class OperatorParser {
          OperatorParser.DOUBLE.put("==", eq);
          OperatorParser.DOUBLE.put("!=", dif);
  	}
-    
+
     /*
 	 * Builds the hash maps for the `String_` type
 	 * */
@@ -99,7 +101,7 @@ public class OperatorParser {
         MethodParser<String_, String> lessThOrEq = (pObj, pValue) -> pObj.lessThanOrEqualTo(pValue);
         MethodParser<String_, String> eq = (pObj, pValue) -> pObj.equal(pValue);
         MethodParser<String_, String> dif = (pObj, pValue) -> pObj.differs(pValue);
-         
+
         OperatorParser.STRING.put(">", grTh);
         OperatorParser.STRING.put(">=", grThOrEq);
         OperatorParser.STRING.put("<", lessTh);
@@ -107,7 +109,7 @@ public class OperatorParser {
         OperatorParser.STRING.put("==", eq);
         OperatorParser.STRING.put("!=", dif);
  	}
-    
+
     /*
 	 * Builds the hash maps for the `Boolean_` type
 	 * */
@@ -117,7 +119,7 @@ public class OperatorParser {
         // MethodParser<Boolean_, Boolean> lgcNot = (pObj, pValue) -> pObj.logicalNot(pValue);
         MethodParser<Boolean_, Boolean> eq = (pObj, pValue) -> pObj.equal(pValue);
         MethodParser<Boolean_, Boolean> dif = (pObj, pValue) -> pObj.differs(pValue);
-         
+
         OperatorParser.BOOLEAN.put("||", lgcOr);
         OperatorParser.BOOLEAN.put("&&", lgcAnd);
         // OperatorParser.BOOLEAN.put("!", lgcNot);
