@@ -3,22 +3,37 @@
  * Group Members: Jean C. Hilger, Junior V. Ramisch, Paulo G. Comasetto;
  ![Faustão Pentelho][fausto1]
 
-## Overview
+<img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="5%" width="5%" align="right">
 
-Faustop programming language is a language built in java, for academic (kk) porpuses. 
+## Visão Geral
+A linguagem de programação Faustop foi construída em java, para fins acadêmicos (kk). A sintaxe básica não difere muito da sintaxe do `Java`.
 
-## Documentation
 
-### 1 Data types
-| Faustop type        | Java equivalent       |
+### Referência rápida
+Os principais recursos da linguagem envolvem:
+ - Declaração de variáveis;
+ - Operações aritméticas;
+ - Laços (`while`);
+ - Controle de fluxo (`if`);
+
+<img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="5%" width="5%" align="right">
+
+## Documentação
+
+### 1 Tipos de dados
+| Tipo Faustop        | Equivalente Java      |
 |:-------------------:|:---------------------:|
 | `olokinho`          | `int`                 |
 | `oloko`             | `double`              |
 | `bicho`             | `String`              |
 | `paiseuropa`        | `boolean`             |
 
-#### 1.1 Operators support
-| Operator | `olokinho` | `oloko` | `bicho` | `paiseuropa` |
+A tabela representa os tipos de dados usados pra a declaração de variáveis. Seu uso é semelhante ao do java.
+
+**Sintaxe:** `tipo` `var_name` [ `=` `expressão`];
+
+#### 1.1 Suporte à operadores
+| Operador | `olokinho` | `oloko` | `bicho` | `paiseuropa` |
 |:--------:|:----------:|:-------:|:-------:|:------------:|
 | `+`      | ✓          | ✓       | ☓       | ☓            |
 | `-`      | ✓          | ✓       | ☓       | ☓            |
@@ -34,6 +49,9 @@ Faustop programming language is a language built in java, for academic (kk) porp
 | `!`      | ☓          | ☓       | ☓       | ✓            |
 | `&&`     | ☓          | ☓       | ☓       | ✓            |
 | `\|\|`     | ☓          | ☓       | ☓       | ✓            |
+
+A tabela acima representa quais tipos suportam quais operadores.
+
 
 
 [fausto1]:http://raw.cdn.cennoticias.com/fda315a7-6083-490e-bf65-74874928ac41
