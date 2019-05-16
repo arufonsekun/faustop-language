@@ -11,12 +11,12 @@ eagora (a == 1+1+1+1+1) {
         olokinho d = c + 1;
 
         eagora(d == 9) {
-            mostrai("hello_world1");
+            mostrailn("hello_world1");
         }
 
-        mostrai("hello_world2");
+        mostrailn("hello_world2");
 
     }
 
-    mostrai("hello_world3");
+    mostrailn("hello_world3");
 }

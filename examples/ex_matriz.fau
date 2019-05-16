@@ -3,7 +3,7 @@ olokinho m = 1;
 churrasqueira(n > 0) {
 	m = 5;
 	churrasqueira   (m > 0) {
-		mostrai("X ");
+		mostrai("X");
 		m = m - 1;
 	}
 	mostrailn("AVAMERDA");

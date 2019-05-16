@@ -1,17 +1,17 @@
-olokinho a = 1000000007;
+olokinho a = 107;
 
 olokinho divs = 1;
 olokinho c = 2;
 churrasqueira (c < a) {
     eagora (a % c == 0) {
         divs = divs + 1;
-        mostrai("vaamerda");
+        mostrailn("vaamerda");
         c = a+1;
     }
     c = c + 1;
-    mostrai(c);
+    mostrailn(c);
 }
 
 eagora (divs == 1) {
-    mostrai("éporra");
+    mostrailn("éporra");
 }
