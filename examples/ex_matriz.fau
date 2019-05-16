@@ -1,0 +1,11 @@
+olokinho n = 5;
+olokinho m = 1;
+churrasqueira(n > 0) {
+	m = 5;
+	churrasqueira   (m > 0) {
+		mostrai("X ");
+		m = m - 1;
+	}
+	mostrailn("AVAMERDA");
+	n = n - 1;
+}

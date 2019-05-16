@@ -37,7 +37,9 @@ public class Wrapper {
         }
 
         parser.buildParseTree(); //build the parse tree based on the token list
+        
         parseTree = parser.getParseTree(); //get the parseTree
+        // parseTree.traverse(parseTree.root());
         interpreter.run(parseTree.root());
 
     }

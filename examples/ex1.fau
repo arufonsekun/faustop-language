@@ -1,4 +1,0 @@
-eagora (3 + 4 >  9) {
-	mostrai("LIXO");
-	olokinho a = 4;
-}

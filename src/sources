@@ -6,7 +6,6 @@
 ./faustop/core/vars/String_.java
 ./faustop/core/lib/StandardLibrary.java
 ./faustop/core/main/Lexer.java
-./faustop/core/main/util/FlowController.java
 ./faustop/core/main/util/Tree.java
 ./faustop/core/main/util/ExpressionParser.java
 ./faustop/core/main/util/Token.java

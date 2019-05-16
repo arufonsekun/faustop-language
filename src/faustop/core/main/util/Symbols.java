@@ -47,7 +47,8 @@ public class Symbols {
 
         // built-in
         aMap.put("entrai", "keywordbuiltin"); // input
-        aMap.put("mostrai", "keywordbuiltin"); // output
+		aMap.put("mostrai", "keywordbuiltin"); // output
+        aMap.put("mostrailn", "keywordbuiltin"); // outputln
 
 		// arithmetic operators
 		aMap.put("+", "operatorarithmetic");

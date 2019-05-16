@@ -1,0 +1,17 @@
+olokinho a = 5;
+olokinho b = 8;
+olokinho c = 9;
+eagora (a == 1+1+1+1+1) {
+    eagora(b == 8) {
+
+        olokinho d = c + 1;
+        d = d - 1;
+        eagora(d == 9) {
+            mostrai("hello_world1");
+        }
+
+        mostrai("hello_world2");
+    }
+
+    mostrai("hello_world3");
+}

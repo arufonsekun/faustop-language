@@ -1,0 +1,17 @@
+olokinho a = 1000000007;
+
+olokinho divs = 1;
+olokinho c = 2;
+churrasqueira (c < a) {
+    eagora (a % c == 0) {
+        divs = divs + 1;
+        mostrai("vaamerda");
+        c = a+1;
+    }
+    c = c + 1;
+    mostrai(c);
+}
+
+eagora (divs == 1) {
+    mostrai("éporra");
+}
