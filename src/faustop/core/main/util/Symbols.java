@@ -30,12 +30,6 @@ public class Symbols {
 
     public static final Map<String, String> symbols;
 
-    // Grammar = {INSTRUCTION, TERMINAL, EXPRESSION}
-    //            INSTRUCTION: TERMINAL + EXPRESSION (sla)
-    //            TERMINAL: ID | LIT_NUMBER | OPERATOR | DELIMITER (any token?)
-    //            EXPRESSION: ID/LIT_NUMBER OPERATOR ID/LIT_NUMBER |
-    //                        EXPRESSION OPERATOR EXPRESSION
-
 	static {
 		//TODO: 2nd paramether of `put()` method should be the previous defined strings
 
@@ -91,11 +85,11 @@ public class Symbols {
         symbols = Collections.unmodifiableMap(aMap);
     }
 
+	/*
+	* Utility function checks of the given token is
+	* a keyword type.
+	* */
 	public static final boolean isKeyWord(Token pToken) {
-        /*
-         * Utility function checks of the given token is
-         * a keyword type.
-         * */
 
         if (pToken.getType().equals(Symbols.kwBI)
             || pToken.getType().equals(Symbols.kwFC)
@@ -106,10 +100,10 @@ public class Symbols {
         return false;
     }
 
+	/*
+	* Utility function checks if the given token starts an expression.
+	* */
     public static final boolean isStartOfExpression(Token pToken) {
-        /*
-         * Utility function checks if the given token starts an expression.
-         * */
 
         if (pToken.getType().equals(Symbols.lit)
             || pToken.getType().equals(Symbols.delParOpen)
@@ -138,10 +132,10 @@ public class Symbols {
         return false;
     }
 
+	/*
+	* Utility function checks if pToken is ends an expression.
+	*/
     public static final boolean isEndOfExpression(Token pToken) {
-        /*
-         * Utility function checks if pToken is ends an expression.
-         */
 
         if (pToken.getType().equals(Symbols.id)
             || pToken.getType().equals(Symbols.lit)
@@ -154,12 +148,12 @@ public class Symbols {
         return false;
     }
 
+	/*
+	* Utility function checks if given token is a 'start'
+	* of instruction.
+	* Actually, checks if the next tokens are a new instruction.
+	* */
     public static final boolean isStartOfInstruction(Token pToken) {
-        /*
-        * Utility function checks if given token is a 'start'
-        * of instruction.
-        * Actually, checks if the next tokens are a new instruction.
-        * */
 
         if (pToken.getType().equals(Symbols.delCurlyOpen)
 		    || Symbols.isKeyWord(pToken)
@@ -170,11 +164,11 @@ public class Symbols {
         return false;
     }
 
+	/*
+	* Utility function checks if given token is a 'end'
+	* of instruction.
+	* */
     public static final boolean isEndOfInstruction(Token pToken) {
-        /*
-        * Utility function checks if given token is a 'end'
-        * of instruction.
-        * */
 
         if (pToken.getType().equals(Symbols.delSemicolon)
             || pToken.getType().equals(Symbols.delCurlyClose)) {
@@ -183,26 +177,25 @@ public class Symbols {
 
         return false;
     }
-	
+
 	/*
-	* Utility function checks if given token is 
+	* Utility function checks if given token is
 	* an operator of any type.
 	* */
 	public static final boolean isOperator(Token pToken) {
 		if (pToken.getType().equals(Symbols.opAritm)
 			|| pToken.getType().equals(Symbols.opRel)
-			// || pToken.getType().equals(Symbol.opAssign)
 			|| pToken.getType().equals(Symbols.opLog)) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	public static boolean isIdentifier(Token pToken) {
 		return pToken.getType().equals(Symbols.id);
 	}
-	
+
 	public static boolean isLiteral(Token pToken) {
 		return pToken.getType().equals(Symbols.lit);
 	}
@@ -214,5 +207,22 @@ public class Symbols {
 	public static boolean isExpression(Token pToken) {
 		return pToken.getType().equals("EXP");
 	}
+
+	public static boolean isString(String pTType) {
+        return pTType.equals("bicho");
+    }
+
+    public static boolean isInt(String pTType) {
+        return pTType.equals("olokinho");
+    }
+
+    public static boolean isDouble(String pTType) {
+        return pTType.equals("oloko");
+    }
+
+	//
+    public static boolean isBool(String pTType) {
+        return pTType.equals("paiseuropa");
+    }
 
 }

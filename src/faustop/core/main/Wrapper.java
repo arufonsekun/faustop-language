@@ -6,17 +6,13 @@ import java.util.Scanner;
 import faustop.core.main.util.*;
 import faustop.core.main.*;
 
+/*
+ * Wrapper class packs lexer, parser and semantic analyzer
+ * functionalities together.
+ * Author: Junior Vitor Ramisch
+ * E-mail: junior.ramisch@gmail.com
+ * */
 public class Wrapper {
-    /*
-     * For now Wrapper will be used just for testing Lexer,
-     * Parser in the same class. In the future Wrapper class
-     * will packs lexer, parser and semantic analyzer
-     * functionalities together. Wrapper class is reading
-     * each .fau file line and dividing each line in tokens.
-	 *
-     * Author: Junior Vitor Ramisch
-     * E-mail: junior.ramisch@gmail.com
-     * */
 
      public static void main(String[] args) {
 
@@ -36,26 +32,21 @@ public class Wrapper {
 
         while (token != null) {
             parser.addToken(token); // adds the token into the token list
-            System.out.println("Name: "+token.getName()+" type: "+token.getType());
+            //System.out.println("Name: "+token.getName()+" type: "+token.getType());
             token = lexer.getNextToken();
         }
 
         parser.buildParseTree(); //build the parse tree based on the token list
         parseTree = parser.getParseTree(); //get the parseTree
-        // Node bosta = Wrapper.cu(parseTree.root());
-        // System.out.println(bosta);
-        // parseTree.traverse(bosta);
-        // parseTree.traverse(parseTree.root());
-        //interpreter.run(parseTree.root());
-        //interpreter.run(parseTree.root());
+        interpreter.run(parseTree.root());
 
     }
 
+    /*
+    * Reads the .fau file from system and returns
+    * a String representing it.
+    * */
 	private static String readFile(String[] args) {
-		/*
-		 * Reads the .fau file from system and returns
-		 * a String representing it.
-		 * */
 
         try {
           	File file = new File(args[0]);
@@ -77,23 +68,4 @@ public class Wrapper {
 			return null;
 		}
 	}
-
-    private static Node cu(Node r) {
-        if (r == null) {
-            System.out.println("FODASE");
-            return null;
-        }
-
-        for (Node child : r.children()) {
-
-            if (child.key().getType().equals("EXP")) {
-                System.out.println(child.children());
-                return child;
-            }
-
-            Wrapper.cu(child);
-        }
-
-        return r;
-    }
 }

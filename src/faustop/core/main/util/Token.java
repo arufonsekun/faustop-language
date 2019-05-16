@@ -1,14 +1,14 @@
 package faustop.core.main.util;
 
+/*
+* Represents a Token.
+* A token is the smallest lexical unit of
+* the grammar.
+*
+* Author: Jean Carlo Hilger.
+* E-mail: hilgerjeancarlo@gmail.com.
+* */
 public class Token {
-    /*
-     * Represents a Token.
-     * A token is the smallest lexical unit of
-     * the grammar.
-     *
-     * Author: Jean Carlo Hilger.
-     * E-mail: hilgerjeancarlo@gmail.com.
-     * */
 
     private String type;
     private String name;

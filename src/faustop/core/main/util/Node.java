@@ -2,13 +2,13 @@ package faustop.core.main.util;
 
 import java.util.ArrayList;
 
+/*
+ * Simple class representing a node of a n-ary tree.
+ *
+ * Author: Junior Vitor Ramisch.
+ * E-mail: junior.ramisch@gmail.com.
+ * */
 public class Node {
-    /*
-     * Simple class representing a node of a n-ary tree.
-     *
-     * Author: Junior Vitor Ramisch.
-     * E-mail: junior.ramisch@gmail.com.
-     * */
 
     private Token key;
     private ArrayList<Node> children;
@@ -20,7 +20,6 @@ public class Node {
         this.children = new ArrayList<Node>();
     }
 
-    // getters
     public Token key() {
         return this.key;
     }
@@ -33,12 +32,12 @@ public class Node {
         return this.children;
     }
 
+    /*
+    * Adds a new child to children list.
+    * */
     public void addChildren(Node pNewNode) {
-        /*
-         * Adds a new child to children list.
-         * */
-
         this.children.add(pNewNode);
+
     }
 
 }

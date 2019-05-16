@@ -95,25 +95,25 @@ public class Lexer {
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
             // if (current == '\"') {
-            // 
+            //
             //     if (!this.openQuote && this.isDelimiter(previous)) {
             //         this.openQuote = !this.openQuote;
 			// 		this.codePosition++;
-            // 
+            //
 		    //         return "\"";
-            // 
+            //
             //     } else if (this.openQuote && !lexeme.equals("")) {
             //         this.openQuote = !this.openQuote;
 			// 		// System.out.println("LIXO |" + lexeme + "|");
-            // 
+            //
 		    //         return lexeme;
             //     }
-            // 
+            //
 			// 	this.consumeBlanks();//BUG: here is the inseto
 			// 	this.codePosition++;
-            // 
+            //
 			// 	return "\"";
-            // 
+            //
             // } else
              if (!this.openQuote
                        && (this.codePosition > 0
@@ -197,7 +197,7 @@ public class Lexer {
     * */
 	private boolean isMathDelimiter(char x) {
 
-		char[] delimiters = {'>', '<', '!'};
+		char[] delimiters = {'>', '<', '!', '='};
 
 		for (int i = 0; i < delimiters.length; i++) {
 			if (delimiters[i] == x) {

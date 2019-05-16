@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import faustop.core.vars.*;
 import faustop.core.main.util.*;
 import faustop.core.main.*;
+import faustop.core.lib.*;
 
 /*
-
+ * Interpreter class travels through the parse tree
+ * visiting each instruction node and executing it.
  * */
-
 public class Interpreter {
-
-	// TODO: REMOVE THIS GAMBI
-	public ArrayList<Node> testa = new ArrayList<Node>();
 
     public void run(Node pTreeRoot) {
 
@@ -21,30 +19,28 @@ public class Interpreter {
 
         for (Node child : pTreeRoot.children()) {
 
-			//System.out.println(child.key().getName() + " " + child.key().getType());
-            if (child.key().getType().equals("keywordtype")) {
-				//olokinho, oloko, string, bool
-                this.newVariable(child.parent());
+            if (child.key().getName().equals("keywordtype")) {
+                this.newVariable(child);
 
+			} else if (child.key().getName().equals("keywordbuiltin")) {
+				this.handleBuiltIn(child);
 			}
-			
-            //System.out.println(child.key().getType());
 
             this.run(child);
         }
 
     }
 
-	//TODO: find a better name ot this method
 	private void handleBuiltIn(Node pParent) {
+
 		String value;
-		for (Node child : pParent.children()) {
-			if (Symbols.isExpression(child.key())){
-				this.testa.add(child);
-				value = ExpressionParser.eval(this.testa);
-				System.out.println(value);
-				System.out.println(child.key().getType()+" "+child.key().getName());
-			}
+		String command = pParent.children().get(0).key().getName();
+		Node exp = pParent.children().get(1);
+
+		if (command.equals("mostrai")) {
+			value = ExpressionParser.eval(exp.children());
+			StandardLibrary.mostrai(value);
+
 		}
 	}
 
@@ -60,24 +56,20 @@ public class Interpreter {
                 name = child.key().getName();
 
 			} else if (Symbols.isExpression(child.key())) {
-				// this.testa.clear();
-                // this.traverse(child.parent());
-				// value = ExpressionParser.eval(this.testa);
 				value = ExpressionParser.eval(child.children());
+
             }
         }
 
-        // System.out.println("miauaua"+value);
+        if (Symbols.isString(type)) {
+            String_ a = new String_(name, value);
+            Memory.stringMap.put(name, a);
 
-        if (this.isString(type)) {
-            // String_ a = new String_(name, "");
-            // strMap.put(name, a);
-
-	    } else if (this.isInt(type)) {
+	    } else if (Symbols.isInt(type)) {
             Integer_ c = new Integer_(name, value);
             Memory.intMap.put(name, c);
 
-		} else if (this.isDouble(type)) {
+		} else if (Symbols.isDouble(type)) {
             Double_ d = new Double_(name, value);
             Memory.doubleMap.put(name, d);
 
@@ -85,44 +77,6 @@ public class Interpreter {
             // Boolean_ e = new Boolean_(name, true);
             // booMap.put(name, e);
         }
-        // xSystem.out.println(Memory.intMap.get(name).getValue());
-        //System.out.println(strMap.get(name).getType() + " "+strMap.get(name).getName());
-		//testa.clear();
 	}
-
-    private boolean isString(String pTType) {
-        return pTType.equals("bicho");
-    }
-
-    private boolean isInt(String pTType) {
-        return pTType.equals("olokinho");
-    }
-
-    private boolean isDouble(String pTType) {
-        return pTType.equals("oloko");
-    }
-
-    private boolean isBool(String pTType) {
-        return pTType.equals("paiseuropa");
-    }
-
-	// TODO: THIS IS A GAMBI
-	/*
-	* Traverse through the nodes of the Tree.
-	* */
-	private void traverse(Node pRoot) {
-
-        for (Node child : pRoot.children()) {
-			System.out.println(pRoot.key().getName());
-            this.traverse(child);
-        }
-
-		if (pRoot.parent() != null
-			&& pRoot.parent().key().getType().equals("EXP")) {
-			this.testa.add(pRoot);
-			// System.out.println("AJKSBDSABHUSAD");
-
-		}
-    }
 
 }

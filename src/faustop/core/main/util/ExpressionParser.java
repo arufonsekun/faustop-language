@@ -21,11 +21,11 @@ import faustop.core.main.util.*;
  * */
 public class ExpressionParser {
 
+    /*
+    * Receives a Node containing an expression and returns
+    * a string with the result value of that string.
+    * */
     public static String eval(ArrayList<Node> pExpList) {
-        /*
-         * Receives a Node containing an expression and returns
-         * a string with the result value of that string.
-         * */
 
 		OperatorParser.init();
 		// //
@@ -45,7 +45,7 @@ public class ExpressionParser {
 		// System.out.println();
         // System.out.println();
         String expressionVal = postfixToAnswer(postfix);
-        System.out.println(expressionVal);
+        //System.out.println(expressionVal);
 		// System.out.println(expressionVal);
         return expressionVal;
     }
@@ -54,18 +54,18 @@ public class ExpressionParser {
     // Utility Functions
     //
 
+    /*
+    * Converts the given (infix) expression to
+    * a postfix expression format. Returns it.
+    * */
     private static ArrayList<Node> buildPostFix(ArrayList<Node> pExpList) {
-        /*
-         * Converts the given (infix) expression to
-         * a postfix expression format. Returns it.
-         * */
 
         ArrayList<Node> expression = new ArrayList<Node>();
         Stack<Node> helper = new Stack<Node>();
 
         for (Node child : pExpList) {
-            // 
-            if (Symbols.isIdentifier(child.key()) 
+            //
+            if (Symbols.isIdentifier(child.key())
                 || Symbols.isLiteral(child.key())) {
                 expression.add(child);
                 // System.out.println(child.key().getType() + " - " + child.key().getName());
@@ -88,11 +88,11 @@ public class ExpressionParser {
         return expression;
     }
 
+    /*
+    * Receives the postfix expression and returns
+    * the right order which it should be evaluated.
+    * */
     private static String postfixToAnswer(ArrayList<Node> pPostFixExp) {
-        /*
-         * Receives the postfix expression and returns
-         * the right order which it should be evaluated.
-         * */
 
         Stack<Node> helper = new Stack<Node>();
         ArrayList<Node> expression = new ArrayList<Node>();
@@ -103,7 +103,7 @@ public class ExpressionParser {
 
         for (Node child : pPostFixExp) {
             if (child.key().getType().equals("literal")) {
-                
+
                 helper.push(child);
 
 			} else if (child.key().getType().equals("identifier")) {
@@ -121,7 +121,7 @@ public class ExpressionParser {
 					Integer_ b = new Integer_("b", ""+Integer.parseInt(helper.peek().key().getName()));
 
 				    val = OperatorParser.INTEGER.get(child.key().getName()).apply(b, a);
-					
+
                     aux = new Node(new Token("literal", "" + val, -1, -1), child.parent());
 
 				} catch (Exception e1) {
@@ -142,14 +142,14 @@ public class ExpressionParser {
 					// if still failing, convert to boolean*string
 					} catch (Exception e2) {
 						helper.push(aux);
-                        // 
+                        //
                         // String a = aux.key().getName();
                         // String_ b = new String_("b", ""+helper.peek().key().getName());
-                        // 
+                        //
                         // b.setValue(OperatorParser.STRING.get(child.key().getName()).apply(b, a));
-                        // 
+                        //
                         // aux = new Node(new Token("literal", "" + b.getValue(), -1, -1), child.parent());
-                     
+
                         System.out.println("TUDO ERRADO seu pedaço de merda");
 
 					}
@@ -164,25 +164,25 @@ public class ExpressionParser {
         // System.out.println("Ans: " + helper.pop().key().getName());
         return helper.pop().key().getName();
     }
-    
+
     /*
      * Utility function to convert a `Node` list to
      * a `String` list (containing the values only).
      * */
     // private static ArrayList<String> nodeToString(ArrayList<Node> pExpression) {
     //     ArrayList<String> expression = new ArrayList<String>();
-    // 
+    //
     //     for (Node node : pExpression) {
     //         // if `node` is a literal, simply add its value
     //         if (node.key().getType().equals("literal")) {
     //             expression.add(node.key().getName());
-    // 
+    //
     //         // if `node` is a identifier, get its value in `Memory`
     //         } else if (node.key().getType().equals("identifier")) {
     //            expression.add(Memory.getValueOf(node.key().getName()));
     //         }
     //     }
-    // 
+    //
     //     return expression;
     // }
 
