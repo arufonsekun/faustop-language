@@ -1,1 +1,4 @@
-olokinho a = 1 + 1 * 9 - 8 * 9;
+eagora (3 + 4 >  9) {
+	mostrai("LIXO");
+	olokinho a = 4;
+}
