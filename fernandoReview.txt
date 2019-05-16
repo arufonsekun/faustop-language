@@ -1,9 +1,0 @@
-- Comentários antes de classe e método (@author <name> <email>);
-- Organizar tabs etc;
-- Comando muito extenso (IFs, WHILEs), criar variaveis locais do tipo bool;
-- Parser: atributo da classe deve ser inicializado no construtor;
-- Constantes deve ser assim: static final CONS_CONS;
-- Parser this.tokenList.get(currentToken -1) pode ser armazenado numa variável;
-- Usar for (int i, i< len, i++) ou while, ao invés de  for (; i< len, i++);
-- Nao comitar código comentado;
-- Dar um jeito de diferenciar as classes sem usar underline;
