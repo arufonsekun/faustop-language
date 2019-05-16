@@ -15,7 +15,7 @@ public class Interpreter {
 
     public void run(Node pTreeRoot) {
         if (pTreeRoot == null) return;
-
+///////////// BUG TODO : THIS CODE IS SHITTY
         for (Node child : pTreeRoot.children()) {
             // System.out.println(child.key().getName());
 
@@ -24,12 +24,12 @@ public class Interpreter {
 
 			} else if (child.key().getName().equals("keywordbuiltin")) {
 				this.handleBuiltIn(child);
-			
+
             } else if (child.key().getName().equals("keywordflowcontroller"))  {
                 if (child.children().get(0).key().getName().equals("eagora")) {
                     Node body = If.evalIf(child);
                     this.run(body);
-            
+
                 } else if (child.children().get(0).key().getName().equals("churrasqueira")) {
                     // System.out.println("\tmerdaaaaaaaa");
                     Node exp = child.children().get(1);
@@ -41,8 +41,8 @@ public class Interpreter {
                         value = ExpressionParser.eval(exp.children());
                     }
                 }
-            
-            } else if (child.key().getName().equals("identifier") 
+///////////// BUG TODO : end of "THIS CODE IS SHITTY"
+            } else if (child.key().getName().equals("identifier")
                        && child.key().getType().equals("INSTR")) {
                 this.changeVariable(child);
             }
@@ -102,22 +102,22 @@ public class Interpreter {
             // booMap.put(name, e);
         }
 	}
-    
+
     private void changeVariable(Node pParent) {
         // System.out.println("CUCUCUC");
         Token tok = pParent.children().get(0).key();
         String varName = tok.getName();
         String newValue = ExpressionParser.eval(pParent.children().get(2).children());
-        
+
         if (Memory.stringMap.containsKey(varName)) {
             Memory.stringMap.get(varName).setValue(newValue);
-        
+
         } else if (Memory.doubleMap.containsKey(varName)) {
             Memory.doubleMap.get(varName).setValue(newValue);
-        
+
         } else if (Memory.intMap.containsKey(varName)) {
             Memory.intMap.get(varName).setValue(newValue);
         }
     }
-    
+
 }
