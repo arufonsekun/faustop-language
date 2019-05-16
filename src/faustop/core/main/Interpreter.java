@@ -24,9 +24,16 @@ public class Interpreter {
 
 			} else if (child.key().getName().equals("keywordbuiltin")) {
 				this.handleBuiltIn(child);
-			}
+			} else if (child.key().getName().equals("keywordflowcontroller"))  {
+                if (child.children().get(0).key().getName().equals("eagora")) {
+                    Node body = If.evalIf(child);
+                    this.run(body);
+                } else {
+                    //while
+                }
+            }
 
-            this.run(child);
+            //this.run(child);
         }
 
     }
