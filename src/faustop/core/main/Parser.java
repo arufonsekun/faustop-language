@@ -22,6 +22,9 @@ import faustop.core.main.util.*;
  * E-mail: paulogscomasetto@gmail.com.
  * */
 public class Parser {
+    
+    private int a = 0;
+    private int b = 0;
 
     private LinkedList<Token> tokenList = new LinkedList<>();
     private Tree parseTree;
@@ -67,7 +70,8 @@ public class Parser {
                 // System.out.println("aaaaaa   " + parent.key().getName());
     /////////////// BUG TODO : GAMBIARRARARARARARARRA START
                 if (currToken < maxSize - 1 // avoid outOfRange
-                    && this.tokenList.get(currToken + 1).getType().equals(Symbols.opAssign)) {
+                    && this.tokenList.get(currToken + 1).getType().equals(Symbols.opAssign)
+                    && parent.key().getName().equals(Symbols.kwType)) {
                     // System.out.println(token.getName());
                     // só adiciona
                     this.parseTree.addNode(token, parent);
@@ -75,11 +79,13 @@ public class Parser {
     /////////////// BUG TODO : GAMBARRARARRARARARRARARRARRARARI END
                 } else {
                     parent = this.createInstNode(token, parent);
+
                 }
 
             // current token ends the current instruction
             } else if (Symbols.isEndOfInstruction(token)) {
                 parent = this.endInstNode(token, parent);
+                // System.out.println(parent);
                 // currToken++;
 
             }
@@ -136,6 +142,7 @@ public class Parser {
      * */
     private Node createInstNode(Token pToken, Node pParent) {
         Node insParent = new Node(new Token("INSTR", pToken.getType(), -1, -1), pParent);
+        this.a++;
 
         if (pToken.getType().equals(Symbols.delCurlyOpen)) {
             this.parseTree.addNode(pToken, pParent);
@@ -170,6 +177,7 @@ public class Parser {
      * */
     private Node createExpNode(Token pToken, Node pParent) {
         Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
+        this.b++;
 
         if (pToken.getType().equals(Symbols.opAssign)) {
             this.parseTree.addNode(pToken, pParent);

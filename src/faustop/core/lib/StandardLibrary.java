@@ -6,7 +6,11 @@ package faustop.core.lib;
  * */
 public class StandardLibrary {
 
-    public static final void mostrai(String pValue ) {
+    public static final void mostrai(String pValue) {
+        System.out.print(pValue);
+    }
+    
+    public static final void mostrailn(String pValue) {
         System.out.println(pValue);
     }
 

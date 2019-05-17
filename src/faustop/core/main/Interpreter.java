@@ -14,23 +14,37 @@ import faustop.core.lib.*;
 public class Interpreter {
 
     public void run(Node pTreeRoot) {
-
         if (pTreeRoot == null) return;
-
+///////////// BUG TODO : THIS CODE IS SHITTY
         for (Node child : pTreeRoot.children()) {
+            // System.out.println(child.key().getName());
 
             if (child.key().getName().equals("keywordtype")) {
                 this.newVariable(child);
 
 			} else if (child.key().getName().equals("keywordbuiltin")) {
 				this.handleBuiltIn(child);
-			} else if (child.key().getName().equals("keywordflowcontroller"))  {
+
+            } else if (child.key().getName().equals("keywordflowcontroller"))  {
                 if (child.children().get(0).key().getName().equals("eagora")) {
                     Node body = If.evalIf(child);
                     this.run(body);
-                } else {
-                    //while
+
+                } else if (child.children().get(0).key().getName().equals("churrasqueira")) {
+                    // System.out.println("\tmerdaaaaaaaa");
+                    Node exp = child.children().get(1);
+                    String value = ExpressionParser.eval(exp.children());
+
+                    while (value.equals("true")) {
+                        this.run(child.children().get(3));
+                        exp = child.children().get(1);
+                        value = ExpressionParser.eval(exp.children());
+                    }
                 }
+///////////// BUG TODO : end of "THIS CODE IS SHITTY"
+            } else if (child.key().getName().equals("identifier")
+                       && child.key().getType().equals("INSTR")) {
+                this.changeVariable(child);
             }
 
             //this.run(child);
@@ -48,7 +62,10 @@ public class Interpreter {
 			value = ExpressionParser.eval(exp.children());
 			StandardLibrary.mostrai(value);
 
-		}
+		} else if (command.equals("mostrailn")) {
+            value = ExpressionParser.eval(exp.children());
+			StandardLibrary.mostrailn(value);
+        }
 	}
 
     private void newVariable(Node pParent) {
@@ -85,5 +102,22 @@ public class Interpreter {
             // booMap.put(name, e);
         }
 	}
+
+    private void changeVariable(Node pParent) {
+        // System.out.println("CUCUCUC");
+        Token tok = pParent.children().get(0).key();
+        String varName = tok.getName();
+        String newValue = ExpressionParser.eval(pParent.children().get(2).children());
+
+        if (Memory.stringMap.containsKey(varName)) {
+            Memory.stringMap.get(varName).setValue(newValue);
+
+        } else if (Memory.doubleMap.containsKey(varName)) {
+            Memory.doubleMap.get(varName).setValue(newValue);
+
+        } else if (Memory.intMap.containsKey(varName)) {
+            Memory.intMap.get(varName).setValue(newValue);
+        }
+    }
 
 }

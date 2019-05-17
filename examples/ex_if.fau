@@ -1,0 +1,26 @@
+olokinho a
+=
+5;
+olokinho b
+=
+8;
+olokinho c = 9;
+
+eagora (a == 1+1+1+1+1) {
+
+    eagora
+    (b == 8)
+{
+
+        olokinho d = c + 1;
+
+        eagora(d == 9) {
+            mostrailn("hello_world1");
+        }
+
+        mostrailn("hello_world2");
+
+    }
+
+    mostrailn("hello_world3");
+}

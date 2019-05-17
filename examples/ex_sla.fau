@@ -1,0 +1,7 @@
+olokinho b = 3;
+eagora (b == 3) {
+	mostrai("BOSTA");
+}
+pradesligar {
+	mostrai("CU");
+}
