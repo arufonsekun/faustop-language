@@ -127,5 +127,4 @@ public class OperatorParser {
         OperatorParser.BOOLEAN.put("!=", dif);
  	}
 
-
 }
