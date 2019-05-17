@@ -94,7 +94,9 @@ public class Lexer {
             current = this.code.charAt(this.codePosition);
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
+            // BUG TODO : The delimiter before " is being ignored
             if (current == '\"') {
+                if (!this.openQuote && !lexeme.equals("")) return lexeme;
 
                 if (!this.openQuote && this.isDelimiter(previous)) {
                     this.openQuote = !this.openQuote;
@@ -109,13 +111,13 @@ public class Lexer {
 		            return lexeme;
                 }
 
-				this.consumeBlanks();//BUG: here is the inseto
+				this.consumeBlanks();
 				this.codePosition++;
 
 				return "\"";
 
-            } else
-             if (!this.openQuote
+            // for operands with two chars (e.g. >=, <=)
+            } else if (!this.openQuote
                        && (this.codePosition > 0
                            && this.isMathDelimiter(previous))
                        && (this.code.charAt(this.codePosition) == '=')
@@ -133,14 +135,18 @@ public class Lexer {
                 this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;
 
-			// string literal check
-			} else if (!this.openQuote && current == '?') {
+			}
+            
+            // comment check
+            if (!this.openQuote 
+                && (current == '?' || previous == '?')) {
+                if (lexeme.equals("?")) System.out.println("MERDAS");
 				this.consumeComments();
 				this.consumeBlanks();
 			}
 
 			if (this.codePosition >= this.code.length()) return lexeme;
-			lexeme += current;
+			lexeme += this.code.charAt(this.codePosition);;
             this.codePosition++;
         }
         return lexeme;
