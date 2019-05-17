@@ -1,3 +1,5 @@
+mostrailn("hello world");
+
 bicho a = "MERDA SEU LIXO";
 mostrailn(a);
 mostrai("PEDAÇO DE CU DO CARALHO");
