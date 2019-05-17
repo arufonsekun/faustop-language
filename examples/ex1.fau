@@ -1,12 +1,27 @@
-olokinho a = 5;
-olokinho b = 8;
+olokinho a
+=
+5;
+olokinho b
+=
+8;
 olokinho c = 9;
 
 eagora (a == 1+1+1+1+1) {
 
-    eagora
-    (b == 6)
-{
+    eagora (
+    b
+    ==
+
+
+
+
+
+
+
+
+     6
+     )
+     {
 
         olokinho d = c + 1;
 
