@@ -12,10 +12,13 @@
 ./faustop/core/main/util/Symbols.java
 ./faustop/core/main/util/OperatorParser.java
 ./faustop/core/main/util/Memory.java
+./faustop/core/main/util/Tree.java
+./faustop/core/main/util/If.java
 ./faustop/core/main/util/While.java
 ./faustop/core/main/util/If.java
 ./faustop/core/main/util/Node.java
 ./faustop/core/main/Interpreter.java
+./faustop/core/main/Lexer.java
 ./faustop/core/main/Parser.java
 ./faustop/core/main/Wrapper.java
 ./faustop/core/test/Nain.java

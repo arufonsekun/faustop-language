@@ -1,7 +1,7 @@
 ? asd
 
 olokinho a = 5; ? merda1
-olokinho b = 8; 
+olokinho b = 8;
 olokinho c = 9;
 
 eagora (a == 1+1+1+1+1) { ? soma doidona

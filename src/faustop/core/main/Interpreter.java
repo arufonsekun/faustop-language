@@ -17,13 +17,12 @@ public class Interpreter {
         if (pTreeRoot == null) return;
 ///////////// BUG TODO : THIS CODE IS SHITTY
         for (Node child : pTreeRoot.children()) {
-            // System.out.println(child.key().getName());
 
             if (child.key().getName().equals("keywordtype")) {
                 this.newVariable(child);
 
 			} else if (child.key().getName().equals("keywordbuiltin")) {
-				this.handleBuiltIn(child);
+                this.handleBuiltIn(child);
 
             } else if (child.key().getName().equals("keywordflowcontroller"))  {
                 if (child.children().get(0).key().getName().equals("eagora")) {
@@ -54,17 +53,21 @@ public class Interpreter {
 
 	private void handleBuiltIn(Node pParent) {
 
-		String value;
 		String command = pParent.children().get(0).key().getName();
-		Node exp = pParent.children().get(1);
+        if(command.equals("mostrai") || command.equals("mostrailn")) {
+            String value;
+    		Node exp = pParent.children().get(1);
 
-		if (command.equals("mostrai")) {
-			value = ExpressionParser.eval(exp.children());
-			StandardLibrary.mostrai(value);
+    		if (command.equals("mostrai")) {
+    			value = ExpressionParser.eval(exp.children());
+    			StandardLibrary.mostrai(value);
 
-		} else if (command.equals("mostrailn")) {
-            value = ExpressionParser.eval(exp.children());
-			StandardLibrary.mostrailn(value);
+    		} else if (command.equals("mostrailn")) {
+                value = ExpressionParser.eval(exp.children());
+    			StandardLibrary.mostrailn(value);
+            }
+        } else {
+            StandardLibrary.entrai(pParent.children());
         }
 	}
 
@@ -104,7 +107,6 @@ public class Interpreter {
 	}
 
     private void changeVariable(Node pParent) {
-        // System.out.println("CUCUCUC");
         Token tok = pParent.children().get(0).key();
         String varName = tok.getName();
         String newValue = ExpressionParser.eval(pParent.children().get(2).children());
@@ -117,6 +119,8 @@ public class Interpreter {
 
         } else if (Memory.intMap.containsKey(varName)) {
             Memory.intMap.get(varName).setValue(newValue);
+        } else {
+            System.out.println("Variable `"+varName+"` not defined");
         }
     }
 
