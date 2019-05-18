@@ -8,8 +8,8 @@ public class Tree {
      * Used to store the Parse tree from
      * Parser stage.
      *
-     * Author: Junior Vitor Ramisch.
-     * E-mail: junior.ramisch@gmail.com.
+     * Author: Jean Carlo Hilger
+     * E-mail: hilgerjeancarlo@gmail.com.
      * */
 
     private Node root;

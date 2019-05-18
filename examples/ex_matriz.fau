@@ -4,7 +4,6 @@ churrasqueira(n > 0) {
 	m = 5;
 	churrasqueira   (m > 0) {
 		mostrai(m);
-		mostrai(" ");
 		m = m - 1;
 	}
 	mostrailn(".");

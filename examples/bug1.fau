@@ -1,8 +1,13 @@
 olokinho n = 5;
 olokinho m = 1;
+bicho msg = "Vitória senhor";
+
 churrasqueira(n > 0) {
 	m = 5;
-	churrasqueira   (m > 0) {
+	eagora (m == 5) {
+		mostrailn(msg);
+	}
+	churrasqueira (m > 0) {
 		mostrai(m);
 		mostrai(" "); ? buga tudo
 		m = m - 1;

@@ -28,19 +28,11 @@ public class ExpressionParser {
     public static String eval(ArrayList<Node> pExpList) {
 
 		OperatorParser.init();
-		// //
-        // Integer_ a = new Integer_("a", "2.18");
-        // Integer_ b = new Integer_("b", "9");
-		// OperatorParser.INTEGER.get("-").apply(a, 1.18);
-        // OperatorParser.INTEGER.get("*").apply(b, 9);
-		// System.out.println("\tAAAAAAAAA: " + a.getValue());
-        // System.out.println("\tBBBBBBBBB : " + b.getValue());
-
+		
         ArrayList<Node> postfix = buildPostFix(pExpList);
         // for(Node a : postfix) {
         //     System.out.println(a.key().getName());
         // }
-        // System.out.println("AAAAAAAAA");
 
 		// System.out.println();
         // System.out.println();
@@ -61,19 +53,31 @@ public class ExpressionParser {
     private static ArrayList<Node> buildPostFix(ArrayList<Node> pExpList) {
 
         ArrayList<Node> expression = new ArrayList<Node>();
-        Stack<Node> helper = new Stack<Node>();
+        Stack<Node> helper = new Stack<Node>(); // stores the operators before
+                                                // put them in the expression
+        Stack<Node> parentheses = new Stack<Node>();
+        int parMultiplier0 = 0;
+        int parMultiplier1 = 0;
 
         for (Node child : pExpList) {
-            //
+
+            if (child.key().getType().equals(Symbols.delParOpen)) {
+                parMultiplier1 = parMultiplier0;
+                parMultiplier0++;
+            
+            } else if (child.key().getType().equals(Symbols.delParClose)) {
+                parMultiplier1 = parMultiplier0;
+                parMultiplier0--;
+            }
+
             if (Symbols.isIdentifier(child.key())
                 || Symbols.isLiteral(child.key())) {
                 expression.add(child);
-                // System.out.println(child.key().getType() + " - " + child.key().getName());
 
-        } else if (Symbols.isOperator(child.key())) {
+            } else if (Symbols.isOperator(child.key())) {
                 while(!helper.empty()
-                      && (ExpressionParser.getPriority(helper.peek().key().getName()))
-                          >= ExpressionParser.getPriority(child.key().getName())) {
+                      && (ExpressionParser.getPriority(helper.peek().key().getName()) + 7*parMultiplier1
+                          >= ExpressionParser.getPriority(child.key().getName())+ 7*parMultiplier0)) {
                     expression.add(helper.pop());
                 }
 
@@ -98,8 +102,7 @@ public class ExpressionParser {
         ArrayList<Node> expression = new ArrayList<Node>();
 
         // test
-        Node aux=null;
-		int aux1;
+        Node aux = null;
 
         for (Node child : pPostFixExp) {
             if (child.key().getType().equals("literal")) {
@@ -139,19 +142,27 @@ public class ExpressionParser {
 
 						aux = new Node(new Token("literal", "" + val, -1, -1), child.parent());
 
-					// if still failing, convert to boolean*string
 					} catch (Exception e2) {
-						helper.push(aux);
-                        //
-                        // String a = aux.key().getName();
-                        // String_ b = new String_("b", ""+helper.peek().key().getName());
-                        //
-                        // b.setValue(OperatorParser.STRING.get(child.key().getName()).apply(b, a));
-                        //
-                        // aux = new Node(new Token("literal", "" + b.getValue(), -1, -1), child.parent());
+					
+                    	helper.push(aux);
+                    
+                        // if still failing, convert to boolean
+                        try {
+    						aux = helper.pop();
 
-                        System.out.println("TUDO ERRADO seu pedaço de merda");
+    						boolean a = Boolean.parseBoolean(aux.key().getName());
+    						Boolean_ b = new Boolean_("b", ""+Boolean.parseBoolean(helper.peek().key().getName()));
 
+                            val = OperatorParser.BOOLEAN.get(child.key().getName()).apply(b, a);
+
+    						aux = new Node(new Token("literal", "" + val, -1, -1), child.parent());
+
+    					// at last, converts to string
+                        } catch (Exception e3) {
+                            helper.push(aux);
+                        
+                            System.out.println("TUDO ERRADO");
+                        }
 					}
 				}
 
@@ -164,27 +175,6 @@ public class ExpressionParser {
         // System.out.println("Ans: " + helper.pop().key().getName());
         return helper.pop().key().getName();
     }
-
-    /*
-     * Utility function to convert a `Node` list to
-     * a `String` list (containing the values only).
-     * */
-    // private static ArrayList<String> nodeToString(ArrayList<Node> pExpression) {
-    //     ArrayList<String> expression = new ArrayList<String>();
-    //
-    //     for (Node node : pExpression) {
-    //         // if `node` is a literal, simply add its value
-    //         if (node.key().getType().equals("literal")) {
-    //             expression.add(node.key().getName());
-    //
-    //         // if `node` is a identifier, get its value in `Memory`
-    //         } else if (node.key().getType().equals("identifier")) {
-    //            expression.add(Memory.getValueOf(node.key().getName()));
-    //         }
-    //     }
-    //
-    //     return expression;
-    // }
 
     private static int getPriority(String pOperator) {
         /*

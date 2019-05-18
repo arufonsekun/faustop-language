@@ -21,13 +21,16 @@ public class Lexer {
 
     // the full input (.fau) code
     private String code;
-    // last position reading the code
+    // position reading the code
     private int codePosition;
-  	// last position in the code where a '\n' was found
-  	private int lastRow;
+    
+  	private int row = 1;
+    private int col = 1;
+    
   	// TODO: FIX THIS GAMBIARRA
   	private boolean openQuote = false;
   	private String lastLexeme = "";
+    private int lastCol = 0;
 
     public void setCode(String pCode) {
         this.code = pCode;
@@ -41,7 +44,7 @@ public class Lexer {
 
 		String lexeme = this.getLexeme();
 
-        // System.out.println("↓" + lexeme + "↓");
+        System.out.println("↓" + lexeme + "↓ " + this.row + ":" + this.col);
 
 		String type = Symbols.symbols.get(lexeme);
 
@@ -74,7 +77,7 @@ public class Lexer {
 			return null;
 
 		} else {
-			return new Token(type, lexeme, 1, 2);
+			return new Token(type, lexeme, this.row, this.col);
 		}
     }
 
@@ -84,17 +87,18 @@ public class Lexer {
     * If there is no more lexemes to be build,
     * returns an empty String.
     * */
+// BUG TODO : THIS METHOD NEEDS REFACTORING
 	private String getLexeme() {
 
         // TODO: REFACTOR THIS METHOD
         String lexeme = "";
         char current, previous;
 
+        // this.col = this.codePosition + 1 - this.lastCol;
         while (this.codePosition < this.code.length()) {
             current = this.code.charAt(this.codePosition);
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
-            // BUG TODO : The delimiter before " is being ignored
             if (current == '\"') {
                 if (!this.openQuote && !lexeme.equals("")) return lexeme;
 
@@ -140,7 +144,6 @@ public class Lexer {
             // comment check
             if (!this.openQuote 
                 && (current == '?' || previous == '?')) {
-                if (lexeme.equals("?")) System.out.println("MERDAS");
 				this.consumeComments();
 				this.consumeBlanks();
 			}
@@ -162,7 +165,13 @@ public class Lexer {
 			   (this.code.charAt(this.codePosition) == ' '
 			    || this.code.charAt(this.codePosition) == '\n'
                 || this.code.charAt(this.codePosition) == '\t')) {
-			this.codePosition++;
+            
+            if (this.code.charAt(this.codePosition) == '\n') {
+                this.row++;
+                this.col = 1;
+            }
+			
+            this.codePosition++;
 		}
 	}
 
@@ -213,5 +222,6 @@ public class Lexer {
 
 		return false;
 	}
+
 
 }

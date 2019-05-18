@@ -80,7 +80,6 @@ public class Symbols {
 		aMap.put("{", "delimitercurlybracketopen");
 		aMap.put("}", "delimitercurlybracketclose");
 		aMap.put(";", "delimitersemicolon");
-		aMap.put("\'", "delimiterquotationmark");
 		aMap.put("\"", "delimiterdoublequotationmark");
 
         symbols = Collections.unmodifiableMap(aMap);
