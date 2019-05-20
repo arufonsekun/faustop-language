@@ -40,6 +40,7 @@ A tabela representa os tipos de dados usados pra a declaração de variáveis. S
 | `*`      | ✓          | ✓       | ☓       | ☓            |
 | `/`      | ✓          | ✓       | ☓       | ☓            |
 | `%`      | ✓          | ☓       | ☓       | ☓            |
+| `^`      | ✓          | ☓       | ☓       | ☓            |
 | `>`      | ✓          | ✓       | ✓       | ☓            |
 | `<`      | ✓          | ✓       | ✓       | ☓            |
 | `>=`     | ✓          | ✓       | ✓       | ☓            |
