@@ -47,12 +47,14 @@ public class OperatorParser {
         MethodParser<Integer_, Integer> eq = (pObj, pValue) -> pObj.equal(pValue);
         MethodParser<Integer_, Integer> dif = (pObj, pValue) -> pObj.differs(pValue);
         MethodParser<Integer_, Integer> mod = (pObj, pValue) -> pObj.mod(pValue);
+        MethodParser<Integer_, Integer> pow = (pObj, pValue) -> pObj.pow(pValue);
 
 		OperatorParser.INTEGER.put("+", plus);
 	    OperatorParser.INTEGER.put("-", minus);
 	    OperatorParser.INTEGER.put("*", times);
 	    OperatorParser.INTEGER.put("/", division);
         OperatorParser.INTEGER.put("%", mod);
+        OperatorParser.INTEGER.put("^", pow);
 
         OperatorParser.INTEGER.put(">", grTh);
         OperatorParser.INTEGER.put(">=", grThOrEq);

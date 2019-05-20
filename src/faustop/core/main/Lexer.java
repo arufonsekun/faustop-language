@@ -23,10 +23,10 @@ public class Lexer {
     private String code;
     // position reading the code
     private int codePosition;
-    
+
   	private int row = 1;
     private int col = 1;
-    
+
   	// TODO: FIX THIS GAMBIARRA
   	private boolean openQuote = false;
   	private String lastLexeme = "";
@@ -44,7 +44,7 @@ public class Lexer {
 
 		String lexeme = this.getLexeme();
 
-        System.out.println("↓" + lexeme + "↓ " + this.row + ":" + this.col);
+        // System.out.println("↓" + lexeme + "↓ " + this.row + ":" + this.col);
 
 		String type = Symbols.symbols.get(lexeme);
 
@@ -105,12 +105,13 @@ public class Lexer {
                 if (!this.openQuote && this.isDelimiter(previous)) {
                     this.openQuote = !this.openQuote;
 					this.codePosition++;
+                    System.out.println("MIAUAUUAUAUAUA");
 
 		            return "\"";
 
                 } else if (this.openQuote && !lexeme.equals("")) {
                     this.openQuote = !this.openQuote;
-					// System.out.println("LIXO |" + lexeme + "|");
+					System.out.println("LIXO |" + lexeme + "|");
 
 		            return lexeme;
                 }
@@ -140,9 +141,9 @@ public class Lexer {
 				if (!lexeme.isEmpty()) return lexeme;
 
 			}
-            
+
             // comment check
-            if (!this.openQuote 
+            if (!this.openQuote
                 && (current == '?' || previous == '?')) {
 				this.consumeComments();
 				this.consumeBlanks();
@@ -165,12 +166,12 @@ public class Lexer {
 			   (this.code.charAt(this.codePosition) == ' '
 			    || this.code.charAt(this.codePosition) == '\n'
                 || this.code.charAt(this.codePosition) == '\t')) {
-            
+
             if (this.code.charAt(this.codePosition) == '\n') {
                 this.row++;
                 this.col = 1;
             }
-			
+
             this.codePosition++;
 		}
 	}

@@ -9,9 +9,8 @@ churrasqueira(n > 0) {
 	}
 	churrasqueira (m > 0) {
 		mostrai(m);
-		mostrai(" "); ? buga tudo
+		mostrai(" a");
 		m = m - 1;
 	}
-	mostrailn(".");
 	n = n - 1;
 }
