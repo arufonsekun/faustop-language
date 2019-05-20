@@ -1,16 +1,3 @@
-olokinho n = 5;
-olokinho m = 1;
-bicho msg = "Vitória senhor";
+olokinho d = 19 - 8 * 4 / 2; ? merda ta dando merda
 
-churrasqueira(n > 0) {
-	m = 5;
-	eagora (m == 5) {
-		mostrailn(msg);
-	}
-	churrasqueira (m > 0) {
-		mostrai(m);
-		mostrai(" a");
-		m = m - 1;
-	}
-	n = n - 1;
-}
+mostrailn(d);

@@ -1,11 +1,15 @@
 olokinho n = 5;
-olokinho m = 1;
-churrasqueira(n > 0) {
+olokinho m = 214;
+
+churrasqueira (n > 0) {
 	m = 5;
-	churrasqueira   (m > 0) {
+
+	churrasqueira (m > 0) {
 		mostrai(m);
+		mostrai(", ");
 		m = m - 1;
 	}
-	mostrailn(".");
+
 	n = n - 1;
+	mostrailn(" ");
 }

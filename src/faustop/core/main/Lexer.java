@@ -48,18 +48,23 @@ public class Lexer {
 
 		String type = Symbols.symbols.get(lexeme);
 
+		if (this.lastLexeme.equals("\"") && this.openQuote) {
+			type = "literal";
+		}
+
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
 			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
                 && !this.lastLexeme.equals("\"")) {
 				type = "identifier";
 
-			} else if (Pattern.matches("[0-9]+", lexeme)
-                       || this.lastLexeme.equals("\"")
+			} else if (Pattern.matches("^([0-9]*)$", lexeme)
 					   || Pattern.matches("^(?:0|[1-9][0-9]*)\\.[0-9]+$", lexeme)) {
 				// TODO: separate this or in two ifs, and put literalnumber for one and literalstr to anothre
+				// System.out.println("CUZAL: |" + lexeme + "|");
 				type = "literal";
 
 			} else {
+				// System.out.println("AAAAAAAAA: |" + lexeme + "|");
 				System.out.println("cannot find symbol");
 				return null;
 
@@ -102,21 +107,20 @@ public class Lexer {
             if (current == '\"') {
                 if (!this.openQuote && !lexeme.equals("")) return lexeme;
 
-                if (!this.openQuote && this.isDelimiter(previous)) {
+				if (this.openQuote && !lexeme.equals("")) {
+					// System.out.println("LIXO |" + lexeme + "|");
+		            return lexeme;
+
+				} else if (!this.openQuote) {
                     this.openQuote = !this.openQuote;
 					this.codePosition++;
-                    System.out.println("MIAUAUUAUAUAUA");
+                    // System.out.println("MIAUAUUAU AUAUA");
 
 		            return "\"";
-
-                } else if (this.openQuote && !lexeme.equals("")) {
-                    this.openQuote = !this.openQuote;
-					System.out.println("LIXO |" + lexeme + "|");
-
-		            return lexeme;
                 }
 
-				this.consumeBlanks();
+				this.openQuote = !this.openQuote;
+
 				this.codePosition++;
 
 				return "\"";
@@ -127,6 +131,7 @@ public class Lexer {
                            && this.isMathDelimiter(previous))
                        && (this.code.charAt(this.codePosition) == '=')
                        && !lexeme.isEmpty()) {
+						   // System.out.println("MERDA 1");
                 this.codePosition++;
 				this.consumeBlanks();
 				return lexeme + current;
@@ -136,6 +141,7 @@ public class Lexer {
                        && (this.isDelimiter(current)
 				       || (this.codePosition > 0
 				            && this.isDelimiter(previous)))) {
+								// System.out.println("MERDA 2");
 
                 this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;
@@ -147,6 +153,8 @@ public class Lexer {
                 && (current == '?' || previous == '?')) {
 				this.consumeComments();
 				this.consumeBlanks();
+				// System.out.println("MERDA 3");
+
 			}
 
 			if (this.codePosition >= this.code.length()) return lexeme;

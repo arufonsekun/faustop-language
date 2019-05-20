@@ -1,3 +1,6 @@
-olokinho b = 3 ^ 3 ^ 3;
+olokinho a = 2;
+olokinho b = ((((((1 * 9) + 4 + 6) + 8 * 4) + 4) - 50) * 2) + 4 + 2;
+a = ((a * 2 + 1) + 5) * 2;
 
+mostrailn(a);
 mostrailn(b);
