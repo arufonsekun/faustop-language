@@ -6,15 +6,32 @@
 //getter vem antes do setter
 //usar this pra chamada de método
 
+/*
+ * parseDouble
+ * */
+ 
+// asda
+if (asd) {
+    asd
+
+// asda w
+} else if () {
+    asdas
+
+//a dawd
+} else {
+
+}
+
 class Classe {
 
     public int day;
     private int month;
 
-    public void nomeDoMetodo(int parNome) {
+    public void nomeDoMetodo(int pNome) {
     }
 
-    private int outroMetodo(int parNome) {
+    private int outroMetodo(int pNome) {
         return this.day;
     }
 
