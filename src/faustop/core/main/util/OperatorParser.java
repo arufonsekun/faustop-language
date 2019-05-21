@@ -5,7 +5,11 @@ import java.util.Map;
 
 import faustop.core.vars.*;
 
-//
+/*
+ * MethodParser interface noted with @FunctionalInterface annotation is used
+ * to create kind of "lambda functions" in the OperatorParser class. This lambda
+ * functions calls the specified method
+ */
 @FunctionalInterface
 interface MethodParser <T1, T2>{
 
@@ -13,7 +17,10 @@ interface MethodParser <T1, T2>{
 
 }
 
-//
+/*
+ * OperatorParser class purpose is relate an operator to its operands, using a
+ * hashmap of type String and MethodParser.
+ */
 public class OperatorParser {
 
 	public static Map<String, MethodParser> INTEGER = new HashMap<String, MethodParser>();

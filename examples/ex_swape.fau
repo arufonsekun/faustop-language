@@ -3,5 +3,5 @@ olokinho b = 2;
 olokinho aux = a;
 a = b;
 b = aux;
-mostrai(a);
-mostrai(b);
+mostrailn(a);
+mostrailn(b);

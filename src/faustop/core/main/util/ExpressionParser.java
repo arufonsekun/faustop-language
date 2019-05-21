@@ -30,9 +30,9 @@ public class ExpressionParser {
 		OperatorParser.init();
 
         ArrayList<Node> postfix = buildPostFix(pExpList);
-        for(Node a : postfix) {
-            System.out.println(a.key().getName());
-        }
+        // for(Node a : postfix) {
+        //     System.out.println(a.key().getName());
+        // }
 		//
 		// System.out.println();
         // System.out.println();
@@ -78,6 +78,7 @@ public class ExpressionParser {
                       && (!priority.empty()
 					  	  && (priority.peek() >= currPriority))) {
                     expression.add(helper.pop());
+                    priority.pop();
                 }
 
                 helper.push(child);
