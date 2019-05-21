@@ -1,22 +1,20 @@
-//package faustop.core.main;
 package faustop.core.main;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import faustop.core.main.util.*;
+import faustop.core.main.util.Token;
+import faustop.core.main.util.Symbols;
 
 /*
  * Represents a Lexer.
  * A lexer is the responsible for executing the
  * lexical analisys stage.
  *
- * Author: Jean Carlo Hilger.
- * E-mail: hilgerjeancarlo@gmail.com.
+ * @author Jean Carlo Hilger <hilgerjeancarlo@gmail.com>.
  *
- * Author: Junior Vitor Ramisch.
- * E-mail: junior.ramisch@gmail.com.
+ * @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>.
  * */
+ 
 public class Lexer {
 
     // the full input (.fau) code
@@ -24,47 +22,36 @@ public class Lexer {
     // position reading the code
     private int codePosition;
 
-  	private int row = 1;
-    private int col = 1;
-
-  	// TODO: FIX THIS GAMBIARRA
   	private boolean openQuote = false;
-  	private String lastLexeme = "";
-    private int lastCol = 0;
 
     public void setCode(String pCode) {
         this.code = pCode;
     }
 
     /*
-    * Reads the code until a Token is identified.
-    * Once found, the Token is returned.
-    * */
+     * Reads the code until a Token is identified.
+     * Once found, the Token is returned.
+     * */
     public Token getNextToken() {
 
 		String lexeme = this.getLexeme();
 
-        // System.out.println("↓" + lexeme + "↓ " + this.row + ":" + this.col);
-
 		String type = Symbols.symbols.get(lexeme);
 
-		if (this.lastLexeme.equals("\"") && this.openQuote) {
+		if (!lexeme.equals("\"") && this.openQuote) {
 			type = "literal";
 		}
 
+        // lexeme not found in symbols map
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
-			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
-                && !this.lastLexeme.equals("\"")) {
+			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)) {
 				type = "identifier";
 
 			} else if (Pattern.matches("^([0-9]*)$", lexeme)
 					   || Pattern.matches("^(?:0|[1-9][0-9]*)\\.[0-9]+$", lexeme)) {
-				// TODO: separate this or in two ifs, and put literalnumber for one and literalstr to anothre
-				// System.out.println("CUZAL: |" + lexeme + "|");
 				type = "literal";
 
 			} else {
-				// System.out.println("AAAAAAAAA: |" + lexeme + "|");
 				System.out.println("cannot find symbol");
 				return null;
 
@@ -75,99 +62,75 @@ public class Lexer {
 			return null;
 		}
 
-		this.lastLexeme = new String(lexeme);
-
 		// no more available tokens
 		if (lexeme.isEmpty()) {
 			return null;
 
 		} else {
-			return new Token(type, lexeme, this.row, this.col);
+			return new Token(type, lexeme);
 		}
     }
 
     /*
-    * Reads the code and returns the smaller
-    * meaningful portion of the string.
-    * If there is no more lexemes to be build,
-    * returns an empty String.
-    * */
-// BUG TODO : THIS METHOD NEEDS REFACTORING
+     * Reads the code and returns the smaller
+     * meaningful portion of the string.
+     * If there is no more lexemes to be build,
+     * returns an empty String.
+     * */
 	private String getLexeme() {
 
-        // TODO: REFACTOR THIS METHOD
         String lexeme = "";
         char current, previous;
 
-        // this.col = this.codePosition + 1 - this.lastCol;
         while (this.codePosition < this.code.length()) {
             current = this.code.charAt(this.codePosition);
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
+            // previous is a `MathDelimiter`
+            boolean prevIsMathDel = this.codePosition > 0
+                                        && this.isMathDelimiter(previous);
+            // previous is a `Delimiter`
+            boolean prevIsDel = this.codePosition > 0
+                                    && this.isDelimiter(previous);
+
             if (current == '\"') {
-                if (!this.openQuote && !lexeme.equals("")) return lexeme;
-
-				if (this.openQuote && !lexeme.equals("")) {
-					// System.out.println("LIXO |" + lexeme + "|");
-		            return lexeme;
-
-				} else if (!this.openQuote) {
-                    this.openQuote = !this.openQuote;
-					this.codePosition++;
-                    // System.out.println("MIAUAUUAU AUAUA");
-
-		            return "\"";
-                }
-
-				this.openQuote = !this.openQuote;
-
-				this.codePosition++;
-
-				return "\"";
+                return this.checkStringLiteral(lexeme);
 
             // for operands with two chars (e.g. >=, <=)
             } else if (!this.openQuote
-                       && (this.codePosition > 0
-                           && this.isMathDelimiter(previous))
-                       && (this.code.charAt(this.codePosition) == '=')
-                       && !lexeme.isEmpty()) {
-						   // System.out.println("MERDA 1");
+                   && prevIsMathDel && current == '=' && !lexeme.isEmpty()) {
                 this.codePosition++;
-				this.consumeBlanks();
-				return lexeme + current;
-
-			// delimiters check
-			} else if (!this.openQuote
-                       && (this.isDelimiter(current)
-				       || (this.codePosition > 0
-				            && this.isDelimiter(previous)))) {
-								// System.out.println("MERDA 2");
-
                 this.consumeBlanks();
-				if (!lexeme.isEmpty()) return lexeme;
+                
+                return lexeme + current;
 
-			}
+            } else if (!this.openQuote
+                       && (this.isDelimiter(current) || prevIsDel)) {
+                this.consumeBlanks();
+                
+                if (!lexeme.isEmpty()) return lexeme;
+            }
 
             // comment check
             if (!this.openQuote
                 && (current == '?' || previous == '?')) {
 				this.consumeComments();
 				this.consumeBlanks();
-				// System.out.println("MERDA 3");
-
 			}
 
 			if (this.codePosition >= this.code.length()) return lexeme;
 			lexeme += this.code.charAt(this.codePosition);;
             this.codePosition++;
         }
+        
         return lexeme;
+    
     }
 
     /*
-    * Ignores the blank spaces (e.g. ' ', '\t', '\n') in the input code
-    * when tokenizing.
-    * */
+     * Utility method ignores the blank spaces (e.g. ' ', '\t', '\n') in the input code
+     * when tokenizing.
+     * */
 	private void consumeBlanks() {
 
 		while (this.codePosition < this.code.length() &&
@@ -175,31 +138,28 @@ public class Lexer {
 			    || this.code.charAt(this.codePosition) == '\n'
                 || this.code.charAt(this.codePosition) == '\t')) {
 
-            if (this.code.charAt(this.codePosition) == '\n') {
-                this.row++;
-                this.col = 1;
-            }
-
             this.codePosition++;
 		}
+        
 	}
 
     /*
-    * Utility function ignores everything until a '\n' is found.
-    * Called when a '?' (comment) is found.
-    * */
+     * Utility method ignores everything until a `\n` is found.
+     * Called when a `?` (comment) is found.
+     * */
 	private void consumeComments() {
-
-		while (this.code.charAt(this.codePosition) != '\n' &&
-		       this.codePosition < this.code.length()) {
+        
+		while (this.codePosition < this.code.length() 
+               && this.code.charAt(this.codePosition) != '\n') {
 		 	this.codePosition++;
 		}
+        
 	}
 
     /*
-    * Utility function checks whether or not
-    * the given char is a delimiter.
-    * */
+     * Utility method checks whether or not
+     * the given char is a delimiter.
+     * */
 	private boolean isDelimiter(char x) {
 
 		char[] delimiters = {'(', ')', '{', '}', '+', '*', '-', '/',
@@ -213,12 +173,13 @@ public class Lexer {
 		}
 
 		return false;
+        
 	}
 
     /*
-    * Utility function checks whether or not
-    * the given char is a MATH delimiter.
-    * */
+     * Utility method checks whether or not
+     * the given char is a MATH delimiter.
+     * */
 	private boolean isMathDelimiter(char x) {
 
 		char[] delimiters = {'>', '<', '!', '='};
@@ -230,7 +191,33 @@ public class Lexer {
 		}
 
 		return false;
+        
 	}
+    
+    /*
+     * Utility method decides how to proceed when a
+     * String literal is starting or ending.
+     * */
+    private String checkStringLiteral(String pLexeme) {
+        
+        if (!this.openQuote && !pLexeme.equals("")) return pLexeme;
 
+        if (this.openQuote && !pLexeme.equals("")) {
+       
+            return pLexeme;
+
+        } else if (!this.openQuote) {
+            this.openQuote = !this.openQuote;
+            this.codePosition++;
+
+            return "\"";
+        }
+
+        this.openQuote = !this.openQuote;
+        this.codePosition++;
+
+        return "\"";
+        
+    }
 
 }

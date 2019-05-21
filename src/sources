@@ -6,7 +6,6 @@
 ./faustop/core/main/util/ExpressionParser.java
 ./faustop/core/main/util/Symbols.java
 ./faustop/core/main/util/Node.java
-./faustop/core/main/Wrapper.java
 ./faustop/core/main/Interpreter.java
 ./faustop/core/main/Lexer.java
 ./faustop/core/main/Parser.java

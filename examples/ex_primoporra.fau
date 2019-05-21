@@ -1,5 +1,7 @@
 ? aqui bota o numbero
 olokinho a = 107;
+mostrai("BORA CUMPADE: ");
+entrai(a);
 
 olokinho divs = 1;
 olokinho c = 2;
@@ -13,4 +15,8 @@ churrasqueira (c < a) {
 
 eagora (divs == 1) {
     mostrailn("éporra");
+}
+eagora(divs > 1) {
+    mostrailn("não éporra");
+    
 }
