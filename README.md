@@ -40,22 +40,22 @@ A tabela representa os tipos de dados usados pra a declaração de variáveis. S
 #### 1.1 Suporte à operadores
 A tabela acima representa quais tipos suportam quais operadores.
 
-| Operador | `olokinho` | `oloko` | `bicho` | `paiseuropa` |
-|:--------:|:----------:|:-------:|:-------:|:------------:|
-| `+`      | ✓          | ✓       | ☓       | ☓            |
-| `-`      | ✓          | ✓       | ☓       | ☓            |
-| `*`      | ✓          | ✓       | ☓       | ☓            |
-| `/`      | ✓          | ✓       | ☓       | ☓            |
-| `%`      | ✓          | ☓       | ☓       | ☓            |
-| `^`      | ✓          | ☓       | ☓       | ☓            |
-| `>`      | ✓          | ✓       | ✓       | ☓            |
-| `<`      | ✓          | ✓       | ✓       | ☓            |
-| `>=`     | ✓          | ✓       | ✓       | ☓            |
-| `<=`     | ✓          | ✓       | ✓       | ☓            |
-| `==`     | ✓          | ✓       | ✓       | ☓            |
-| `!=`     | ✓          | ✓       | ✓       | ☓            |
-| `&&`     | ☓          | ☓       | ☓       | ✓            |
-| `\|\|`     | ☓          | ☓       | ☓       | ✓            |
+| Operador | Descrição | `olokinho` | `oloko` | `bicho` | `paiseuropa` |
+|:--------:|:--------:|:----------:|:-------:|:-------:|:------------:|
+| `+`      | Soma | ✓         | ✓       | ☓       | ☓            |
+| `-`      | Subtração | ✓         | ✓       | ☓       | ☓            |
+| `*`      | Multiplicação | ✓         | ✓       | ☓       | ☓            |
+| `/`      | Divisão | ✓         | ✓       | ☓       | ☓            |
+| `%`      | Mod (resto da divisão) | ✓         | ☓        | ☓       | ☓            |
+| `^`      | Exponenciação |✓          | ☓        | ☓       | ☓            |
+| `>`      | Maior que |✓          | ✓       | ✓       | ☓            |
+| `<`      | Menor que | ✓         | ✓       | ✓       | ☓            |
+| `>=`     | Maior ou igual à |✓          | ✓       | ✓       | ☓            |
+| `<=`     | Menor ou igual à | ✓         | ✓       | ✓       | ☓            |
+| `==`     | Igual à | ✓         | ✓       | ✓       | ☓            |
+| `!=`     | Diferente de |✓          | ✓       | ✓       | ☓            |
+| `&&`     | E lógico |☓           | ☓       | ☓       | ✓            |
+| `\|\|`   | Ou lógico | ☓          | ☓       | ☓       | ✓            |
 
 **Syntaxe:** `operando` `operador` `operando`
 
