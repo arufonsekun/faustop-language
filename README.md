@@ -1,8 +1,8 @@
 # Faustop Language
- * Desenvolvedores da grandiosa linguagem Faustop®: Jean C. Hilger, Junior V. Ramisch, Paulo G. Comasetto;
+ * Desenvolvedores da grandiosa linguagem Faustop®: Jean C. Hilger, Junior V. Ramisch, Paulo G. S. Comasetto;
  ![Faustão Pentelho][fausto1]
 
-<img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="5%" width="5%" align="right">
+<img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="10%" width="10%" align="right">
 
 ## Visão Geral
 A linguagem de programação Faustop foi construída em java, para fins acadêmicos (kk). A sintaxe básica não difere muito da sintaxe do `Java`.
@@ -15,7 +15,7 @@ Os principais recursos da linguagem envolvem:
  - Laços (`while`);
  - Controle de fluxo (`if`);
 
-<img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="5%" width="5%" align="right">
+<img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="10%" width="10%" align="right">
 
 ## Documentação
 
