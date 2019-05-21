@@ -30,7 +30,7 @@ Os principais recursos da linguagem envolvem:
 
 A tabela representa os tipos de dados usados pra a declaração de variáveis. Seu uso é semelhante ao do java.
 
-**Sintaxe:** `tipo` `var_name` [ `=` `expressão`];
+**Sintaxe:** `tipo` `var_name` `[ = expressão]` `;`
 
 #### 1.1 Suporte à operadores
 | Operador | `olokinho` | `oloko` | `bicho` | `paiseuropa` |
