@@ -59,10 +59,10 @@ public class ExpressionParser {
 
         for (Node child : pExpList) {
 
-            if (child.key().getType().equals(Symbols.delParOpen)) {
+            if (child.key().getType().equals(Symbols.DEL_PAR_OPEN)) {
                 parMultiplier0++;
 
-            } else if (child.key().getType().equals(Symbols.delParClose)) {
+            } else if (child.key().getType().equals(Symbols.DEL_PAR_CLOSE)) {
                 parMultiplier0--;
             }
 

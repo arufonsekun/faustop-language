@@ -13,59 +13,59 @@ import java.util.regex.Pattern;
  * Represents a Parser.
  * A parser is the responsible for executing the
  * sintatic analisys stage.
- * This class just build a parse tree, no error 
- * checking is really made here. 
+ * This class just build a parse tree, no error
+ * checking is really made here.
  *
  * @author Jean Carlo Hilger <hilgerjeancarlo@gmail.com>
  * */
- 
+
 public class Parser {
 
     private LinkedList<Token> tokenList;
     private Tree parseTree;
 
     public Parser() {
-        
+
         this.parseTree = new Tree(new Token("INSTRUCTION", "", -1, -1));
         this.tokenList = new LinkedList<>();
-        
+
     }
 
     public Tree getParseTree() {
-        
+
         return this.parseTree;
-        
+
     }
 
     public LinkedList<Token> getTokenList() {
-        
+
         return this.tokenList;
-        
+
     }
 
     /*
      * Appends a single token to the `tokenList`
      * */
     public void addToken(Token pToken) {
-        
+
         this.tokenList.add(pToken);
-        
+
     }
 
     /*
      * Builds the parse tree (by calling utility methods).
      * */
     public void buildParseTree() {
-        
+
         this.buildInstruction(this.parseTree.root(), 0);
-        
+
     }
 
     /*
      * Utility method builds a subtree for an instruction.
      * */
     private void buildInstruction(Node pParent, int pCurrToken) {
-        
+
         Token token;
         Node parent = pParent;
         int maxSize = this.tokenList.size();
@@ -79,10 +79,10 @@ public class Parser {
                 // avoid outOfRange
                 boolean smallerThanMax = currToken < maxSize - 1;
                 // next is an equal (`=`) symbol
-                boolean nextIsOpAssign = smallerThanMax && 
-                            this.tokenList.get(currToken + 1).getType().equals(Symbols.opAssign);
+                boolean nextIsOpAssign = smallerThanMax &&
+                            this.tokenList.get(currToken + 1).getType().equals(Symbols.OP_ASSIGN);
                 // parent is an INSTR node that starts with an keyword type.
-                boolean isKwType = parent.key().getName().equals(Symbols.kwType);
+                boolean isKwType = parent.key().getName().equals(Symbols.KW_TYPE);
 
                 // the instruction is an assigment (with variable declaration)
                 if (nextIsOpAssign && isKwType) {
@@ -104,7 +104,7 @@ public class Parser {
             }
 
         }
-    
+
     }
 
     /*
@@ -121,11 +121,11 @@ public class Parser {
 
             // checks whether the expression can be expanded or not.
             if (Symbols.isEndOfExpression(token)) {
-                
+
                 // next token may expand the current expression
                 if (currToken < maxSize - 1 // avoid outOfRange
                     && Symbols.isMiddleOfExpression(this.tokenList.get(currToken + 1))) {
-                    this.parseTree.addNode(token, pParent); 
+                    this.parseTree.addNode(token, pParent);
 
                 // the expression is really ended
                 } else {
@@ -136,7 +136,7 @@ public class Parser {
             } else {
                 this.parseTree.addNode(token, pParent);
             }
-            
+
             currToken++;
         }
 
@@ -148,10 +148,10 @@ public class Parser {
      * instruction node (INSTR).
      * */
     private Node createInstNode(Token pToken, Node pParent) {
-        
+
         Node insParent = new Node(new Token("INSTR", pToken.getType(), -1, -1), pParent);
 
-        if (pToken.getType().equals(Symbols.delCurlyOpen)) {
+        if (pToken.getType().equals(Symbols.DEL_CURLY_OPEN)) {
             this.parseTree.addNode(pToken, pParent);
             this.parseTree.addNode(insParent);
 
@@ -161,7 +161,7 @@ public class Parser {
         }
 
         return insParent;
-        
+
     }
 
     /*
@@ -169,8 +169,8 @@ public class Parser {
      * according to the current end of instruction.
      * */
     private Node endInstNode(Token pToken, Node pParent) {
-        
-        if (pToken.getType().equals(Symbols.delCurlyClose)) {
+
+        if (pToken.getType().equals(Symbols.DEL_CURLY_CLOSE)) {
             this.parseTree.addNode(pToken, pParent.parent());
             return pParent.parent().parent();
 
@@ -178,7 +178,7 @@ public class Parser {
             this.parseTree.addNode(pToken, pParent);
             return pParent.parent();
         }
-        
+
     }
 
     /*
@@ -186,10 +186,10 @@ public class Parser {
      * expression node (EXP).
      * */
     private Node createExpNode(Token pToken, Node pParent) {
-        
+
         Node expParent = new Node(new Token("EXP", "", -1, -1), pParent);
 
-        if (pToken.getType().equals(Symbols.opAssign)) {
+        if (pToken.getType().equals(Symbols.OP_ASSIGN)) {
             this.parseTree.addNode(pToken, pParent);
             this.parseTree.addNode(expParent);
 
@@ -199,7 +199,7 @@ public class Parser {
         }
 
         return expParent;
-        
+
     }
 
 }

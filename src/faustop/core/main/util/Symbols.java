@@ -31,7 +31,6 @@ public class Symbols {
     public static final Map<String, String> symbols;
 
 	static {
-		//TODO: 2nd paramether of `put()` method should be the previous defined strings
 
         Map<String, String> aMap = new HashMap<>();
 		// type definition
@@ -91,15 +90,15 @@ public class Symbols {
 
 		String tType = pToken.getType();
 
-		boolean isKW = tType.equals(Symbols.kwBI);
-		boolean isFC = tType.equals(Symbols.kwFC);
-		boolean isKwT = tType.equals(Symbols.kwType);
+		boolean isKwBI = tType.equals(Symbols.KW_BI);
+		boolean isFC = tType.equals(Symbols.KW_FC);
+		boolean isKwT = tType.equals(Symbols.KW_TYPE);
 
-		if (isKW || isFC || isKwT) {
+		if (isKwBI || isFC || isKwT) {
             return true;
         }
 
-        return false;*/
+        return false;
     }
 
 	/*
@@ -109,12 +108,12 @@ public class Symbols {
 
 		String tType = pToken.getType();
 
-		boolean lit = tType.equals(Symbols.lit);
-		boolean parOp = tType.equals(Symbols.delParOpe);
-		boolean doubQuo = tType.equals(Symbols.delDoubQuot);
-		boolean opAssi = tType.equals(Symbols.opAssign);
+		boolean isLit = tType.equals(Symbols.LIT);
+		boolean isParOp = tType.equals(Symbols.DEL_PAR_OPEN);
+		boolean isDoubQuo = tType.equals(Symbols.DEL_DOUB_QUOT);
+		boolean isOpAssi = tType.equals(Symbols.OP_ASSIGN);
 
-        if (lit || parOp || doubQuo || opAssi) {
+        if (isLit || isParOp || isDoubQuo || isOpAssi) {
             return true;
         }
 
@@ -130,13 +129,12 @@ public class Symbols {
 		String tType = pToken.getType();
 
 		boolean isOp = Symbols.isOperator(pToken);
-		boolean parOp = tType.equals(Symbols.DEL_PAR_OPEN);
-		boolean parClo = tType.equals(Symbols.DEL_PAR_CLOSE);
-		boolean lit = tType.equals(Symbols.LIT);
-		boolean doubQuo = tType.equals(Symbols.DEL_DOUB_QUOT);
+		boolean isParOp = tType.equals(Symbols.DEL_PAR_OPEN);
+		boolean isParClo = tType.equals(Symbols.DEL_PAR_CLOSE);
+		boolean isLit = tType.equals(Symbols.LIT);
+		boolean isDoubQuo = tType.equals(Symbols.DEL_DOUB_QUOT);
 
-
-        if (isOp || parOp || parClo || lit || doubQuo) {
+        if (isOp || isParOp || isParClo || isLit || isDoubQuo) {
             return true;
         }
 
@@ -150,16 +148,16 @@ public class Symbols {
 
 		String tType = pToken.getType();
 
-		boolean id = tType.equals(Symbols.id);
-		boolean lit = tType.equals(Symbols.lit);
-		boolean parClo = tType.equals(Symbols.delParClose);
-		boolean doubQuo = tType.equals(Symbols.DEL_DOUB_QUOT);
+		boolean isId = tType.equals(Symbols.ID);
+		boolean isLit = tType.equals(Symbols.LIT);
+		boolean isParClo = tType.equals(Symbols.DEL_PAR_CLOSE);
+		boolean isDoubQuo = tType.equals(Symbols.DEL_DOUB_QUOT);
 
-        if (id || lit || parClo || doubQuo) {
+        if (isId || isLit || isParClo || isDoubQuo) {
             return true;
         }
 
-        return false;*/
+        return false;
     }
 
 	/*
@@ -171,12 +169,11 @@ public class Symbols {
 
 		String tType = pToken.getType();
 
-		boolean curOp = tType.equals(Symbols.DEL_CURLY_OPEN);
-		boolean isKw = Symbols.isKeyWord(pToken);
+		boolean isKW = Symbols.isKeyWord(pToken);
+		boolean isCurOp = tType.equals(Symbols.DEL_CURLY_OPEN);
+		boolean isId = tType.equals(Symbols.ID);
 
-        if (pToken.getType().equals(Symbols.delCurlyOpen)
-		    || Symbols.isKeyWord(pToken)
-			|| pToken.getType().equals(Symbols.id)) {
+        if (isKW || isCurOp || isId) {
             return true;
         }
 
@@ -189,8 +186,12 @@ public class Symbols {
 	* */
     public static final boolean isEndOfInstruction(Token pToken) {
 
-        if (pToken.getType().equals(Symbols.delSemicolon)
-            || pToken.getType().equals(Symbols.delCurlyClose)) {
+		String tType = pToken.getType();
+
+		boolean isDelSemi = tType.equals(Symbols.DEL_SEMICOLON);
+		boolean isDelCurClo = tType.equals(Symbols.DEL_CURLY_CLOSE);
+
+		if (isDelSemi || isDelCurClo) {
             return true;
         }
         return false;
@@ -202,9 +203,13 @@ public class Symbols {
 	* */
 	public static final boolean isOperator(Token pToken) {
 
-		if (pToken.getType().equals(Symbols.opAritm)
-			|| pToken.getType().equals(Symbols.opRel)
-			|| pToken.getType().equals(Symbols.opLog)) {
+		String tType = pToken.getType();
+
+		boolean isOpArit = tType.equals(Symbols.OP_ARITM);
+		boolean isOpRel = tType.equals(Symbols.OP_REL);
+		boolean isOpLog = tType.equals(Symbols.OP_LOG);
+
+		if (isOpArit || isOpRel || isOpLog) {
 			return true;
 		}
 
@@ -220,13 +225,13 @@ public class Symbols {
 
 	public static boolean isLiteral(Token pToken) {
 
-		return pToken.getType().equals(Symbols.lit);
+		return pToken.getType().equals(Symbols.LIT);
 
 	}
 
 	public static boolean isAssignment(Token pToken) {
 
-		return pToken.getType().equals(Symbols.opAssign);
+		return pToken.getType().equals(Symbols.OP_ASSIGN);
 
 	}
 
@@ -254,11 +259,9 @@ public class Symbols {
 
     }
 
-	//
     public static boolean isBool(String pTType) {
 
         return pTType.equals("paiseuropa");
 
     }
-
 }
