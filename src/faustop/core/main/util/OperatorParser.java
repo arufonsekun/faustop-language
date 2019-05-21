@@ -53,6 +53,8 @@ public class OperatorParser {
 	    MethodParser<IntegerType, Integer> minus = (pObj, pValue) -> pObj.minus(pValue);
 	    MethodParser<IntegerType, Integer> times = (pObj, pValue) -> pObj.times(pValue);
 	    MethodParser<IntegerType, Integer> division = (pObj, pValue) -> pObj.division(pValue);
+		MethodParser<IntegerType, Integer> mod = (pObj, pValue) -> pObj.mod(pValue);
+		MethodParser<IntegerType, Integer> pow = (pObj, pValue) -> pObj.pow(pValue);
 
         MethodParser<IntegerType, Integer> grTh = (pObj, pValue) -> pObj.greaterThan(pValue);
         MethodParser<IntegerType, Integer> grThOrEq = (pObj, pValue) -> pObj.greaterThanOrEqualTo(pValue);
@@ -60,8 +62,6 @@ public class OperatorParser {
         MethodParser<IntegerType, Integer> lessThOrEq = (pObj, pValue) -> pObj.lessThanOrEqualTo(pValue);
         MethodParser<IntegerType, Integer> eq = (pObj, pValue) -> pObj.equal(pValue);
         MethodParser<IntegerType, Integer> dif = (pObj, pValue) -> pObj.differs(pValue);
-        MethodParser<IntegerType, Integer> mod = (pObj, pValue) -> pObj.mod(pValue);
-        MethodParser<IntegerType, Integer> pow = (pObj, pValue) -> pObj.pow(pValue);
 
 		OperatorParser.INTEGER.put("+", plus);
 	    OperatorParser.INTEGER.put("-", minus);
@@ -89,6 +89,7 @@ public class OperatorParser {
  	    MethodParser<DoubleType, Double> minus = (pObj, pValue) -> pObj.minus(pValue);
  	    MethodParser<DoubleType, Double> times = (pObj, pValue) -> pObj.times(pValue);
  	    MethodParser<DoubleType, Double> division = (pObj, pValue) -> pObj.division(pValue);
+		MethodParser<DoubleType, Double> pow = (pObj, pValue) -> pObj.pow(pValue);
 
         MethodParser<DoubleType, Double> grTh = (pObj, pValue) -> pObj.greaterThan(pValue);
         MethodParser<DoubleType, Double> grThOrEq = (pObj, pValue) -> pObj.greaterThanOrEqualTo(pValue);
@@ -101,6 +102,7 @@ public class OperatorParser {
  	    OperatorParser.DOUBLE.put("-", minus);
  	    OperatorParser.DOUBLE.put("*", times);
  	    OperatorParser.DOUBLE.put("/", division);
+		OperatorParser.DOUBLE.put("^", pow);
 
         OperatorParser.DOUBLE.put(">", grTh);
         OperatorParser.DOUBLE.put(">=", grThOrEq);

@@ -1,0 +1,6 @@
+bicho a = "Hello World";
+bicho b = "a";
+
+entrai(b);
+
+mostrailn(a > b);

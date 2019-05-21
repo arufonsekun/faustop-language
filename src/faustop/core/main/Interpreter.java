@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import faustop.core.lib.StandardLibrary;
 import faustop.core.vars.*;
+import faustop.core.main.util.ExpressionParser;
 import faustop.core.main.util.If;
 import faustop.core.main.util.Memory;
 import faustop.core.main.util.Node;
@@ -20,15 +21,15 @@ public class Interpreter {
 
     /*
      * Method responsible for executing the parse tree.
-     * That is, walk through the tree converting 
+     * That is, walk through the tree converting
      * interpreting it.
      * */
     public void run(Node pTreeRoot) {
-        
+
         if (pTreeRoot == null) return;
-        
+
         for (Node child : pTreeRoot.children()) {
-            
+
             String instrName = child.key().getName();
 
             // variable definition
@@ -41,9 +42,9 @@ public class Interpreter {
 
             // flow controller (if or while)
             } else if (instrName.equals(Symbols.KW_FC))  {
-                
+
                 String instKw = child.children().get(0).key().getName();
-                
+
                 // if
                 if (instKw.equals("eagora")) {
                     Node body = If.evalIf(child);
@@ -60,7 +61,7 @@ public class Interpreter {
                         value = ExpressionParser.eval(exp.children());
                     }
                 }
-            
+
             // variable assignment (without declare it)
             } else if (instrName.equals("identifier")
                        && child.key().getType().equals("INSTR")) {
@@ -77,7 +78,7 @@ public class Interpreter {
 	private void handleBuiltIn(Node pParent) {
 
 		String command = pParent.children().get(0).key().getName();
-        
+
         if(command.equals("mostrai") || command.equals("mostrailn")) {
             String value;
     		Node exp = pParent.children().get(1);
@@ -90,11 +91,11 @@ public class Interpreter {
                 value = ExpressionParser.eval(exp.children());
     			StandardLibrary.mostrailn(value);
             }
-        
+
         } else {
             StandardLibrary.entrai(pParent.children());
         }
-        
+
 	}
 
     /*
@@ -104,7 +105,7 @@ public class Interpreter {
      * assignment).
      * */
     private void newVariable(Node pParent) {
-        
+
         String type="", name="", value="";
         boolean assign;
 
@@ -136,7 +137,7 @@ public class Interpreter {
             BooleanType b = new BooleanType(name, value);
             Memory.booleanMap.put(name, b);
         }
-	
+
     }
 
     /*
@@ -145,7 +146,7 @@ public class Interpreter {
      * Used for variable assignments (not declaration).
      * */
     private void changeVariable(Node pParent) {
-        
+
         Token tok = pParent.children().get(0).key();
         String varName = tok.getName();
         String newValue = ExpressionParser.eval(pParent.children().get(2).children());
@@ -158,11 +159,11 @@ public class Interpreter {
 
         } else if (Memory.intMap.containsKey(varName)) {
             Memory.intMap.get(varName).setValue(newValue);
-       
+
         } else {
             System.out.println("Variable `"+varName+"` not defined");
         }
-        
+
     }
 
 }

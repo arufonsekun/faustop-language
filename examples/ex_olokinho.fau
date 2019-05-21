@@ -1,0 +1,12 @@
+olokinho a = 3 ^ 2;
+olokinho b = 1 + 2 * 2;
+olokinho q = a / b;
+olokinho r = a % b;
+
+mostrai(a);
+mostrai(" = ");
+mostrai(b);
+mostrai(" * ");
+mostrai(q);
+mostrai(" + ");
+mostrailn(r);

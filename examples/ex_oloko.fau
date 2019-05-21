@@ -1,0 +1,8 @@
+oloko v = 1200.80;
+oloko j = 0.05;
+
+oloko t = v + v * j;
+
+mostrai(v);
+mostrai(" -> ");
+mostrailn(t);
