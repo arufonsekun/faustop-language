@@ -1,6 +1,0 @@
-Literal:
-    int: (\d*)
-    double: ^(?:0|[1-9][0-9]*)\.[0-9]+$
-    boolean: (false|true)
-    string : (\".+\")
-    char : (\'.\')

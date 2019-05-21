@@ -1,0 +1,8 @@
+olokinho a = 0;
+olokinho b = 0;
+mostrai("digite-o-primeiro-valor");
+entrai(a);
+churrasqueira(b < a) {
+    mostrailn(a);
+    a = a - 1;
+}
