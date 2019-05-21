@@ -21,6 +21,7 @@ Os principais recursos da linguagem envolvem:
  - Operações aritméticas;
  - Laços (`while`);
  - Controle de fluxo (`if`);
+ - Comentários são definidos através do símbolo `?`;
 
 <img src="https://pbs.twimg.com/media/CmeE6gdXgAA55wU.png" height="6%" width="6%" align="left">
 <h2>Documentação</h2>
@@ -47,7 +48,7 @@ A tabela acima representa quais tipos suportam quais operadores.
 | `*`      | Multiplicação | ✓         | ✓       | ☓       | ☓            |
 | `/`      | Divisão | ✓         | ✓       | ☓       | ☓            |
 | `%`      | Mod (resto da divisão) | ✓         | ☓        | ☓       | ☓            |
-| `^`      | Exponenciação |✓          | ☓        | ☓       | ☓            |
+| `^`      | Exponenciação |✓          | ✓        | ☓       | ☓            |
 | `>`      | Maior que |✓          | ✓       | ✓       | ☓            |
 | `<`      | Menor que | ✓         | ✓       | ✓       | ☓            |
 | `>=`     | Maior ou igual à |✓          | ✓       | ✓       | ☓            |
@@ -59,6 +60,30 @@ A tabela acima representa quais tipos suportam quais operadores.
 
 **Syntaxe:** `operando` `operador` `operando`
 
+### 2 Comandos Controladores de Fluxo
+
+| Comando Faustop        | Equivalente Java      |
+|:-------------------:|:---------------------:|
+| `eagora`            | `if`                 |
+| `churrasqueira`     | `while`              |
+
+#### 2.1 Comando `eagora()`
+O comando `eagora()` desempenha a função do controlador de fluxo `if` e não suporta declaração equivalente ao `else`. A sintaxe de sua declaração é: `eagora( condição )` { ... }
+
+#### 2.2 Comando `churrasqueira()`
+O comando `churrasqueira()` desempenha a função do *loop* `while`. A sintaxe de sua declaração é: `churrasqueira(condição)` {...}
+
+### 3 Comandos de Entrada e Saída I/O
+Os comandos de entrada e saída existentes na linguagem são:
+- `entrai()`: permite a leitura de dados pela entrada padrão;
+- `mostrai()`: permite a saída de dados;
+- `mostrailn()`: permite a saída de dados porém com uma quebra de linha ao final do conteúdo;
+
+### 4 Exemplos
+ - Utilização dos tipos:
+   - miab; 
+ - Utilização do `eagora()`:
+ - Utilização do `churrasqueira()`:
 
 [fausto1]:http://raw.cdn.cennoticias.com/fda315a7-6083-490e-bf65-74874928ac41
 [fausto2]:https://i.pinimg.com/originals/c5/73/00/c573001d39ef51756047e71d75851d67.jpg
