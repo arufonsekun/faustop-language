@@ -3,9 +3,8 @@
 <h1 align="center">Faustop Language</h1>
 
 
- * Desenvolvedores da grandiosa linguagem Faustop®: Jean C. Hilger, Junior V. Ramisch, Paulo G. S. Comasetto;
+ Desenvolvedores da grandiosa linguagem Faustop®: Jean C. Hilger, Junior V. Ramisch, Paulo G. S. Comasetto;
  <br>
- <img src="http://raw.cdn.cennoticias.com/fda315a7-6083-490e-bf65-74874928ac41" height="70%" width="70%">
 
 
 <img src="https://pbs.twimg.com/media/CmeE6gdXgAA55wU.png" height="6%" width="6%" align="left">
