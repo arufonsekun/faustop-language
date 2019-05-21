@@ -1,6 +1,5 @@
 # Faustop Language
- * Repository to maintain the code related to the faustop interpreter;
- * Group Members: Jean C. Hilger, Junior V. Ramisch, Paulo G. Comasetto;
+ * Desenvolvedores da grandiosa linguagem Faustop®: Jean C. Hilger, Junior V. Ramisch, Paulo G. Comasetto;
  ![Faustão Pentelho][fausto1]
 
 <img src="https://img.ibxk.com.br/2018/2/programas/16005909121631975.png" height="5%" width="5%" align="right">
@@ -47,7 +46,6 @@ A tabela representa os tipos de dados usados pra a declaração de variáveis. S
 | `<=`     | ✓          | ✓       | ✓       | ☓            |
 | `==`     | ✓          | ✓       | ✓       | ☓            |
 | `!=`     | ✓          | ✓       | ✓       | ☓            |
-| `!`      | ☓          | ☓       | ☓       | ✓            |
 | `&&`     | ☓          | ☓       | ☓       | ✓            |
 | `\|\|`     | ☓          | ☓       | ☓       | ✓            |
 
