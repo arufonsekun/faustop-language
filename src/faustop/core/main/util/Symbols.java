@@ -47,7 +47,8 @@ public class Symbols {
 
         // built-in
         aMap.put("entrai", "keywordbuiltin"); // input
-        aMap.put("mostrai", "keywordbuiltin"); // output
+		aMap.put("mostrai", "keywordbuiltin"); // output
+        aMap.put("mostrailn", "keywordbuiltin"); // outputln
 
 		// arithmetic operators
 		aMap.put("+", "operatorarithmetic");
@@ -79,7 +80,6 @@ public class Symbols {
 		aMap.put("{", "delimitercurlybracketopen");
 		aMap.put("}", "delimitercurlybracketclose");
 		aMap.put(";", "delimitersemicolon");
-		aMap.put("\'", "delimiterquotationmark");
 		aMap.put("\"", "delimiterdoublequotationmark");
 
         symbols = Collections.unmodifiableMap(aMap);

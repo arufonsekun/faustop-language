@@ -1,0 +1,23 @@
+mostrailn("hello world");
+
+bicho a = "MERDA SEU LIXO";
+mostrailn(a);
+mostrai("PEDAÇO DE CU DO CARALHO");
+mostrailn("CU");
+
+olokinho mes = 12;
+churrasqueira (mes > 0) {
+	olokinho b = 0;
+	churrasqueira (5 > b) {
+		b = b + 1;
+		mostrailn(b);
+	}
+	mostrailn(" MORTE ME LEVA");
+	mostrai(mes);
+	eagora(mes == 6) {
+		mostrailn("     ----- 1");
+	}
+	mes = mes - 1;
+}
+
+mostrailn("SAAS");

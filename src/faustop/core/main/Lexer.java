@@ -21,13 +21,16 @@ public class Lexer {
 
     // the full input (.fau) code
     private String code;
-    // last position reading the code
+    // position reading the code
     private int codePosition;
-  	// last position in the code where a '\n' was found
-  	private int lastRow;
+
+  	private int row = 1;
+    private int col = 1;
+
   	// TODO: FIX THIS GAMBIARRA
   	private boolean openQuote = false;
   	private String lastLexeme = "";
+    private int lastCol = 0;
 
     public void setCode(String pCode) {
         this.code = pCode;
@@ -41,22 +44,27 @@ public class Lexer {
 
 		String lexeme = this.getLexeme();
 
-        // System.out.println("↓" + lexeme + "↓");
+        // System.out.println("↓" + lexeme + "↓ " + this.row + ":" + this.col);
 
 		String type = Symbols.symbols.get(lexeme);
+
+		if (this.lastLexeme.equals("\"") && this.openQuote) {
+			type = "literal";
+		}
 
 		if (type == null && lexeme != null && !lexeme.isEmpty()) {
 			if (Pattern.matches("([A-z]|_)(\\w*)", lexeme)
                 && !this.lastLexeme.equals("\"")) {
 				type = "identifier";
 
-			} else if (Pattern.matches("[0-9]+", lexeme)
-                       || this.lastLexeme.equals("\"")
+			} else if (Pattern.matches("^([0-9]*)$", lexeme)
 					   || Pattern.matches("^(?:0|[1-9][0-9]*)\\.[0-9]+$", lexeme)) {
 				// TODO: separate this or in two ifs, and put literalnumber for one and literalstr to anothre
+				// System.out.println("CUZAL: |" + lexeme + "|");
 				type = "literal";
 
 			} else {
+				// System.out.println("AAAAAAAAA: |" + lexeme + "|");
 				System.out.println("cannot find symbol");
 				return null;
 
@@ -74,7 +82,7 @@ public class Lexer {
 			return null;
 
 		} else {
-			return new Token(type, lexeme, 1, 2);
+			return new Token(type, lexeme, this.row, this.col);
 		}
     }
 
@@ -84,42 +92,46 @@ public class Lexer {
     * If there is no more lexemes to be build,
     * returns an empty String.
     * */
+// BUG TODO : THIS METHOD NEEDS REFACTORING
 	private String getLexeme() {
 
         // TODO: REFACTOR THIS METHOD
         String lexeme = "";
         char current, previous;
 
+        // this.col = this.codePosition + 1 - this.lastCol;
         while (this.codePosition < this.code.length()) {
             current = this.code.charAt(this.codePosition);
             previous = this.codePosition > 0 ? this.code.charAt(this.codePosition-1) : 0;
 
-            // if (current == '\"') {
-            //
-            //     if (!this.openQuote && this.isDelimiter(previous)) {
-            //         this.openQuote = !this.openQuote;
-			// 		this.codePosition++;
-            //
-		    //         return "\"";
-            //
-            //     } else if (this.openQuote && !lexeme.equals("")) {
-            //         this.openQuote = !this.openQuote;
-			// 		// System.out.println("LIXO |" + lexeme + "|");
-            //
-		    //         return lexeme;
-            //     }
-            //
-			// 	this.consumeBlanks();//BUG: here is the inseto
-			// 	this.codePosition++;
-            //
-			// 	return "\"";
-            //
-            // } else
-             if (!this.openQuote
+            if (current == '\"') {
+                if (!this.openQuote && !lexeme.equals("")) return lexeme;
+
+				if (this.openQuote && !lexeme.equals("")) {
+					// System.out.println("LIXO |" + lexeme + "|");
+		            return lexeme;
+
+				} else if (!this.openQuote) {
+                    this.openQuote = !this.openQuote;
+					this.codePosition++;
+                    // System.out.println("MIAUAUUAU AUAUA");
+
+		            return "\"";
+                }
+
+				this.openQuote = !this.openQuote;
+
+				this.codePosition++;
+
+				return "\"";
+
+            // for operands with two chars (e.g. >=, <=)
+            } else if (!this.openQuote
                        && (this.codePosition > 0
                            && this.isMathDelimiter(previous))
                        && (this.code.charAt(this.codePosition) == '=')
                        && !lexeme.isEmpty()) {
+						   // System.out.println("MERDA 1");
                 this.codePosition++;
 				this.consumeBlanks();
 				return lexeme + current;
@@ -129,18 +141,24 @@ public class Lexer {
                        && (this.isDelimiter(current)
 				       || (this.codePosition > 0
 				            && this.isDelimiter(previous)))) {
+								// System.out.println("MERDA 2");
 
                 this.consumeBlanks();
 				if (!lexeme.isEmpty()) return lexeme;
 
-			// string literal check
-			} else if (!this.openQuote && current == '?') {
+			}
+
+            // comment check
+            if (!this.openQuote
+                && (current == '?' || previous == '?')) {
 				this.consumeComments();
 				this.consumeBlanks();
+				// System.out.println("MERDA 3");
+
 			}
 
 			if (this.codePosition >= this.code.length()) return lexeme;
-			lexeme += current;
+			lexeme += this.code.charAt(this.codePosition);;
             this.codePosition++;
         }
         return lexeme;
@@ -156,7 +174,13 @@ public class Lexer {
 			   (this.code.charAt(this.codePosition) == ' '
 			    || this.code.charAt(this.codePosition) == '\n'
                 || this.code.charAt(this.codePosition) == '\t')) {
-			this.codePosition++;
+
+            if (this.code.charAt(this.codePosition) == '\n') {
+                this.row++;
+                this.col = 1;
+            }
+
+            this.codePosition++;
 		}
 	}
 
@@ -207,5 +231,6 @@ public class Lexer {
 
 		return false;
 	}
+
 
 }

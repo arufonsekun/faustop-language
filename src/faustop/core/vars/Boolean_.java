@@ -11,16 +11,17 @@ public class Boolean_ extends Variable {
      * */
     private boolean value;
 
-    public Boolean_ (String pName) {
+    public Boolean_(String pName, String pValue) {
         super(pName, "BOOLEAN");
+        this.setValue(pValue);
     }
 
     public boolean getValue() {
-        return this.getValue();
+        return this.value;
     }
 
     public void setValue(String pValue) {
-        this.setValue(pValue);
+        this.value = Boolean.parseBoolean(pValue);
     }
 
     public String logicalAnd(Boolean pValue) {

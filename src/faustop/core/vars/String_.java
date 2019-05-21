@@ -28,13 +28,16 @@ public class String_ extends Variable {
     }
 
     public String equal(String pObj) {
+		System.out.println("String class"+pObj);
 		Boolean ans = this.getValue().equals(pObj);
+		System.out.println("String class"+ans);
         return Boolean.toString(ans);
     }
 
     public String greaterThanOrEqualTo(String pObj) {
-		Boolean ans = this.greaterThan(pObj).equals("true") || this.equal(pObj).equals("true");
-        return Boolean.toString(ans);
+		Boolean ans1 = this.greaterThan(pObj).equals("true");
+		Boolean ans2 = this.equal(pObj).equals("true");
+        return Boolean.toString(ans1 || ans2);
     }
 
     public String lessThanOrEqualTo(String pObj) {

@@ -9,6 +9,7 @@ import faustop.core.main.*;
 /*
  * Wrapper class packs lexer, parser and semantic analyzer
  * functionalities together.
+ *
  * Author: Junior Vitor Ramisch
  * E-mail: junior.ramisch@gmail.com
  * */
@@ -32,13 +33,15 @@ public class Wrapper {
 
         while (token != null) {
             parser.addToken(token); // adds the token into the token list
-            //System.out.println("Name: "+token.getName()+" type: "+token.getType());
+            // System.out.println("Name: "+token.getName()+" type: "+token.getType());
             token = lexer.getNextToken();
         }
 
         parser.buildParseTree(); //build the parse tree based on the token list
+
         parseTree = parser.getParseTree(); //get the parseTree
         interpreter.run(parseTree.root());
+        // parseTree.traverse(parseTree.root());
 
     }
 

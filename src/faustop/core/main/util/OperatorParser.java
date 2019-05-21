@@ -5,7 +5,11 @@ import java.util.Map;
 
 import faustop.core.vars.*;
 
-//
+/*
+ * MethodParser interface noted with @FunctionalInterface annotation is used
+ * to create kind of "lambda functions" in the OperatorParser class. This lambda
+ * functions calls the specified method
+ */
 @FunctionalInterface
 interface MethodParser <T1, T2>{
 
@@ -13,7 +17,10 @@ interface MethodParser <T1, T2>{
 
 }
 
-//
+/*
+ * OperatorParser class purpose is relate an operator to its operands, using a
+ * hashmap of type String and MethodParser.
+ */
 public class OperatorParser {
 
 	public static Map<String, MethodParser> INTEGER = new HashMap<String, MethodParser>();
@@ -47,12 +54,14 @@ public class OperatorParser {
         MethodParser<Integer_, Integer> eq = (pObj, pValue) -> pObj.equal(pValue);
         MethodParser<Integer_, Integer> dif = (pObj, pValue) -> pObj.differs(pValue);
         MethodParser<Integer_, Integer> mod = (pObj, pValue) -> pObj.mod(pValue);
+        MethodParser<Integer_, Integer> pow = (pObj, pValue) -> pObj.pow(pValue);
 
 		OperatorParser.INTEGER.put("+", plus);
 	    OperatorParser.INTEGER.put("-", minus);
 	    OperatorParser.INTEGER.put("*", times);
 	    OperatorParser.INTEGER.put("/", division);
         OperatorParser.INTEGER.put("%", mod);
+        OperatorParser.INTEGER.put("^", pow);
 
         OperatorParser.INTEGER.put(">", grTh);
         OperatorParser.INTEGER.put(">=", grThOrEq);
@@ -126,6 +135,5 @@ public class OperatorParser {
         OperatorParser.BOOLEAN.put("==", eq);
         OperatorParser.BOOLEAN.put("!=", dif);
  	}
-
 
 }

@@ -95,7 +95,7 @@ public class Integer_ extends Variable {
 
     //(int)->casting because pow() returns a Long
     public String pow(int pValue) {
-		String ans = Integer.toString((int) Math.pow(this.getValue(), pValue));
+		String ans = Long.toString((long)Math.pow(this.getValue(), pValue));
         this.setValue(ans);
 		return ans;
     }
