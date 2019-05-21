@@ -23,6 +23,8 @@ Os principais recursos da linguagem envolvem:
 -   Controle de fluxo (`if`);
 -   Comentários são definidos através do símbolo `?`;
 
+### Restrições
+ - As variáveis declaradas precisam ser inicializadas com algum valor;
 <img src="https://pbs.twimg.com/media/CmeE6gdXgAA55wU.png" height="6%" width="6%" align="left">
 <h2>Documentação</h2>
 
