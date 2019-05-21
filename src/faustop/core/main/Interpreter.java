@@ -2,35 +2,55 @@ package faustop.core.main;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import faustop.core.lib.StandardLibrary;
 import faustop.core.vars.*;
-import faustop.core.main.util.*;
-import faustop.core.main.*;
-import faustop.core.lib.*;
+import faustop.core.main.util.If;
+import faustop.core.main.util.Memory;
+import faustop.core.main.util.Node;
+import faustop.core.main.util.Symbols;
+import faustop.core.main.util.Token;
 
 /*
  * Interpreter class travels through the parse tree
  * visiting each instruction node and executing it.
+ *
+ * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
 public class Interpreter {
 
+    /*
+     * Method responsible for executing the parse tree.
+     * That is, walk through the tree converting 
+     * interpreting it.
+     * */
     public void run(Node pTreeRoot) {
+        
         if (pTreeRoot == null) return;
-///////////// BUG TODO : THIS CODE IS SHITTY
+        
         for (Node child : pTreeRoot.children()) {
+            
+            String instrName = child.key().getName();
 
-            if (child.key().getName().equals("keywordtype")) {
+            // variable definition
+            if (instrName.equals(Symbols.KW_TYPE)) {
                 this.newVariable(child);
 
-			} else if (child.key().getName().equals("keywordbuiltin")) {
+            // built-in function
+			} else if (instrName.equals(Symbols.KW_BI)) {
                 this.handleBuiltIn(child);
 
-            } else if (child.key().getName().equals("keywordflowcontroller"))  {
-                if (child.children().get(0).key().getName().equals("eagora")) {
+            // flow controller (if or while)
+            } else if (instrName.equals(Symbols.KW_FC))  {
+                
+                String instKw = child.children().get(0).key().getName();
+                
+                // if
+                if (instKw.equals("eagora")) {
                     Node body = If.evalIf(child);
                     this.run(body);
 
-                } else if (child.children().get(0).key().getName().equals("churrasqueira")) {
-                    // System.out.println("\tmerdaaaaaaaa");
+                // while
+                } else if (instKw.equals("churrasqueira")) {
                     Node exp = child.children().get(1);
                     String value = ExpressionParser.eval(exp.children());
 
@@ -40,20 +60,24 @@ public class Interpreter {
                         value = ExpressionParser.eval(exp.children());
                     }
                 }
-///////////// BUG TODO : end of "THIS CODE IS SHITTY"
-            } else if (child.key().getName().equals("identifier")
+            
+            // variable assignment (without declare it)
+            } else if (instrName.equals("identifier")
                        && child.key().getType().equals("INSTR")) {
                 this.changeVariable(child);
             }
 
-            //this.run(child);
         }
 
     }
 
+    /* TODO: This method couldn't be in StandardLibrary?
+     * Handles the built-in function calls.
+     * */
 	private void handleBuiltIn(Node pParent) {
 
 		String command = pParent.children().get(0).key().getName();
+        
         if(command.equals("mostrai") || command.equals("mostrailn")) {
             String value;
     		Node exp = pParent.children().get(1);
@@ -66,12 +90,21 @@ public class Interpreter {
                 value = ExpressionParser.eval(exp.children());
     			StandardLibrary.mostrailn(value);
             }
+        
         } else {
             StandardLibrary.entrai(pParent.children());
         }
+        
 	}
 
+    /*
+     * Creates a new variable in the proper
+     * place in `Memory`.
+     * Used for variable declarations (with or without
+     * assignment).
+     * */
     private void newVariable(Node pParent) {
+        
         String type="", name="", value="";
         boolean assign;
 
@@ -84,7 +117,6 @@ public class Interpreter {
 
 			} else if (Symbols.isExpression(child.key())) {
 				value = ExpressionParser.eval(child.children());
-
             }
         }
 
@@ -104,9 +136,16 @@ public class Interpreter {
             BooleanType b = new BooleanType(name, value);
             Memory.booleanMap.put(name, b);
         }
-	}
+	
+    }
 
+    /*
+     * Change the value of a variable that already existis
+     * in `Memory`.
+     * Used for variable assignments (not declaration).
+     * */
     private void changeVariable(Node pParent) {
+        
         Token tok = pParent.children().get(0).key();
         String varName = tok.getName();
         String newValue = ExpressionParser.eval(pParent.children().get(2).children());
@@ -119,9 +158,11 @@ public class Interpreter {
 
         } else if (Memory.intMap.containsKey(varName)) {
             Memory.intMap.get(varName).setValue(newValue);
+       
         } else {
             System.out.println("Variable `"+varName+"` not defined");
         }
+        
     }
 
 }

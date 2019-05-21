@@ -11,8 +11,6 @@ import java.util.Collections;
 import faustop.core.vars.*;
 import faustop.core.main.util.*;
 
-// TODO: search for 'test' in comments and remake the code below the comment
-
 /*
  * Resposible for handling expressions (arithmetic and logic).
  *
