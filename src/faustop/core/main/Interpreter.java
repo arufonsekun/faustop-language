@@ -1,15 +1,17 @@
 package faustop.core.main;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import faustop.core.lib.StandardLibrary;
-import faustop.core.vars.*;
 import faustop.core.main.util.ExpressionParser;
 import faustop.core.main.util.If;
 import faustop.core.main.util.Memory;
 import faustop.core.main.util.Node;
 import faustop.core.main.util.Symbols;
 import faustop.core.main.util.Token;
+import faustop.core.vars.*;
+
 
 /*
  * Interpreter class travels through the parse tree
@@ -17,6 +19,7 @@ import faustop.core.main.util.Token;
  *
  * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
+
 public class Interpreter {
 
     /*
@@ -72,7 +75,7 @@ public class Interpreter {
 
     }
 
-    /* TODO: This method couldn't be in StandardLibrary?
+    /*
      * Handles the built-in function calls.
      * */
 	private void handleBuiltIn(Node pParent) {
@@ -80,20 +83,20 @@ public class Interpreter {
 		String command = pParent.children().get(0).key().getName();
 
         if(command.equals("mostrai") || command.equals("mostrailn")) {
-            String value;
     		Node exp = pParent.children().get(1);
+			String value = ExpressionParser.eval(exp.children());
 
     		if (command.equals("mostrai")) {
-    			value = ExpressionParser.eval(exp.children());
     			StandardLibrary.mostrai(value);
 
     		} else if (command.equals("mostrailn")) {
-                value = ExpressionParser.eval(exp.children());
     			StandardLibrary.mostrailn(value);
+
             }
 
         } else {
             StandardLibrary.entrai(pParent.children());
+
         }
 
 	}
@@ -110,6 +113,7 @@ public class Interpreter {
         boolean assign;
 
         for (Node child : pParent.children()) {
+
             if (Symbols.isKeyWord(child.key())) {
                 type = child.key().getName();
 
@@ -118,6 +122,7 @@ public class Interpreter {
 
 			} else if (Symbols.isExpression(child.key())) {
 				value = ExpressionParser.eval(child.children());
+
             }
         }
 
@@ -141,7 +146,7 @@ public class Interpreter {
     }
 
     /*
-     * Change the value of a variable that already existis
+     * Change the value of a variable that already exists
      * in `Memory`.
      * Used for variable assignments (not declaration).
      * */

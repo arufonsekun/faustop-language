@@ -2,6 +2,7 @@ package faustop.core.main;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import faustop.core.main.util.Token;
 import faustop.core.main.util.Symbols;
 
@@ -14,7 +15,7 @@ import faustop.core.main.util.Symbols;
  *
  * @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>.
  * */
- 
+
 public class Lexer {
 
     // the full input (.fau) code
@@ -101,13 +102,13 @@ public class Lexer {
                    && prevIsMathDel && current == '=' && !lexeme.isEmpty()) {
                 this.codePosition++;
                 this.consumeBlanks();
-                
+
                 return lexeme + current;
 
             } else if (!this.openQuote
                        && (this.isDelimiter(current) || prevIsDel)) {
                 this.consumeBlanks();
-                
+
                 if (!lexeme.isEmpty()) return lexeme;
             }
 
@@ -122,9 +123,9 @@ public class Lexer {
 			lexeme += this.code.charAt(this.codePosition);;
             this.codePosition++;
         }
-        
+
         return lexeme;
-    
+
     }
 
     /*
@@ -140,7 +141,7 @@ public class Lexer {
 
             this.codePosition++;
 		}
-        
+
 	}
 
     /*
@@ -148,12 +149,12 @@ public class Lexer {
      * Called when a `?` (comment) is found.
      * */
 	private void consumeComments() {
-        
-		while (this.codePosition < this.code.length() 
+
+		while (this.codePosition < this.code.length()
                && this.code.charAt(this.codePosition) != '\n') {
 		 	this.codePosition++;
 		}
-        
+
 	}
 
     /*
@@ -173,7 +174,7 @@ public class Lexer {
 		}
 
 		return false;
-        
+
 	}
 
     /*
@@ -191,19 +192,19 @@ public class Lexer {
 		}
 
 		return false;
-        
+
 	}
-    
+
     /*
      * Utility method decides how to proceed when a
      * String literal is starting or ending.
      * */
     private String checkStringLiteral(String pLexeme) {
-        
+
         if (!this.openQuote && !pLexeme.equals("")) return pLexeme;
 
         if (this.openQuote && !pLexeme.equals("")) {
-       
+
             return pLexeme;
 
         } else if (!this.openQuote) {
@@ -217,7 +218,7 @@ public class Lexer {
         this.codePosition++;
 
         return "\"";
-        
+
     }
 
 }

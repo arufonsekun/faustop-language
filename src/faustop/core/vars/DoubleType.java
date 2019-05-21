@@ -3,7 +3,9 @@ package faustop.core.vars;
 /*
  * Double class represents a faustop double type. The
  * supported operations are: +, -, *, / and ^.
-*/
+ *
+ * @author Paulo G. S. Comasetto <paulogscomasetto@gmail.com>
+ * */
 
 public class DoubleType extends Variable {
 

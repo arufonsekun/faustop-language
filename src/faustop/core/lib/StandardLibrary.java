@@ -1,30 +1,42 @@
 package faustop.core.lib;
 
-import faustop.core.main.util.Memory;
-import faustop.core.main.util.Node;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import faustop.core.main.util.Memory;
+import faustop.core.main.util.Node;
+
 /*
  * StandardLibrary class defines the Faustop native methods.
- * @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>
+ *
+ * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
 
 public class StandardLibrary {
 
+	/*
+	 * mostrailn()` shows the given content.
+	 * */
     public static final void mostrai(String pValue) {
 
         System.out.print(pValue);
 
     }
 
+	/*
+	 * `mostrailn()` shows the given content and adds
+	 * a newline character.
+	 * */
     public static final void mostrailn(String pValue) {
 
         System.out.println(pValue);
 
     }
 
-    public static final void entrai(ArrayList<Node> children) {
+	/*
+	 * `entrai()` method reads the content from the terminal.
+	 * */
+	public static final void entrai(ArrayList<Node> children) {
 
         Scanner input = new Scanner(System.in);
         String newValue = input.nextLine();
@@ -45,5 +57,6 @@ public class StandardLibrary {
             System.out.println("Variable `"+varName+"` not defined");
 
         }
+
     }
 }

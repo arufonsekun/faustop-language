@@ -1,13 +1,14 @@
 package faustop.core.main;
 
-import faustop.core.main.util.Node;
-import faustop.core.main.util.Tree;
-import faustop.core.main.util.Token;
-import faustop.core.main.util.Symbols;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.regex.Pattern;
+
+import faustop.core.main.util.Node;
+import faustop.core.main.util.Tree;
+import faustop.core.main.util.Token;
+import faustop.core.main.util.Symbols;
 
 /*
  * Represents a Parser.
@@ -90,18 +91,21 @@ public class Parser {
 
                 } else {
                     parent = this.createInstNode(token, parent);
-                }
+
+			    }
 
             // current token ends the current instruction
             } else if (Symbols.isEndOfInstruction(token)) {
                 parent = this.endInstNode(token, parent);
-            }
+
+			}
 
             // current token starts a new expression
             if (Symbols.isStartOfExpression(token)) {
                 Node expParent = this.createExpNode(token, parent);
                 currToken = this.buildExpression(currToken+1, expParent) - 1;
-            }
+
+			}
 
         }
 
@@ -131,14 +135,17 @@ public class Parser {
                 } else {
                     this.parseTree.addNode(token, pParent);
                     return currToken + 1;
-                }
+
+				}
 
             } else {
                 this.parseTree.addNode(token, pParent);
-            }
+
+			}
 
             currToken++;
-        }
+
+		}
 
         return currToken + 1;
     }
@@ -158,7 +165,8 @@ public class Parser {
         } else {
             this.parseTree.addNode(insParent);
             this.parseTree.addNode(pToken, insParent);
-        }
+
+		}
 
         return insParent;
 
@@ -177,7 +185,8 @@ public class Parser {
         } else {
             this.parseTree.addNode(pToken, pParent);
             return pParent.parent();
-        }
+
+		}
 
     }
 
@@ -196,7 +205,8 @@ public class Parser {
         } else {
             this.parseTree.addNode(expParent);
             this.parseTree.addNode(pToken, expParent);
-        }
+
+		}
 
         return expParent;
 

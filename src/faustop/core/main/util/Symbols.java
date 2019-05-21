@@ -1,9 +1,16 @@
 package faustop.core.main.util;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+/*
+ * Class Symbols keeps ways to recognize and classify tokens.
+ * Define kind of a Grammar of the Language.
+ *
+ * @author Paulo G. S. Comasetto <paulogscomasetto@gmail.com>
+ * */
 
 public class Symbols {
 
@@ -33,17 +40,17 @@ public class Symbols {
 	static {
 
         Map<String, String> aMap = new HashMap<>();
-		// type definition
+		// type definition keywords
         aMap.put("olokinho", Symbols.KW_TYPE); // int
         aMap.put("oloko", Symbols.KW_TYPE); // double
         aMap.put("bicho", Symbols.KW_TYPE); // string
         aMap.put("paiseuropa", Symbols.KW_TYPE); // boolean
 
-		// flow control
+		// flow control statements
 		aMap.put("eagora", Symbols.KW_FC); // if
         aMap.put("churrasqueira", Symbols.KW_FC); // while
 
-        // built-in
+        // built-in functions
         aMap.put("entrai", Symbols.KW_BI); // input
 		aMap.put("mostrai", Symbols.KW_BI); // output
         aMap.put("mostrailn", Symbols.KW_BI); // outputln
@@ -80,12 +87,12 @@ public class Symbols {
 		aMap.put("\"", Symbols.DEL_DOUB_QUOT);
 
         symbols = Collections.unmodifiableMap(aMap);
-    }
+
+	}
 
 	/*
-	* Utility function checks of the given token is
-	* a keyword type.
-	* */
+	 * Checks of the given token is a keyword type.
+	 * */
 	public static final boolean isKeyWord(Token pToken) {
 
 		String tType = pToken.getType();
@@ -96,14 +103,16 @@ public class Symbols {
 
 		if (isKwBI || isFC || isKwT) {
             return true;
-        }
+
+		}
 
         return false;
+
     }
 
 	/*
-	* Utility function checks if the given token starts an expression.
-	* */
+	 * Checks if the given token starts an expression.
+	 * */
     public static final boolean isStartOfExpression(Token pToken) {
 
 		String tType = pToken.getType();
@@ -115,15 +124,17 @@ public class Symbols {
 
         if (isLit || isParOp || isDoubQuo || isOpAssi) {
             return true;
-        }
+
+		}
 
         return false;
+
     }
 
 	/*
-	* Utility function checks whether the given token represents
-	* a 'expandible' token.
-	* */
+	 * Checks whether the given token represents
+	 * a 'expandible' token.
+	 * */
     public static final boolean isMiddleOfExpression(Token pToken) {
 
 		String tType = pToken.getType();
@@ -136,14 +147,16 @@ public class Symbols {
 
         if (isOp || isParOp || isParClo || isLit || isDoubQuo) {
             return true;
-        }
+
+		}
 
         return false;
+
     }
 
 	/*
-	* Utility function checks if pToken is ends an expression.
-	*/
+	 * Checks if given token ends an expression.
+	 * */
     public static final boolean isEndOfExpression(Token pToken) {
 
 		String tType = pToken.getType();
@@ -155,16 +168,16 @@ public class Symbols {
 
         if (isId || isLit || isParClo || isDoubQuo) {
             return true;
-        }
+
+		}
 
         return false;
+
     }
 
 	/*
-	* Utility function checks if given token is a 'start'
-	* of instruction.
-	* Actually, checks if the next tokens are a new instruction.
-	* */
+	 * Checks if given token starts an instruction.
+	 * */
     public static final boolean isStartOfInstruction(Token pToken) {
 
 		String tType = pToken.getType();
@@ -175,15 +188,16 @@ public class Symbols {
 
         if (isKW || isCurOp || isId) {
             return true;
-        }
+
+		}
 
         return false;
+
     }
 
 	/*
-	* Utility function checks if given token is a 'end'
-	* of instruction.
-	* */
+	 * Checks if given token ends an instruction.
+	 * */
     public static final boolean isEndOfInstruction(Token pToken) {
 
 		String tType = pToken.getType();
@@ -193,14 +207,16 @@ public class Symbols {
 
 		if (isDelSemi || isDelCurClo) {
             return true;
-        }
+
+		}
+
         return false;
+
     }
 
 	/*
-	* Utility function checks if given token is
-	* an operator of any type.
-	* */
+ 	 * Checks if given token is an operator of any type.
+	 * */
 	public static final boolean isOperator(Token pToken) {
 
 		String tType = pToken.getType();
@@ -211,54 +227,80 @@ public class Symbols {
 
 		if (isOpArit || isOpRel || isOpLog) {
 			return true;
+
 		}
 
 		return false;
 
 	}
 
+	/*
+	 * Checks if given token is an identifier.
+	 * */
 	public static boolean isIdentifier(Token pToken) {
 
 		return pToken.getType().equals(Symbols.ID);
 
 	}
 
+	/*
+	 * Checks if given token is a literal.
+	 * */
 	public static boolean isLiteral(Token pToken) {
 
 		return pToken.getType().equals(Symbols.LIT);
 
 	}
 
+	/*
+	 * Checks if given token is an assignment sign.
+	 * */
 	public static boolean isAssignment(Token pToken) {
 
 		return pToken.getType().equals(Symbols.OP_ASSIGN);
 
 	}
 
+	/*
+	 * Checks if given token is the root of a subtree
+	 * that represents an expression
+	 * */
 	public static boolean isExpression(Token pToken) {
 
 		return pToken.getType().equals("EXP");
 
 	}
 
+	/*
+	 * Checks if given String is equals to `bicho`.
+	 * */
 	public static boolean isString(String pTType) {
 
         return pTType.equals("bicho");
 
     }
 
+	/*
+	 * Checks if given String is equals to `olokinho`.
+	 * */
     public static boolean isInt(String pTType) {
 
         return pTType.equals("olokinho");
 
     }
 
+	/*
+	 * Checks if given String is equals to `oloko`.
+	 * */
     public static boolean isDouble(String pTType) {
 
         return pTType.equals("oloko");
 
     }
 
+	/*
+	 * Checks if given String is equals to `paiseuropa`.
+	 * */
     public static boolean isBool(String pTType) {
 
         return pTType.equals("paiseuropa");

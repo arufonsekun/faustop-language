@@ -7,8 +7,9 @@ package faustop.core.main.util;
  *
  * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
+ 
 public class If {
-    
+
     public static Node evalIf(Node pInsIf) {
 
         Node exp = pInsIf.children().get(1);
@@ -20,7 +21,7 @@ public class If {
         } else {
             return null;
         }
-    
+
     }
 
 }

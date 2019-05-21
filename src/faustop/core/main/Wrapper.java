@@ -1,18 +1,18 @@
 package faustop.core.main;
 
-import faustop.core.main.util.Token;
-import faustop.core.main.util.Tree;
 import java.io.File;
 import java.util.Scanner;
 
+import faustop.core.main.util.Token;
+import faustop.core.main.util.Tree;
 
 /*
- * Wrapper class packs lexer, parser and semantic analyzer
+ * Wrapper class packs lexer, parser and interpreter
  * functionalities together.
  *
  * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
- 
+
 public class Wrapper {
 
     /*
@@ -52,7 +52,7 @@ public class Wrapper {
 	private static String readFile(String[] args) {
 
         try {
-            
+
           	File file = new File(args[0]);
             Scanner reader = new Scanner(file);
 
@@ -67,12 +67,12 @@ public class Wrapper {
 			return sourceCode;
 
 		} catch (Exception e) {
-            
+
 			System.out.println("File opening error");
 			e.printStackTrace();
 			return null;
-            
+
         }
-	
+
     }
 }

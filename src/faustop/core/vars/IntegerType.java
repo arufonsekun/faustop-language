@@ -1,8 +1,11 @@
 package faustop.core.vars;
+
 /*
- * Integer class represents a faustop integer Type
- * @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>
+ * Integer class represents a faustop integer Type.
+ *
+ * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
+
 public class IntegerType extends Variable {
 
 	private int value;

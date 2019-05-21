@@ -3,10 +3,11 @@ package faustop.core.main.util;
 import java.util.ArrayList;
 
 /*
- * Simple class representing a node of a n-ary tree.
+ * Simple class representing a node of the parse tree.
  *
  * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
+ 
 public class Node {
 
     private Token key;

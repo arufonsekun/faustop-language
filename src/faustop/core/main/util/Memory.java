@@ -2,10 +2,13 @@ package faustop.core.main.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import faustop.core.vars.*;
 
 /*
- * Represents a "memory" for the language.
+ * Represents a "memory" that stores the variables.
+ *
+ * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
 
 public class Memory {
@@ -32,6 +35,7 @@ public class Memory {
 
 		} else {
 			return ""+stringMap.get(pVarName).getValue();
+
 		}
 
 	}

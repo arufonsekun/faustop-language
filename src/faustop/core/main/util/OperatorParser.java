@@ -2,13 +2,18 @@ package faustop.core.main.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import faustop.core.vars.*;
 
 /*
  * MethodParser interface noted with @FunctionalInterface
- * annotation is used to create kind of "lambda functions"
+ * annotation is used to create kind of lambda functions
  * in the OperatorParser class. This lambda functions calls
  * the specified method of package `vars`.
+ *
+ * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
+ *
+ * @author Jean Carlo Hilger <hilgerjeancarlo@gmail.com>
  * */
 
 @FunctionalInterface
@@ -33,7 +38,6 @@ public class OperatorParser {
 	/*
 	 * Builds the hash maps
 	 * */
-
 	public static void init() {
 
 		OperatorParser.buildInteger();
@@ -46,7 +50,6 @@ public class OperatorParser {
 	/*
 	 * Builds the hash map related to Integer Type operators
 	 * */
-
 	public static void buildInteger() {
 
 		MethodParser<IntegerType, Integer> plus = (pObj, pValue) -> pObj.plus(pValue);
@@ -82,8 +85,7 @@ public class OperatorParser {
 	/*
 	 * Builds the hash map related to Double Type operators
 	 * */
-
-     public static void buildDouble() {
+    public static void buildDouble() {
 
  		MethodParser<DoubleType, Double> plus = (pObj, pValue) -> pObj.plus(pValue);
  	    MethodParser<DoubleType, Double> minus = (pObj, pValue) -> pObj.minus(pValue);
@@ -116,7 +118,6 @@ public class OperatorParser {
     /*
 	 *  Builds the hash map related to String Type operators
 	 * */
-
     public static void buildString() {
 
         MethodParser<StringType, String> grTh = (pObj, pValue) -> pObj.greaterThan(pValue);
@@ -138,7 +139,6 @@ public class OperatorParser {
     /*
 	 * Builds the hash map related to Boolean Type operators
 	 * */
-
     public static void buildBoolean() {
 
         MethodParser<BooleanType, Boolean> lgcOr = (pObj, pValue) -> pObj.logicalOr(pValue);

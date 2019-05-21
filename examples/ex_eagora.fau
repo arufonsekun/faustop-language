@@ -1,0 +1,7 @@
+olokinho n = 10;
+olokinho d = 0;
+entrai(d);
+
+eagora (n >= d * n && d != 0 || 1 + 1 == 2) {
+	mostrailn("coisa");
+}

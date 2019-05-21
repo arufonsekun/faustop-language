@@ -2,27 +2,28 @@ package faustop.core.main.util;
 
 import java.util.ArrayList;
 
+/*
+ * Simple representation of a n-ary tree.
+ * Used to store the Parse tree from
+ * Parser stage.
+ *
+ * @author Jean Carlo Hilger <hilgerjeancarlo@gmail.com>
+ * */
+
 public class Tree {
-    /*
-     * Simple representation of a n-ary tree.
-     * Used to store the Parse tree from
-     * Parser stage.
-     *
-     * @author Jean Carlo Hilger <hilgerjeancarlo@gmail.com>
-     * */
 
     private Node root;
 
     public Tree(Token pKey) {
-        
+
         this.root = new Node(pKey, null);
-        
+
     }
 
     public Node root() {
-        
+
         return this.root;
-    
+
     }
 
     /*
@@ -33,7 +34,7 @@ public class Tree {
         Node newNode = new Node(pKey, pParent);
 
         pParent.addChildren(newNode);
-  
+
     }
 
     /*
@@ -42,7 +43,7 @@ public class Tree {
     public void addNode(Node newNode) {
 
         newNode.parent().addChildren(newNode);
-    
+
     }
 
     /*
@@ -56,10 +57,10 @@ public class Tree {
             return;
         }
 
-        for (Node child : pRoot.children()) {  
+        for (Node child : pRoot.children()) {
             this.traverse(child);
         }
-        
+
         // Do stuff
     }
 

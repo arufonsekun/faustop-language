@@ -1,10 +1,11 @@
 package faustop.core.vars;
 
 /*
-* Superclass of all types. Atributes name and type are commom
-* to every object type like Boolean, Integer, Double and String.
-* @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>
-* */
+ * Superclass of all types. Atributes name and type are commom
+ * to every object type like Boolean, Integer, Double and String.
+ *
+ * @author Junior Vitor Ramisch <junior.ramisch@gmail.com>
+ * */
 
 public class Variable {
 
