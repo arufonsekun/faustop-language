@@ -32,6 +32,8 @@ A tabela representa os tipos de dados usados pra a declaração de variáveis. S
 **Sintaxe:** `tipo` `var_name` `[ = expressão]` `;`
 
 #### 1.1 Suporte à operadores
+A tabela acima representa quais tipos suportam quais operadores.
+
 | Operador | `olokinho` | `oloko` | `bicho` | `paiseuropa` |
 |:--------:|:----------:|:-------:|:-------:|:------------:|
 | `+`      | ✓          | ✓       | ☓       | ☓            |
@@ -49,8 +51,7 @@ A tabela representa os tipos de dados usados pra a declaração de variáveis. S
 | `&&`     | ☓          | ☓       | ☓       | ✓            |
 | `\|\|`     | ☓          | ☓       | ☓       | ✓            |
 
-A tabela acima representa quais tipos suportam quais operadores.
-
+**Syntaxe:** `operando` `operador` `operando`
 
 
 [fausto1]:http://raw.cdn.cennoticias.com/fda315a7-6083-490e-bf65-74874928ac41
