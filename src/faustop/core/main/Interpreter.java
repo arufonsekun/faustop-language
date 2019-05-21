@@ -89,19 +89,19 @@ public class Interpreter {
         }
 
         if (Symbols.isString(type)) {
-            String_ s= new String_(name, value);
+            StringType s= new StringType(name, value);
             Memory.stringMap.put(name, s);
 
 	    } else if (Symbols.isInt(type)) {
-            Integer_ i = new Integer_(name, value);
+            IntegerType i = new IntegerType(name, value);
             Memory.intMap.put(name, i);
 
 		} else if (Symbols.isDouble(type)) {
-            Double_ d = new Double_(name, value);
+            DoubleType d = new DoubleType(name, value);
             Memory.doubleMap.put(name, d);
 
 		} else {
-            Boolean_ b = new Boolean_(name, value);
+            BooleanType b = new BooleanType(name, value);
             Memory.booleanMap.put(name, b);
         }
 	}

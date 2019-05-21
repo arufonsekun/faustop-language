@@ -124,7 +124,7 @@ public class ExpressionParser {
 					aux = helper.pop();
 
 					int a = Integer.parseInt(aux.key().getName());
-					Integer_ b = new Integer_("b", ""+Integer.parseInt(helper.peek().key().getName()));
+					IntegerType b = new IntegerType("b", ""+Integer.parseInt(helper.peek().key().getName()));
 
 				    val = OperatorParser.INTEGER.get(child.key().getName()).apply(b, a);
 
@@ -140,7 +140,7 @@ public class ExpressionParser {
 						aux = helper.pop();
 
 						double a = Double.parseDouble(aux.key().getName());
-						Double_ b = new Double_("b", ""+Double.parseDouble(helper.peek().key().getName()));
+						DoubleType b = new DoubleType("b", ""+Double.parseDouble(helper.peek().key().getName()));
 
                         val = OperatorParser.DOUBLE.get(child.key().getName()).apply(b, a);
 
@@ -158,7 +158,7 @@ public class ExpressionParser {
 
     						boolean a = Boolean.parseBoolean(aux.key().getName());
 
-    						Boolean_ b = new Boolean_("b", ""+Boolean.parseBoolean(helper.peek().key().getName()));
+    						BooleanType b = new BooleanType("b", ""+Boolean.parseBoolean(helper.peek().key().getName()));
 
 							System.out.println("DGHAUSAGADFUSAGDASFDUFYDTBSD: "+child.key().getName());
                             val = OperatorParser.BOOLEAN.get(child.key().getName()).apply(b, a);
@@ -176,7 +176,7 @@ public class ExpressionParser {
 								// System.out.println("aux: " + aux.key().getName());
 
 								String a = aux.key().getName();
-								String_ b = new String_("b", helper.peek().key().getName());
+								StringType b = new StringType("b", helper.peek().key().getName());
 
 								val = OperatorParser.STRING.get(child.key().getName()).apply(b, a);
 

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 /*
  * Simple class representing a node of a n-ary tree.
- *
- * Author: Junior Vitor Ramisch.
- * E-mail: junior.ramisch@gmail.com.
+ * @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>
  * */
 public class Node {
 

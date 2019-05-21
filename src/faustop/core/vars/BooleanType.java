@@ -1,47 +1,55 @@
 package faustop.core.vars;
 
+/*
+ * Boolean type represents a faustop logic value.
+ * @author: Junior Vitor Ramisch <junior.ramisch@gmail.com>
+ * */
 
-public class Boolean_ extends Variable {
+public class BooleanType extends Variable {
 
-    /*
-     * Boolean type represents a faustop logic
-     * value.
-     * @ author: Junior Vitor Ramisch
-     * E-mail: junior.ramisch@gmail.com
-     * */
     private boolean value;
 
-    public Boolean_(String pName, String pValue) {
+    public BooleanType(String pName, String pValue) {
+
         super(pName, "BOOLEAN");
         this.setValue(pValue);
+
     }
 
     public boolean getValue() {
+
         return this.value;
+
     }
 
     public void setValue(String pValue) {
+
         this.value = Boolean.parseBoolean(pValue);
+
     }
 
     public String logicalAnd(Boolean pValue) {
+
         return Boolean.toString(this.value && pValue);
+
     }
 
     public String logicalOr(Boolean pValue) {
-        return Boolean.toString(this.value || pValue);
-    }
 
-    public String logicalNot() {
-        return Boolean.toString(!(this.value));
+        return Boolean.toString(this.value || pValue);
+
     }
 
     public String equal(Boolean pValue) {
+
         return Boolean.toString(this.value == pValue);
+
     }
 
     public String differs(Boolean pValue) {
+
         return Boolean.toString(this.value != pValue);
+
     }
 
 }

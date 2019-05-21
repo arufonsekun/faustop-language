@@ -7,15 +7,16 @@ import faustop.core.vars.*;
 /*
  * Represents a "memory" for the language.
  * */
+
 public class Memory {
 
-	public static HashMap<String, Integer_> intMap = new HashMap<String, Integer_>();
-	public static HashMap<String, Double_> doubleMap = new HashMap<String, Double_>();
-	public static HashMap<String, String_> stringMap = new HashMap<String, String_>();
-	public static HashMap<String, Boolean_> booleanMap = new HashMap<String, Boolean_>();
+	public static HashMap<String, IntegerType> intMap = new HashMap<String, IntegerType>();
+	public static HashMap<String, DoubleType> doubleMap = new HashMap<String, DoubleType>();
+	public static HashMap<String, StringType> stringMap = new HashMap<String, StringType>();
+	public static HashMap<String, BooleanType> booleanMap = new HashMap<String, BooleanType>();
 
 	/*
-	 * Receives the name of a variable and returs
+	 * Receives the name of a variable and returns
 	 * a string with its value.
 	 * */
 	public static String getValueOf(String pVarName) {
