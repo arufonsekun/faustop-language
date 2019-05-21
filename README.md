@@ -6,8 +6,6 @@
 	Desenvolvedores da grandiosa linguagem Faustop®: <a href="https://github.com/JeanCHilger">Jean C. Hilger</a>, <a href="https://github.com/Junior-16">Junior V. Ramisch</a>, <a href="https://github.com/PauloGSC">Paulo G. S. Comasetto</a>, 
 </p>
 
- [Jean C. Hilger](https://github.com/JeanCHilger), [Junior V. Ramisch](https://github.com/Junior-16), [Paulo G. S. Comasetto](https://github.com/PauloGSC);
-
 <br>
 <br>
 
