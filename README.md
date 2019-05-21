@@ -2,7 +2,11 @@
 <img src="https://pbs.twimg.com/media/CmeE6ZNW8AAGXX-.png" height="10%" width="10%" align="right">
 <h1 align="center">Faustop Language</h1>
 
-Desenvolvedores da grandiosa linguagem Faustop®: [Jean C. Hilger](https://github.com/JeanCHilger), [Junior V. Ramisch](https://github.com/Junior-16), [Paulo G. S. Comasetto](https://github.com/PauloGSC);
+<p align="center">
+	Desenvolvedores da grandiosa linguagem Faustop®: <a href="https://github.com/JeanCHilger">Jean C. Hilger</a>, <a href="https://github.com/Junior-16">Junior V. Ramisch</a>, <a href="https://github.com/PauloGSC">Paulo G. S. Comasetto</a>, 
+</p>
+
+ [Jean C. Hilger](https://github.com/JeanCHilger), [Junior V. Ramisch](https://github.com/Junior-16), [Paulo G. S. Comasetto](https://github.com/PauloGSC);
 
 <br>
 <br>
