@@ -1,6 +1,6 @@
 # Compiled class file
-**.class
-**.Tester.java
+*.class
+
 # Log file
 *.log
 
@@ -19,10 +19,5 @@
 *.tar.gz
 *.rar
 
-# For tests
-#**/tester.*
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-# Faustop files (.fau) #
