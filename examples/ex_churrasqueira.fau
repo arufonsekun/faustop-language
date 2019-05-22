@@ -1,0 +1,9 @@
+olokinho count = 0;
+
+churrasqueira(count < 5) {
+	mostrai(count);
+	mostrai(" ");
+	count = count + 1;
+}
+
+mostrailn(count);

@@ -1,0 +1,10 @@
+olokinho a = 9;
+olokinho b = 8;
+
+paiseuropa t1 = (2 + 1) > a;
+paiseuropa t2 = (5 + 1) * 2 != a + b;
+paiseuropa t3 = t1 || t2 || a > b;
+
+mostrailn(t1);
+mostrailn(t2);
+mostrailn(t3);

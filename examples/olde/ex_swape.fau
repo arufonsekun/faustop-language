@@ -1,0 +1,7 @@
+olokinho a = 1;
+olokinho b = 2;
+olokinho aux = a;
+a = b;
+b = aux;
+mostrailn(a);
+mostrailn(b);

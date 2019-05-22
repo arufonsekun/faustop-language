@@ -1,0 +1,8 @@
+olokinho a = 0; ? to create a variable
+mostrai("Entra com o dado: ");
+entrai(a);
+
+mostrailn(a);
+
+mostrai("1 2 3 4");
+mostrailn(" 5");

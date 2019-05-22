@@ -1,0 +1,25 @@
+? asd
+
+olokinho a = 5; ? merda1
+olokinho b = 8;
+olokinho c = 9;
+
+eagora (a == 1+1+1+1+1) { ? soma doidona
+
+    eagora (b == 8) {
+
+        olokinho d = c + 1; ? meu
+        d = d - 1; ? dai fica certo
+
+        eagora(d == 9) {
+            mostrailn("hello_world1");
+        }
+
+        mostrailn("hello_world2");
+
+    }
+
+    mostrailn("hello_world3");
+}
+
+? cabô oporra
