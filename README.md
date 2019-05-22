@@ -25,6 +25,7 @@ Os principais recursos da linguagem envolvem:
 
 ### Restrições
  - As variáveis declaradas precisam ser inicializadas com algum valor;
+ - Para utilizar números negativos é preciso representá-los através de uma expressão e.g. `-2` = `0-2`.
 <img src="https://pbs.twimg.com/media/CmeE6gdXgAA55wU.png" height="6%" width="6%" align="left">
 <h2>Documentação</h2>
 
