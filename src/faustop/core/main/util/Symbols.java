@@ -9,7 +9,7 @@ import java.util.Map;
  * Class Symbols keeps ways to recognize and classify tokens.
  * Define kind of a Grammar of the Language.
  *
- * @author Paulo G. S. Comasetto <paulogscomasetto@gmail.com>
+ * @author
  * */
 
 public class Symbols {
